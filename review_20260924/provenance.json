@@ -1,0 +1,33 @@
+{
+  "base_sha": "3d43571b94f1683412023c45bd886f9ce30f76bd",
+  "head_sha": "a2cae127c2933f0e754d38d3615da58660c952f1",
+  "all_original_run_artifact_hashes_verified_after_download": true,
+  "local_benchmark_and_source_hashes_match_run_metadata": true,
+  "trace_metadata_changes": [
+    "host_name replaced with a generic compute-node label",
+    "traceName replaced with a relative public path"
+  ],
+  "trace_events_unchanged": true,
+  "traces": {
+    "runs/9707225/profile/baseline.json.gz": {
+      "original_sha256": "e46d71be0908dc165da2ea63cfb774e0298a6eda74cdbdc43452c47fb6051a5b",
+      "public_sha256": "5b2d7df347c50ea5ff03fc12b5b7eec74ba6e3095e9275eeee24d3ffe61d992f"
+    },
+    "runs/9707225/profile/head.json.gz": {
+      "original_sha256": "cc6b50c0db49039df501936e1a29b80d4be905c7467d9fa96a5c191b0dbb6b3b",
+      "public_sha256": "e838cf9b8c834ea09e66d732a631ab1dd0243f0fcd19451b64f2b8bd754ef349"
+    },
+    "runs/9707225/profile/head_contiguous.json.gz": {
+      "original_sha256": "89a7e46206a9edf83111041b6e733209331ff0c72f71e462f1cd405674583834",
+      "public_sha256": "052b0cba61924a07b0b852e1eb1def01ca77407e6abe861021467d3fc020b140"
+    },
+    "runs/9707225/profile/layout_only.json.gz": {
+      "original_sha256": "fc33dfb6fa89f88ae77964a37e5704cdc5f3b905f5ebe0268d414ebfc2b2cb9a",
+      "public_sha256": "a3d9119cffa2d5728f72f3f363dfb08d23797f0e5022e9f43c0697829b49e2d0"
+    },
+    "runs/9707225/profile/packing_only.json.gz": {
+      "original_sha256": "635a2437a07b48aa070b16545dec3c5d331654691973fea194b0f8b56d29811f",
+      "public_sha256": "b98ee1a1542f49cb89f8d68b9924a9893908a0163cae6df5dca8e56bd267c6e2"
+    }
+  }
+}

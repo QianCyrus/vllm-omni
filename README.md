@@ -2,6 +2,8 @@
 
 Benchmark scripts and full results for a proposed change from two K/V AllGather calls to one packed call in diffusion attention.
 
+**September 24 update:** [Five-arm ablation and profiler evidence](review_20260924/README.md) now compare the exact PR base and head. The new results confirm the measured batch-2 benefit and show that layout-only is a strong alternative: packing does not consistently improve on it. The original September 23 artifacts below are unchanged.
+
 - Hardware: 4 and 8 NVIDIA A100-SXM4-40GB GPUs, one node, NVLink.
 - PyTorch 2.13.0+cu130, CUDA build 13.0, NCCL 2.29.7, Python 3.12.
 - Baseline source: cb5f508212befb16b48e5760f3b7508c457d6413.

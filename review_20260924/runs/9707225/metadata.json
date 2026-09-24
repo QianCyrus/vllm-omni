@@ -1,0 +1,49 @@
+{
+  "base_sha": "3d43571b94f1683412023c45bd886f9ce30f76bd",
+  "head_sha": "a2cae127c2933f0e754d38d3615da58660c952f1",
+  "source_sha256": {
+    "base": {
+      "vllm_omni/diffusion/attention/backends/abstract.py": "02baeeadb2fb6b9ed14be3afc349551abdc5ed526b37a4e97fa025f4d18f70c5",
+      "vllm_omni/diffusion/attention/parallel/base.py": "fb16ef62b8fe0d35fb3e2006d23319643368f30d643ac076ab179d2758434ac3",
+      "vllm_omni/diffusion/attention/parallel/allgather_kv.py": "b6dbbcbe9edfb8a357739f2f544ee79f38a79bad590ba25c2cd2e0fe4cb96faf",
+      "vllm_omni/diffusion/distributed/group_coordinator.py": "7a8391f3d3ef9b97a2badf1d854bedbeebd29c142fa727d987a25377591ea4c5"
+    },
+    "head": {
+      "vllm_omni/diffusion/attention/backends/abstract.py": "02baeeadb2fb6b9ed14be3afc349551abdc5ed526b37a4e97fa025f4d18f70c5",
+      "vllm_omni/diffusion/attention/parallel/base.py": "fb16ef62b8fe0d35fb3e2006d23319643368f30d643ac076ab179d2758434ac3",
+      "vllm_omni/diffusion/attention/parallel/allgather_kv.py": "d656eba4eb8a74e66abec9d2b0e7db097dbb5cc497e8387a2c3e4c1ffcc55c95",
+      "vllm_omni/diffusion/distributed/group_coordinator.py": "7a8391f3d3ef9b97a2badf1d854bedbeebd29c142fa727d987a25377591ea4c5"
+    }
+  },
+  "benchmark_sha256": "dff6c7c4b7604d5ea680833e80f143f27c4b915e26fa1b0e07fe620903ee714c",
+  "python": "3.12.13",
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "world_size": 4,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "gpu_memory_bytes": 42298834944,
+  "attention_backend": "torch SDPA FLASH_ATTENTION (forced)",
+  "scope": "source-bound pre_attention plus local attention; no full engine or model",
+  "dtype": "bfloat16",
+  "query_heads": 32,
+  "kv_heads": 32,
+  "head_dim": 128,
+  "causal": false,
+  "warmup_per_sample": 10,
+  "iterations_per_sample": 30,
+  "rounds": 6,
+  "sample_definition": "mean per call over iterations, then maximum across ranks; spread across round means",
+  "memory_definition": "eager pre_attention peak allocated minus entry allocation; validation outputs freed",
+  "arms": {
+    "baseline": "unchanged base class: separate K/V gathers, batch-first",
+    "layout_only": "two separate gathers, each sequence-first and contiguous; transpose output views",
+    "packing_only": "batch-first stack K/V, one gather dim=1, unbind output views",
+    "head": "unchanged head class: sequence-first packed single gather",
+    "head_contiguous": "head helper, then materialize contiguous K and V outputs"
+  }
+}
