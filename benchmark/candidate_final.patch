@@ -1,0 +1,160 @@
+diff --git a/tests/diffusion/attention/test_attention_sp.py b/tests/diffusion/attention/test_attention_sp.py
+index 727bb55cb..a3172fcb8 100644
+--- a/tests/diffusion/attention/test_attention_sp.py
++++ b/tests/diffusion/attention/test_attention_sp.py
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ 
+ """Tests for Ulysses + Ring sequence-parallel attention correctness.
+ 
+@@ -175,6 +175,15 @@ class _MockAllGatherSPGroup:
+         assert group is self.allgather_group
+         self.gathered_input_shapes.append(tuple(input_.shape))
+         chunks = self._gather_chunks.pop(0)
++        if input_.ndim == 5:
++            assert dim == 0
++            value_chunks = self._gather_chunks.pop(0)
++            chunks = [
++                torch.stack((key.transpose(0, 1), value.transpose(0, 1)), dim=2)
++                for key, value in zip(chunks, value_chunks, strict=True)
++            ]
++        if input_.device.type != "meta":
++            torch.testing.assert_close(input_, chunks[self.allgather_rank], rtol=0, atol=0)
+         return torch.cat(chunks, dim=dim)
+ 
+ 
+@@ -399,8 +408,7 @@ def test_allgather_kv_keeps_gathered_kv_compressed_for_gqa():
+     _, k_full, v_full, _, _ = strategy.pre_attention(query, key_chunks[rank], value_chunks[rank], AttentionMetadata())
+ 
+     assert sp_group.gathered_input_shapes == [
+-        (1, img_seq_local, kv_heads, 1),
+-        (1, img_seq_local, kv_heads, 1),
++        (img_seq_local, 1, 2, kv_heads, 1),
+     ]
+     assert k_full.shape == (1, img_seq_local * 2, kv_heads, 1)
+     assert v_full.shape == (1, img_seq_local * 2, kv_heads, 1)
+@@ -410,6 +418,75 @@ def test_allgather_kv_keeps_gathered_kv_compressed_for_gqa():
+     torch.testing.assert_close(v_full, expected_value)
+ 
+ 
++@pytest.mark.parametrize("batch_size", [1, 2])
++@pytest.mark.parametrize("rank", [0, 1])
++@pytest.mark.parametrize("noncontiguous", [False, True])
++def test_allgather_kv_preserves_batch_rank_and_projection_values(batch_size, rank, noncontiguous):
++    seq_local, kv_heads, head_dim = 3, 2, 4
++    shape = (batch_size, seq_local, kv_heads, head_dim, 2)
++    key_chunks = []
++    value_chunks = []
++    for chunk_rank in range(2):
++        elements = batch_size * seq_local * kv_heads * head_dim * 2
++        key = (torch.arange(elements, dtype=torch.float32) + chunk_rank * 1000).reshape(shape)[..., 0]
++        value = (torch.arange(elements, dtype=torch.float32) + chunk_rank * 1000 + 10000).reshape(shape)[..., 1]
++        if not noncontiguous:
++            key, value = key.contiguous(), value.contiguous()
++        assert key.is_contiguous() == (not noncontiguous)
++        assert value.is_contiguous() == (not noncontiguous)
++        key_chunks.append(key)
++        value_chunks.append(value)
++    sp_group = _MockAllGatherSPGroup(rank=rank, gather_chunks=[key_chunks, value_chunks])
++    strategy = AllGatherKVParallelAttention(sp_group)
++    query = torch.zeros((batch_size, seq_local, kv_heads * 2, head_dim))
++
++    q_local, key, value, _, _ = strategy.pre_attention(query, key_chunks[rank], value_chunks[rank], None)
++
++    assert q_local is query
++    assert sp_group.gathered_input_shapes == [(seq_local, batch_size, 2, kv_heads, head_dim)]
++    torch.testing.assert_close(key, torch.cat(key_chunks, dim=1), rtol=0, atol=0)
++    torch.testing.assert_close(value, torch.cat(value_chunks, dim=1), rtol=0, atol=0)
++    for tensor in (key, value):
++        assert tensor.stride(-1) == 1
++
++
++@pytest.mark.parametrize("mismatch", ["shape", "dtype", "device"])
++def test_allgather_kv_falls_back_for_incompatible_key_value(mismatch):
++    key_chunks = [torch.full((2, 3, 2, 4), float(rank)) for rank in range(2)]
++    value_shape = (2, 3, 2, 5 if mismatch == "shape" else 4)
++    value_dtype = torch.float64 if mismatch == "dtype" else torch.float32
++    # Meta tensors exercise the device guard without requiring a GPU.
++    value_device = "meta" if mismatch == "device" else "cpu"
++    value_chunks = [
++        torch.full(value_shape, float(rank + 10), dtype=value_dtype, device=value_device) for rank in range(2)
++    ]
++    sp_group = _MockAllGatherSPGroup(rank=1, gather_chunks=[key_chunks, value_chunks])
++    strategy = AllGatherKVParallelAttention(sp_group)
++
++    key, value = strategy._gather_kv(key_chunks[1], value_chunks[1])
++
++    assert sp_group.gathered_input_shapes == [tuple(key_chunks[1].shape), value_shape]
++    torch.testing.assert_close(key, torch.cat(key_chunks, dim=1), rtol=0, atol=0)
++    assert value.shape == (2, 6, *value_shape[2:])
++    assert value.dtype == value_dtype
++    assert value.device == torch.device(value_device)
++    if value_device == "cpu":
++        torch.testing.assert_close(value, torch.cat(value_chunks, dim=1), rtol=0, atol=0)
++
++
++def test_allgather_kv_single_rank_preserves_original_tensors():
++    key = torch.arange(96, dtype=torch.float32).reshape(2, 3, 2, 8)[..., ::2]
++    value = key + 1000
++    sp_group = _MockAllGatherSPGroup(rank=0, gather_chunks=[[key], [value]])
++    strategy = AllGatherKVParallelAttention(sp_group)
++
++    gathered_key, gathered_value = strategy._gather_kv(key, value)
++
++    assert gathered_key is key
++    assert gathered_value is value
++    assert sp_group.gathered_input_shapes == []
++
++
+ @hardware_test(res={"cuda": "L4"}, num_cards=4)
+ @pytest.mark.parametrize(
+     "test_model_cls",
+diff --git a/vllm_omni/diffusion/attention/parallel/allgather_kv.py b/vllm_omni/diffusion/attention/parallel/allgather_kv.py
+index 51a463bb1..4993222aa 100644
+--- a/vllm_omni/diffusion/attention/parallel/allgather_kv.py
++++ b/vllm_omni/diffusion/attention/parallel/allgather_kv.py
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ 
+ from __future__ import annotations
+ 
+@@ -43,6 +43,25 @@ class AllGatherKVParallelAttention:
+     def name(self) -> str:
+         return "allgather_kv"
+ 
++    def _gather_kv(self, key: torch.Tensor, value: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
++        if self._sp_size == 1:
++            return key, value
++
++        if key.shape == value.shape and key.dtype == value.dtype and key.device == value.device:
++            # Gather sequence-first to avoid reordering rank/batch for B > 1.
++            # Dense attention can consume the resulting strided B/S views
++            # with unit last-dimension stride; flattening B/S may copy.
++            packed = torch.stack((key.transpose(0, 1), value.transpose(0, 1)), dim=2)  # [S, B, 2, Hkv, D]
++            gathered = self._sp_group.all_gather(packed, dim=0, group=self._allgather_group)
++            gathered_key, gathered_value = gathered.unbind(dim=2)
++            return gathered_key.transpose(0, 1), gathered_value.transpose(0, 1)
++
++        # Some backends support different K/V head dimensions or dtypes.
++        return (
++            self._sp_group.all_gather(key, dim=1, group=self._allgather_group),
++            self._sp_group.all_gather(value, dim=1, group=self._allgather_group),
++        )
++
+     def pre_attention(
+         self,
+         query: torch.Tensor,
+@@ -60,8 +79,7 @@ class AllGatherKVParallelAttention:
+         if joint_strategy not in {"front", "rear"}:
+             raise ValueError(f"Unsupported joint_strategy: {joint_strategy!r}")
+ 
+-        k_img_full = self._sp_group.all_gather(key, dim=1, group=self._allgather_group)
+-        v_img_full = self._sp_group.all_gather(value, dim=1, group=self._allgather_group)
++        k_img_full, v_img_full = self._gather_kv(key, value)
+ 
+         if joint_k is not None:
+             if joint_k.shape[2] != key.shape[2]:

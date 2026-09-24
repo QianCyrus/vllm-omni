@@ -1,0 +1,30 @@
+{
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "world_size": 4,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "source_sha256": {
+    "vllm_omni/diffusion/attention/backends/abstract.py": "02baeeadb2fb6b9ed14be3afc349551abdc5ed526b37a4e97fa025f4d18f70c5",
+    "vllm_omni/diffusion/attention/parallel/base.py": "fb16ef62b8fe0d35fb3e2006d23319643368f30d643ac076ab179d2758434ac3",
+    "vllm_omni/diffusion/attention/parallel/allgather_kv.py": "a15853d60b15cbbf16a3b39f14c3f9bcf92ca91f26b5baa64464632183ded046",
+    "vllm_omni/diffusion/distributed/group_coordinator.py": "7a8391f3d3ef9b97a2badf1d854bedbeebd29c142fa727d987a25377591ea4c5"
+  },
+  "benchmark_sha256": "06afd0f137646b04d152125c97393c38340fdb1f84fbd6a4f04fc21ae9e1519d",
+  "attention_backend": "torch SDPA FLASH_ATTENTION (forced)",
+  "scope": "source-bound pre_attention + local attention; no full engine/model",
+  "args": {
+    "source_root": "benchmark/source_final",
+    "output": "results/4gpu",
+    "iterations": 20,
+    "repeats": 4,
+    "warmup": 5,
+    "quick": false,
+    "graphs": true
+  },
+  "review_package_note": "Only the two local path fields above were replaced; all software, source hashes, and measurement settings are unchanged."
+}
