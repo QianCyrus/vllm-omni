@@ -1,0 +1,29 @@
+{
+  "objective": "Full FLUX.2-klein-4B generation A/B for AllGather-KV PR8097",
+  "base_sha": "ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2",
+  "head_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+  "model": "black-forest-labs/FLUX.2-klein-4B",
+  "model_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+  "planned_gpus": 4,
+  "hardware": "NVIDIA A100-SXM4-40GB NVLink",
+  "initial_workload": {
+    "height": 1024,
+    "width": 1024,
+    "steps": 4,
+    "images_per_prompt": 2,
+    "dtype": "bfloat16",
+    "attention_backend": "TORCH_SDPA",
+    "allgather_degree": 4,
+    "eager": true
+  },
+  "measurement": "warm request wall time through Omni.generate, excluding model loading and file saving; diagnostic stages collected separately",
+  "planned_order": [
+    "base",
+    "head",
+    "base"
+  ],
+  "model_weights_quantized": false,
+  "allocated_gpus": 8,
+  "active_gpus": 4,
+  "allocation_note": "One full A100 node; four GPUs used for the fixed degree-4 experiment; all eight allocated GPUs billed"
+}

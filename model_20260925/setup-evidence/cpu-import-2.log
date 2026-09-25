@@ -1,0 +1,8 @@
+W0924 16:41:23.806000 2465519 torch/utils/cpp_extension.py:178] No CUDA runtime is found, using CUDA_HOME='/work/opt/local/x86_64/cores/cuda/13.3'
+WARNING 09-24 16:41:28 [interface.py:368] Failed to import from vllm._C: ModuleNotFoundError("No module named 'vllm._C'")
+INFO 09-24 16:41:30 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+INFO 09-24 16:41:31 [patch.py:565] inductor factorable-divisibility patch: installed.
+INFO 09-24 16:41:31 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+2.13.0+cu130 0.30.0 0.40.0 5.14.1
+/work/04/jh220036a/v57014/artifacts/vllm-omni-kv-model-20260924/source_head/vllm_omni/__init__.py
+CPU_IMPORT_PASS

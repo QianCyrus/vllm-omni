@@ -1,0 +1,63 @@
+{
+  "runs": {
+    "9718248": {
+      "artifact_entries_verified": 23,
+      "png_files_verified": 4,
+      "scheduler": {
+        "state": "END",
+        "exit_code": 0,
+        "elapsed_seconds": 439,
+        "allocated_gpus": 8,
+        "active_gpus": 4
+      }
+    },
+    "9718337": {
+      "artifact_entries_verified": 30,
+      "png_files_verified": 16,
+      "scheduler": {
+        "state": "END",
+        "exit_code": 0,
+        "elapsed_seconds": 331,
+        "allocated_gpus": 8,
+        "active_gpus": 4
+      }
+    },
+    "9718379": {
+      "artifact_entries_verified": 30,
+      "png_files_verified": 16,
+      "scheduler": {
+        "state": "END",
+        "exit_code": 0,
+        "elapsed_seconds": 314,
+        "allocated_gpus": 8,
+        "active_gpus": 4
+      }
+    },
+    "9718423": {
+      "artifact_entries_verified": 30,
+      "png_files_verified": 16,
+      "scheduler": {
+        "state": "END",
+        "exit_code": 0,
+        "elapsed_seconds": 303,
+        "allocated_gpus": 8,
+        "active_gpus": 4
+      }
+    },
+    "9718466": {
+      "artifact_entries_verified": 23,
+      "png_files_verified": 4,
+      "scheduler": {
+        "state": "END",
+        "exit_code": 0,
+        "elapsed_seconds": 269,
+        "allocated_gpus": 8,
+        "active_gpus": 4
+      }
+    }
+  },
+  "total_manifest_entries": 136,
+  "total_png_hashes": 56,
+  "same_allocated_node": true,
+  "all_saved_pngs_identical_by_output_position": true
+}

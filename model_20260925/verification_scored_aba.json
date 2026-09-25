@@ -1,0 +1,175 @@
+{
+  "checked_at_utc": "2026-09-25T05:31:57.872861+00:00",
+  "scope": "Three scored A/B/A runs and head diagnostic 9718248 only; later baseline diagnostic is outside this audit.",
+  "method": "Independent local Python standard-library SHA256, metadata, raw timing statistics, and PNG byte comparison. No GPU execution.",
+  "status": "PASS",
+  "runs": [
+    {
+      "run_id": "9718337",
+      "source_sha": "ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2",
+      "diagnostic": false,
+      "artifact_files_verified": 30,
+      "manifest_exclusions": [
+        "job.log",
+        "ARTIFACT_SHA256SUMS"
+      ],
+      "png_files_verified": 16,
+      "source_and_harness_checks": {
+        "source_verify_before.txt": {
+          "OK": 4124
+        },
+        "source_verify_after.txt": {
+          "OK": 4124
+        },
+        "harness_verify_after.txt": {
+          "OK": 4
+        }
+      },
+      "statistics_recomputed": true,
+      "metadata_source_hashes_match_prepared_manifest": true,
+      "cleanup_complete": true,
+      "exit_code": 0,
+      "reserved_gpu_count": 8,
+      "active_gpu_count": 4,
+      "reported_peak_reserved_mib": [
+        23346.0
+      ]
+    },
+    {
+      "run_id": "9718379",
+      "source_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+      "diagnostic": false,
+      "artifact_files_verified": 30,
+      "manifest_exclusions": [
+        "job.log",
+        "ARTIFACT_SHA256SUMS"
+      ],
+      "png_files_verified": 16,
+      "source_and_harness_checks": {
+        "source_verify_before.txt": {
+          "OK": 4124
+        },
+        "source_verify_after.txt": {
+          "OK": 4124
+        },
+        "harness_verify_after.txt": {
+          "OK": 4
+        }
+      },
+      "statistics_recomputed": true,
+      "metadata_source_hashes_match_prepared_manifest": true,
+      "cleanup_complete": true,
+      "exit_code": 0,
+      "reserved_gpu_count": 8,
+      "active_gpu_count": 4,
+      "reported_peak_reserved_mib": [
+        23346.0
+      ]
+    },
+    {
+      "run_id": "9718423",
+      "source_sha": "ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2",
+      "diagnostic": false,
+      "artifact_files_verified": 30,
+      "manifest_exclusions": [
+        "job.log",
+        "ARTIFACT_SHA256SUMS"
+      ],
+      "png_files_verified": 16,
+      "source_and_harness_checks": {
+        "source_verify_before.txt": {
+          "OK": 4124
+        },
+        "source_verify_after.txt": {
+          "OK": 4124
+        },
+        "harness_verify_after.txt": {
+          "OK": 4
+        }
+      },
+      "statistics_recomputed": true,
+      "metadata_source_hashes_match_prepared_manifest": true,
+      "cleanup_complete": true,
+      "exit_code": 0,
+      "reserved_gpu_count": 8,
+      "active_gpu_count": 4,
+      "reported_peak_reserved_mib": [
+        23346.0
+      ]
+    },
+    {
+      "run_id": "9718248",
+      "source_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+      "diagnostic": true,
+      "artifact_files_verified": 23,
+      "manifest_exclusions": [
+        "job.log",
+        "ARTIFACT_SHA256SUMS"
+      ],
+      "png_files_verified": 4,
+      "source_and_harness_checks": {
+        "source_verify_before.txt": {
+          "OK": 4124
+        },
+        "source_verify_after.txt": {
+          "OK": 4124
+        },
+        "harness_verify_after.txt": {
+          "OK": 4
+        }
+      },
+      "statistics_recomputed": true,
+      "metadata_source_hashes_match_prepared_manifest": true,
+      "cleanup_complete": true,
+      "exit_code": 0,
+      "reserved_gpu_count": 8,
+      "active_gpu_count": 4,
+      "reported_peak_reserved_mib": [
+        23346.0
+      ]
+    }
+  ],
+  "scored_metadata_equal_fields": [
+    "model",
+    "model_revision",
+    "model_config_sha256",
+    "world_size",
+    "batch",
+    "height",
+    "width",
+    "steps",
+    "prompt",
+    "seed",
+    "generator_policy",
+    "attention_backend",
+    "transformer_config",
+    "driver_sha256",
+    "python",
+    "warmup_requests",
+    "measured_requests",
+    "versions",
+    "engine_args",
+    "gpus"
+  ],
+  "prepared_source_manifest_files_verified": {
+    "base": 4124,
+    "head": 4124
+  },
+  "source_pair_changed_files": [
+    "tests/diffusion/attention/test_attention_sp.py",
+    "vllm_omni/diffusion/attention/parallel/allgather_kv.py"
+  ],
+  "distinct_png_byte_hashes_per_output_position": {
+    "0": 1,
+    "1": 1
+  },
+  "pixel_evidence": {
+    "local": "All 52 PNG files match their recorded SHA256; PNG bytes at each output position are identical across every saved request.",
+    "remote_analysis": "Copied summary.json reports decoded metrics AVAILABLE with zero differences for 12 image pairs per baseline/head comparison. Pixel decoding was not rerun locally."
+  },
+  "limitations": [
+    "Raw run manifests exclude job.log and the manifest itself.",
+    "This audit does not independently query scheduler status.",
+    "Native four-GPU base/head agreement does not establish single-GPU equivalence or general image quality."
+  ]
+}

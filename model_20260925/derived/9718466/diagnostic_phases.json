@@ -1,0 +1,2413 @@
+{
+  "run_id": "9718466",
+  "source_sha": "ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2",
+  "diagnostic_only": true,
+  "phase_rule": {
+    "startup_forward_count": 2,
+    "steps_per_driver_request": 4,
+    "evidence": "Engine _dummy_run uses two steps; driver runs warmups before measured requests. Validate ordered counts before slicing."
+  },
+  "artifact_manifest_files_verified": 23,
+  "verification_problems": [],
+  "source_and_harness_verification": {
+    "source_verify_before.txt": {
+      "OK": 4124
+    },
+    "source_verify_after.txt": {
+      "OK": 4124
+    },
+    "harness_verify_after.txt": {
+      "OK": 4
+    }
+  },
+  "ranks": [
+    {
+      "rank": 0,
+      "phases": {
+        "startup_dummy": {
+          "forward_indices": [
+            1,
+            2
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              4186.7958984375,
+              65.36192321777344
+            ],
+            "sum": 4252.157821655273,
+            "mean": 2126.0789108276367,
+            "sample_std": 2914.293912090498,
+            "median": 2126.0789108276367,
+            "min": 65.36192321777344,
+            "max": 4186.7958984375
+          },
+          "pre_attention_calls": 50
+        },
+        "request_warmup": {
+          "forward_indices": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              257.9138488769531,
+              156.24703979492188,
+              152.89549255371094,
+              155.49440002441406
+            ],
+            "sum": 722.55078125,
+            "mean": 180.6376953125,
+            "sample_std": 51.53743978296346,
+            "median": 155.87071990966797,
+            "min": 152.89549255371094,
+            "max": 257.9138488769531
+          },
+          "pre_attention_calls": 100
+        },
+        "measured_requests": {
+          "forward_indices": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              156.4753875732422,
+              155.23532104492188,
+              154.04339599609375,
+              157.0048065185547
+            ],
+            "sum": 622.7589111328125,
+            "mean": 155.68972778320312,
+            "sample_std": 1.324586378572602,
+            "median": 155.85535430908203,
+            "min": 154.04339599609375,
+            "max": 157.0048065185547
+          },
+          "pre_attention_calls": 100
+        }
+      },
+      "source_modules": [
+        {
+          "module": "vllm_omni.diffusion.attention.parallel.allgather_kv",
+          "sha256": "b6dbbcbe9edfb8a357739f2f544ee79f38a79bad590ba25c2cd2e0fe4cb96faf",
+          "matches_metadata": true
+        },
+        {
+          "module": "vllm_omni.diffusion.models.flux2_klein.flux2_klein_transformer",
+          "sha256": "83f9f16f5c028a18231fe2f82a2cb1b83aa65ec8708d4b0de09a3c4702051e70",
+          "matches_metadata": true
+        }
+      ],
+      "pre_attention_calls_per_forward": {
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25,
+        "6": 25,
+        "7": 25,
+        "8": 25,
+        "9": 25,
+        "10": 25
+      },
+      "representative_shapes": [
+        {
+          "first_call": 1,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 0,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 6,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  28311552,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 0,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 51,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 0,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 56,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  42467328,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:0",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 0,
+            "sp_size": 4
+          }
+        }
+      ],
+      "all_forward_mean_ms_including_startup_and_warmup": 559.7467514038086
+    },
+    {
+      "rank": 1,
+      "phases": {
+        "startup_dummy": {
+          "forward_indices": [
+            1,
+            2
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              4186.65380859375,
+              65.46739196777344
+            ],
+            "sum": 4252.121200561523,
+            "mean": 2126.0606002807617,
+            "sample_std": 2914.1188617301164,
+            "median": 2126.0606002807617,
+            "min": 65.46739196777344,
+            "max": 4186.65380859375
+          },
+          "pre_attention_calls": 50
+        },
+        "request_warmup": {
+          "forward_indices": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              258.19134521484375,
+              155.51181030273438,
+              152.47769165039062,
+              158.160888671875
+            ],
+            "sum": 724.3417358398438,
+            "mean": 181.08543395996094,
+            "sample_std": 51.45635520880327,
+            "median": 156.8363494873047,
+            "min": 152.47769165039062,
+            "max": 258.19134521484375
+          },
+          "pre_attention_calls": 100
+        },
+        "measured_requests": {
+          "forward_indices": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              153.20474243164062,
+              155.56813049316406,
+              154.09356689453125,
+              156.77133178710938
+            ],
+            "sum": 619.6377716064453,
+            "mean": 154.90944290161133,
+            "sample_std": 1.578201182407149,
+            "median": 154.83084869384766,
+            "min": 153.20474243164062,
+            "max": 156.77133178710938
+          },
+          "pre_attention_calls": 100
+        }
+      },
+      "source_modules": [
+        {
+          "module": "vllm_omni.diffusion.attention.parallel.allgather_kv",
+          "sha256": "b6dbbcbe9edfb8a357739f2f544ee79f38a79bad590ba25c2cd2e0fe4cb96faf",
+          "matches_metadata": true
+        },
+        {
+          "module": "vllm_omni.diffusion.models.flux2_klein.flux2_klein_transformer",
+          "sha256": "83f9f16f5c028a18231fe2f82a2cb1b83aa65ec8708d4b0de09a3c4702051e70",
+          "matches_metadata": true
+        }
+      ],
+      "pre_attention_calls_per_forward": {
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25,
+        "6": 25,
+        "7": 25,
+        "8": 25,
+        "9": 25,
+        "10": 25
+      },
+      "representative_shapes": [
+        {
+          "first_call": 1,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 1,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 6,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  28311552,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 1,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 51,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 1,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 56,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  42467328,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:1",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 1,
+            "sp_size": 4
+          }
+        }
+      ],
+      "all_forward_mean_ms_including_startup_and_warmup": 559.6100708007813
+    },
+    {
+      "rank": 2,
+      "phases": {
+        "startup_dummy": {
+          "forward_indices": [
+            1,
+            2
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              4186.7763671875,
+              65.06291198730469
+            ],
+            "sum": 4251.839279174805,
+            "mean": 2125.9196395874023,
+            "sample_std": 2914.491534279893,
+            "median": 2125.9196395874023,
+            "min": 65.06291198730469,
+            "max": 4186.7763671875
+          },
+          "pre_attention_calls": 50
+        },
+        "request_warmup": {
+          "forward_indices": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              257.8769836425781,
+              156.1098175048828,
+              153.027587890625,
+              158.20083618164062
+            ],
+            "sum": 725.2152252197266,
+            "mean": 181.30380630493164,
+            "sample_std": 51.09298815418444,
+            "median": 157.15532684326172,
+            "min": 153.027587890625,
+            "max": 257.8769836425781
+          },
+          "pre_attention_calls": 100
+        },
+        "measured_requests": {
+          "forward_indices": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              162.92352294921875,
+              155.5968017578125,
+              153.1094970703125,
+              156.95155334472656
+            ],
+            "sum": 628.5813751220703,
+            "mean": 157.14534378051758,
+            "sample_std": 4.167771199053235,
+            "median": 156.27417755126953,
+            "min": 153.1094970703125,
+            "max": 162.92352294921875
+          },
+          "pre_attention_calls": 100
+        }
+      },
+      "source_modules": [
+        {
+          "module": "vllm_omni.diffusion.attention.parallel.allgather_kv",
+          "sha256": "b6dbbcbe9edfb8a357739f2f544ee79f38a79bad590ba25c2cd2e0fe4cb96faf",
+          "matches_metadata": true
+        },
+        {
+          "module": "vllm_omni.diffusion.models.flux2_klein.flux2_klein_transformer",
+          "sha256": "83f9f16f5c028a18231fe2f82a2cb1b83aa65ec8708d4b0de09a3c4702051e70",
+          "matches_metadata": true
+        }
+      ],
+      "pre_attention_calls_per_forward": {
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25,
+        "6": 25,
+        "7": 25,
+        "8": 25,
+        "9": 25,
+        "10": 25
+      },
+      "representative_shapes": [
+        {
+          "first_call": 1,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 2,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 6,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  28311552,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 2,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 51,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 2,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 56,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  42467328,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:2",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 2,
+            "sp_size": 4
+          }
+        }
+      ],
+      "all_forward_mean_ms_including_startup_and_warmup": 560.5635879516601
+    },
+    {
+      "rank": 3,
+      "phases": {
+        "startup_dummy": {
+          "forward_indices": [
+            1,
+            2
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              4186.7060546875,
+              65.10899353027344
+            ],
+            "sum": 4251.815048217773,
+            "mean": 2125.9075241088867,
+            "sample_std": 2914.4092312628204,
+            "median": 2125.9075241088867,
+            "min": 65.10899353027344,
+            "max": 4186.7060546875
+          },
+          "pre_attention_calls": 50
+        },
+        "request_warmup": {
+          "forward_indices": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              258.04595947265625,
+              156.1221160888672,
+              153.0449981689453,
+              158.31141662597656
+            ],
+            "sum": 725.5244903564453,
+            "mean": 181.38112258911133,
+            "sample_std": 51.155520732176925,
+            "median": 157.21676635742188,
+            "min": 153.0449981689453,
+            "max": 258.04595947265625
+          },
+          "pre_attention_calls": 100
+        },
+        "measured_requests": {
+          "forward_indices": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "transformer_cuda_ms_instrumented": {
+            "samples": [
+              161.3158416748047,
+              154.13658142089844,
+              154.23898315429688,
+              154.17855834960938
+            ],
+            "sum": 623.8699645996094,
+            "mean": 155.96749114990234,
+            "sample_std": 3.5658147375609412,
+            "median": 154.20877075195312,
+            "min": 154.13658142089844,
+            "max": 161.3158416748047
+          },
+          "pre_attention_calls": 100
+        }
+      },
+      "source_modules": [
+        {
+          "module": "vllm_omni.diffusion.attention.parallel.allgather_kv",
+          "sha256": "b6dbbcbe9edfb8a357739f2f544ee79f38a79bad590ba25c2cd2e0fe4cb96faf",
+          "matches_metadata": true
+        },
+        {
+          "module": "vllm_omni.diffusion.models.flux2_klein.flux2_klein_transformer",
+          "sha256": "83f9f16f5c028a18231fe2f82a2cb1b83aa65ec8708d4b0de09a3c4702051e70",
+          "matches_metadata": true
+        }
+      ],
+      "pre_attention_calls_per_forward": {
+        "1": 25,
+        "2": 25,
+        "3": 25,
+        "4": 25,
+        "5": 25,
+        "6": 25,
+        "7": 25,
+        "8": 25,
+        "9": 25,
+        "10": 25
+      },
+      "representative_shapes": [
+        {
+          "first_call": 1,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 3,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 6,
+          "first_forward": 1,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  28311552,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  1024,
+                  24,
+                  128
+                ],
+                "stride": [
+                  3145728,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  1,
+                  4096,
+                  24,
+                  128
+                ],
+                "stride": [
+                  12582912,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 3,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 51,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 3,
+            "sp_size": 4
+          }
+        },
+        {
+          "first_call": 56,
+          "first_forward": 3,
+          "representative": {
+            "cuda_stream_capturing": false,
+            "inputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": false,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  42467328,
+                  27648,
+                  128,
+                  1
+                ]
+              }
+            },
+            "joint": {
+              "joint_key": null,
+              "joint_query": null,
+              "joint_value": null
+            },
+            "joint_strategy": null,
+            "outputs": {
+              "key": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "query": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  1536,
+                  24,
+                  128
+                ],
+                "stride": [
+                  4718592,
+                  3072,
+                  128,
+                  1
+                ]
+              },
+              "value": {
+                "contiguous": true,
+                "device": "cuda:3",
+                "dtype": "torch.bfloat16",
+                "shape": [
+                  2,
+                  6144,
+                  24,
+                  128
+                ],
+                "stride": [
+                  18874368,
+                  3072,
+                  128,
+                  1
+                ]
+              }
+            },
+            "sp_rank": 3,
+            "sp_size": 4
+          }
+        }
+      ],
+      "all_forward_mean_ms_including_startup_and_warmup": 560.1209503173828
+    }
+  ],
+  "measured_pipeline_profiler_seconds_from_log": {
+    "2": {
+      "Flux2KleinPipeline.text_encoder.forward": [
+        0.040337
+      ],
+      "Flux2KleinPipeline.vae.decode": [
+        0.37539
+      ],
+      "Flux2KleinPipeline.forward": [
+        1.061146
+      ]
+    },
+    "0": {
+      "Flux2KleinPipeline.text_encoder.forward": [
+        0.042667
+      ],
+      "Flux2KleinPipeline.forward": [
+        1.058963
+      ]
+    },
+    "1": {
+      "Flux2KleinPipeline.text_encoder.forward": [
+        0.044212
+      ],
+      "Flux2KleinPipeline.forward": [
+        1.059358
+      ]
+    },
+    "3": {
+      "Flux2KleinPipeline.text_encoder.forward": [
+        0.040812
+      ],
+      "Flux2KleinPipeline.vae.decode": [
+        0.375718
+      ],
+      "Flux2KleinPipeline.forward": [
+        1.059949
+      ]
+    }
+  },
+  "structured_rank0_measured_stage_seconds": {
+    "Flux2KleinPipeline.text_encoder.forward": [
+      0.042667212008382194
+    ],
+    "Flux2KleinPipeline.vae.decode": [
+      0.3753454649995547
+    ]
+  },
+  "optional_profiler_log_warnings": [
+    "Skipped ambiguous interleaved profiler prefixes at line 518: Flux2KleinPipeline.vae.encode",
+    "Skipped ambiguous interleaved profiler prefixes at line 549: Flux2KleinPipeline.vae.decode",
+    "Omitted incomplete optional profiler series: rank 0, Flux2KleinPipeline.vae.decode",
+    "Omitted incomplete optional profiler series: rank 1, Flux2KleinPipeline.vae.decode"
+  ],
+  "measured_request_wall_seconds": [
+    1.1453481019998435
+  ],
+  "notes": [
+    "Transformer CUDA events include observer overhead and host-induced gaps. These are not uninstrumented performance scores.",
+    "Transformer, text encoder and VAE timings are nested inside pipeline forward; never add them to that total.",
+    "Representatives are deduplicated by tensor metadata across all calls; first-seen B2 shapes occur during request warmup.",
+    "Observed B2 native path gathers sequence 1536 to 6144, with no joint tensors. It does not validate the separate joint-text path.",
+    "A single measured diagnostic request is attribution evidence, not a speedup estimate or an independent quality comparison."
+  ]
+}

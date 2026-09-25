@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "source_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+  "source_sha256": {
+    "vllm_omni/diffusion/attention/parallel/allgather_kv.py": "d656eba4eb8a74e66abec9d2b0e7db097dbb5cc497e8387a2c3e4c1ffcc55c95",
+    "vllm_omni/diffusion/attention/parallel/factory.py": "856d284ccf849d21c951f4ec99bf50e3c61baaa6b611133b5e80918e5f85e856",
+    "vllm_omni/diffusion/attention/layer.py": "bbb1b74e2c39e175d8d225dcf52ee674a18cdfb30be4451f39833721c9793648",
+    "vllm_omni/diffusion/attention/backends/sdpa.py": "fd9775fa29dca5def8436bb918e46c877f769b293f6f51666de7a5ea975435d7",
+    "vllm_omni/diffusion/distributed/group_coordinator.py": "7a8391f3d3ef9b97a2badf1d854bedbeebd29c142fa727d987a25377591ea4c5",
+    "vllm_omni/diffusion/distributed/sp_plan.py": "ae0243f3477fe0e6193631fea20147073d9c67d3dc218f9e09ec2290703ec652",
+    "vllm_omni/diffusion/models/flux2_klein/flux2_klein_transformer.py": "83f9f16f5c028a18231fe2f82a2cb1b83aa65ec8708d4b0de09a3c4702051e70",
+    "vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py": "48058c3e7671ecefdaa4b505a2eb636ce79ea33453638713b19338ad79ee8751",
+    "vllm_omni/diffusion/worker/diffusion_model_runner.py": "206d69a25350228077586533d708eae516e06fce4e30d08bcd16c91c3ced324b"
+  },
+  "driver_sha256": "ffbe4112a3f4a9fa241bfd7500bcff0969b87bb5c4c29dea62d0befae21bcc22",
+  "model": "black-forest-labs/FLUX.2-klein-4B",
+  "model_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+  "model_config_sha256": {
+    "model_index.json": "51a76cb1cf3ed37423a1128c79c22faee8e6fbe7f5aaeb737f0a258930dbaac0",
+    "transformer/config.json": "09733c74a3da6d17dd0a0472a091a8950c7c6935889c32c16cc800ede05029de",
+    "text_encoder/config.json": "214b4c29a0d975e9fddf9994a5673f22cb2c4c5750352f9227c2c3251ebeab40",
+    "vae/config.json": "0d6dfb69ae95a5e2ac9836284bbb63d8b38ce67b25ba2dff380752b2a10ab948",
+    "scheduler/scheduler_config.json": "067afb012cef64553a763447d1efd93daeffcc0123ca7e25b09f8de20b90762e"
+  },
+  "python": "3.12.13",
+  "world_size": 4,
+  "batch": 2,
+  "width": 1024,
+  "height": 1024,
+  "steps": 4,
+  "warmup_requests": 1,
+  "measured_requests": 1,
+  "prompt": "A small red sailboat on a calm blue lake, distant green hills, soft morning light, realistic photograph.",
+  "seed": 8137,
+  "generator_policy": "Fresh CPU torch.Generator with the same seed for every request; one generator draws the batch of outputs",
+  "diagnostic": true,
+  "diagnostic_hooks_enabled": true,
+  "timing_scope": "Omni.generate wall time: prompt encoding, denoising, VAE decode and output transport; excludes startup and PNG writing",
+  "memory_scope": "Worker-reported peak reserved MiB, not the previous operator allocated-increment metric",
+  "attention_backend": "TORCH_SDPA",
+  "transformer_config": {
+    "num_layers": 5,
+    "num_single_layers": 20,
+    "num_attention_heads": 24,
+    "attention_head_dim": 128,
+    "in_channels": 128,
+    "guidance_embeds": false
+  },
+  "limitations": [
+    "One model, one prompt and one seeded batch; pixel equivalence does not establish general image quality.",
+    "Pipeline profiler adds synchronization; diagnostic timings are not scored.",
+    "Klein denoises inline, so its built-in profiler has no diffuse stage; use separate transformer hooks for DiT attribution."
+  ],
+  "imports_seconds": 218.7684097099991,
+  "versions": {
+    "torch": "2.13.0+cu130",
+    "vllm": "0.30.0",
+    "vllm-omni": "0.30.0rc1+kvbench",
+    "diffusers": "0.40.0",
+    "transformers": "5.14.1",
+    "flash-attn": "not installed as a distribution",
+    "Pillow": "12.3.0",
+    "huggingface-hub": "1.32.0"
+  },
+  "vllm_runtime_version": "0.30.0",
+  "vllm_omni_runtime_version": "0.30.0rc1+kvbench",
+  "cuda_build": "13.0",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "gpus": [
+    {
+      "index": 0,
+      "name": "NVIDIA A100-SXM4-40GB",
+      "memory_bytes": 42298834944
+    },
+    {
+      "index": 1,
+      "name": "NVIDIA A100-SXM4-40GB",
+      "memory_bytes": 42298834944
+    },
+    {
+      "index": 2,
+      "name": "NVIDIA A100-SXM4-40GB",
+      "memory_bytes": 42298834944
+    },
+    {
+      "index": 3,
+      "name": "NVIDIA A100-SXM4-40GB",
+      "memory_bytes": 42298834944
+    }
+  ],
+  "engine_args": {
+    "model": "black-forest-labs/FLUX.2-klein-4B",
+    "model_class_name": "Flux2KleinPipeline",
+    "num_gpus": 4,
+    "dtype": "bfloat16",
+    "allgather_degree": 4,
+    "tensor_parallel_size": 1,
+    "ulysses_degree": 1,
+    "ring_degree": 1,
+    "cfg_parallel_size": 1,
+    "pipeline_parallel_size": 1,
+    "vae_patch_parallel_size": 1,
+    "diffusion_attention_backend": "TORCH_SDPA",
+    "enforce_eager": true,
+    "cache_backend": "none",
+    "enable_prompt_embed_cache": false,
+    "enable_cpu_offload": false,
+    "enable_layerwise_offload": false,
+    "enable_distributed_layerwise_offload": false,
+    "use_hsdp": false,
+    "quantization": null,
+    "enable_diffusion_pipeline_profiler": true,
+    "init_timeout": 360,
+    "stage_init_timeout": 360
+  },
+  "startup_seconds": 165.9342913619912,
+  "cleanup_complete": true,
+  "cleanup_error": null
+}

@@ -1,0 +1,79 @@
+#!/bin/bash
+#PJM -g jh220036a
+#PJM -L rscgrp=debug-a
+#PJM -L node=1
+#PJM -L elapse=00:10:00
+#PJM -N omni_kv_model4
+#PJM -j
+set -euo pipefail
+ulimit -c 0
+export LC_ALL=C
+TASK_ROOT=/work/04/jh220036a/v57014/artifacts/vllm-omni-kv-model-20260925
+TASK_PYTHON=/work/04/jh220036a/v57014/envs/vllm-omni-kv-model-cu130/bin/python
+TASK_MODEL=/work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+TASK_ARM=${KV_MODEL_ARM:-head}
+TASK_MODE=${KV_MODEL_MODE:-diagnostic}
+TASK_BATCH=${KV_MODEL_BATCH:-2}
+TASK_REPEATS=${KV_MODEL_REPEATS:-1}
+TASK_WARMUP=${KV_MODEL_WARMUP:-1}
+case "$TASK_ARM" in
+  base) TASK_SHA=ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2 ;;
+  head) TASK_SHA=99c27812387ab78ed26d354bc10df8595fb173d8 ;;
+  *) exit 2 ;;
+esac
+case "$TASK_MODE" in diagnostic|scored) ;; *) exit 2 ;; esac
+TASK_OUT="$TASK_ROOT/runs/${PJM_JOBID:?Submit through PJM}"
+export KV_MODEL_ARM="$TASK_ARM"
+export KV_MODEL_RUN_ID="$PJM_JOBID"
+mkdir -p "$TASK_OUT"
+exec > >(tee "$TASK_OUT/job.log") 2>&1
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/started_utc.txt"
+module unload cuda 2>/dev/null || true
+module load gcc/12.2.0
+export CUDA_HOME=/work/opt/local/x86_64/cores/cuda/13.3
+export LD_LIBRARY_PATH="$CUDA_HOME/compat${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export PATH="$CUDA_HOME/bin:$PATH"
+export PYTHONNOUSERSITE=1 PYTHONUNBUFFERED=1 OMP_NUM_THREADS=1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+export HF_HOME="$TASK_ROOT/cache/huggingface"
+export XDG_CACHE_HOME="$TASK_ROOT/cache/xdg"
+export CUDA_CACHE_PATH="$TASK_ROOT/cache/cuda"
+export TRITON_CACHE_DIR="$TASK_ROOT/cache/triton"
+export TORCHINDUCTOR_CACHE_DIR="$TASK_ROOT/cache/inductor"
+export VLLM_CACHE_ROOT="$TASK_ROOT/cache/vllm"
+export NCCL_DEBUG=WARN TORCH_NCCL_ASYNC_ERROR_HANDLING=1
+mkdir -p "$HF_HOME" "$XDG_CACHE_HOME" "$CUDA_CACHE_PATH" "$TRITON_CACHE_DIR" "$TORCHINDUCTOR_CACHE_DIR" "$VLLM_CACHE_ROOT"
+export PYTHONPATH="$TASK_ROOT/source_$TASK_ARM"
+unset KV_MODEL_DIAGNOSTIC_DIR
+extra_args=()
+if [[ "$TASK_MODE" == diagnostic ]]; then
+  export PYTHONPATH="$TASK_ROOT/diagnostic_hooks:$PYTHONPATH"
+  export KV_MODEL_DIAGNOSTIC_DIR="$TASK_OUT/diagnostics"
+  extra_args=(--diagnostic)
+fi
+cd "$TASK_ROOT"
+printf '%s\n' "$TASK_ARM $TASK_MODE batch=$TASK_BATCH repeats=$TASK_REPEATS warmup=$TASK_WARMUP" > "$TASK_OUT/plan.txt"
+nvidia-smi --query-gpu=index,name,memory.total,driver_version,clocks.sm,clocks.mem --format=csv > "$TASK_OUT/gpus.csv"
+nvidia-smi topo -m > "$TASK_OUT/topology.txt"
+sha256sum -c "source_$TASK_ARM.sha256" > "$TASK_OUT/source_verify_before.txt"
+sha256sum bench_model.py diagnostic_hooks/sitecustomize.py run_model4_node.pjm experiment.json > "$TASK_OUT/harness_before.sha256"
+set +e
+timeout --signal=TERM --kill-after=15s 540s "$TASK_PYTHON" bench_model.py \
+  --source-root "$TASK_ROOT/source_$TASK_ARM" --source-sha "$TASK_SHA" \
+  --model "$TASK_MODEL" --output "$TASK_OUT" --world-size 4 \
+  --height 1024 --width 1024 --batch "$TASK_BATCH" --steps 4 \
+  --warmup "$TASK_WARMUP" --repeats "$TASK_REPEATS" --init-timeout 360 "${extra_args[@]}"
+code=$?
+set -e
+sha256sum -c "source_$TASK_ARM.sha256" > "$TASK_OUT/source_verify_after.txt" || code=1
+sha256sum -c "$TASK_OUT/harness_before.sha256" > "$TASK_OUT/harness_verify_after.txt" || code=1
+if [[ "$code" == 0 && -f "$TASK_OUT/validation.json" ]]; then
+  "$TASK_PYTHON" -S -c 'import json,sys; v=json.load(open(sys.argv[1])); assert v["status"] == "PASS" and v["cleanup_complete"] and v["source_unchanged"]' "$TASK_OUT/validation.json" || code=1
+else
+  code=1
+fi
+printf '%s\n' "$code" > "$TASK_OUT/exit_code.txt"
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/ended_utc.txt"
+(cd "$TASK_OUT" && find . -type f ! -name job.log ! -name ARTIFACT_SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > ARTIFACT_SHA256SUMS)
+echo "JOB_EXIT=$code OUTPUT=$TASK_OUT"
+exit "$code"

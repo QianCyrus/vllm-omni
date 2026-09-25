@@ -1,0 +1,26 @@
+{
+  "source_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+  "diagnostic": false,
+  "scored": true,
+  "wall_seconds": {
+    "samples": [
+      1.0897885689919349,
+      1.0969263430015417,
+      1.10128916100075,
+      1.094485617999453,
+      1.0906708959955722,
+      1.0952404760028003
+    ],
+    "mean": 1.0947335104986753,
+    "median": 1.0948630470011267,
+    "sample_std": 0.004220445846363414,
+    "min": 1.0897885689919349,
+    "max": 1.10128916100075
+  },
+  "same_seed_repeated_pixels_exact": true,
+  "pixel_sha256": [
+    "8fbd50b171dcf648d0f63aebe2bb992b19f2301cbb36e71db6c640404e2730cb",
+    "8e136b6cd2604065eec646955ef265f0a1a3503a3619e5fde3cc479feec69e12"
+  ],
+  "note": "Exact repeat equality is reported, not assumed; cross-arm comparison requires both output sets."
+}

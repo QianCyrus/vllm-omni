@@ -1,0 +1,202 @@
+{
+  "diagnostic_only": true,
+  "measured_requests_per_arm": 1,
+  "rank_for_stage_table": 0,
+  "base": {
+    "run_id": "9718466",
+    "source_sha": "ed5fc2b83b5dcfda6bae7132b4ac87a4b2ca54c2",
+    "stage_ms": {
+      "transformer_four_steps_cuda_ms": 622.7589111328125,
+      "text_encoder_ms": 42.667212008382194,
+      "vae_decode_ms": 375.3454649995547,
+      "pipeline_forward_ms": 1058.9630000000002,
+      "request_wall_ms": 1145.3481019998435
+    },
+    "phase_forward_indices": {
+      "startup_dummy": [
+        1,
+        2
+      ],
+      "request_warmup": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "measured_requests": [
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "measured_pre_attention_calls_per_rank": 100,
+    "total_pre_attention_calls_per_rank": 250,
+    "all_ranks_checked": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "artifact_manifest_files_verified": 23,
+    "source_and_harness_verification": {
+      "source_verify_before.txt": {
+        "OK": 4124
+      },
+      "source_verify_after.txt": {
+        "OK": 4124
+      },
+      "harness_verify_after.txt": {
+        "OK": 4
+      }
+    },
+    "cleanup": {
+      "omni_close_returned_normally": true,
+      "worker_python_cleanup_logged_ranks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "terminate_warning_count": 0,
+      "kill_or_incomplete_cleanup_warning": false,
+      "job_exit_code": 0,
+      "independent_worker_liveness_check": false
+    },
+    "pixel_sha256": [
+      "8fbd50b171dcf648d0f63aebe2bb992b19f2301cbb36e71db6c640404e2730cb",
+      "8e136b6cd2604065eec646955ef265f0a1a3503a3619e5fde3cc479feec69e12"
+    ]
+  },
+  "head": {
+    "run_id": "9718248",
+    "source_sha": "99c27812387ab78ed26d354bc10df8595fb173d8",
+    "stage_ms": {
+      "transformer_four_steps_cuda_ms": 594.7863006591797,
+      "text_encoder_ms": 40.40337599872146,
+      "vae_decode_ms": 375.8703589992365,
+      "pipeline_forward_ms": 1028.383,
+      "request_wall_ms": 1121.9081849994836
+    },
+    "phase_forward_indices": {
+      "startup_dummy": [
+        1,
+        2
+      ],
+      "request_warmup": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "measured_requests": [
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "measured_pre_attention_calls_per_rank": 100,
+    "total_pre_attention_calls_per_rank": 250,
+    "all_ranks_checked": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "artifact_manifest_files_verified": 23,
+    "source_and_harness_verification": {
+      "source_verify_before.txt": {
+        "OK": 4124
+      },
+      "source_verify_after.txt": {
+        "OK": 4124
+      },
+      "harness_verify_after.txt": {
+        "OK": 4
+      }
+    },
+    "cleanup": {
+      "omni_close_returned_normally": true,
+      "worker_python_cleanup_logged_ranks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "terminate_warning_count": 4,
+      "kill_or_incomplete_cleanup_warning": false,
+      "job_exit_code": 0,
+      "independent_worker_liveness_check": false
+    },
+    "pixel_sha256": [
+      "8fbd50b171dcf648d0f63aebe2bb992b19f2301cbb36e71db6c640404e2730cb",
+      "8e136b6cd2604065eec646955ef265f0a1a3503a3619e5fde3cc479feec69e12"
+    ]
+  },
+  "matched_metadata_keys": [
+    "model_revision",
+    "model_config_sha256",
+    "world_size",
+    "batch",
+    "height",
+    "width",
+    "steps",
+    "prompt",
+    "seed",
+    "attention_backend",
+    "versions",
+    "driver_sha256"
+  ],
+  "native_attention_geometry": {
+    "qkv_before_gather": [
+      2,
+      1536,
+      24,
+      128
+    ],
+    "kv_after_gather": [
+      2,
+      6144,
+      24,
+      128
+    ],
+    "joint_tensors": null
+  },
+  "timing_sources": {
+    "transformer": "CUDA events in diagnostic hook, forwards 7\u201310 only",
+    "encoder_and_vae": "Measured row in results.jsonl, stage_durations_raw; seconds converted to milliseconds",
+    "pipeline": "Unambiguous rank-0 log line after warmup marker and before measured-request marker; checked against ordered profiler series",
+    "request": "Measured results.jsonl wall_seconds, converted to milliseconds"
+  },
+  "teardown_source_files": [
+    {
+      "file": "vllm_omni/diffusion/executor/multiproc_executor.py",
+      "base_head_identical": true,
+      "sha256": "97d80808bc058fc78d01f7d9fed8473107c98458af9ac769b743ca1085205231"
+    },
+    {
+      "file": "vllm_omni/diffusion/worker/diffusion_worker.py",
+      "base_head_identical": true,
+      "sha256": "7a1d02912759c9a5cbdfcc970655f26754857480669479704869b59ade0e8ec0"
+    },
+    {
+      "file": "vllm_omni/engine/omni_engine_base.py",
+      "base_head_identical": true,
+      "sha256": "d45ecaf03a02fa32d756ccf50d8276820881015e6bd2bbf02301b829cf2b934b"
+    },
+    {
+      "file": "vllm_omni/engine/stage_pool.py",
+      "base_head_identical": true,
+      "sha256": "f4a107b06413ba420608d60771c52e9197583672cbbb18efe2aadb54140076b4"
+    }
+  ],
+  "notes": [
+    "One instrumented measured request per arm; this table is not a new scored speedup estimate.",
+    "Startup forwards 1\u20132 and request warmup forwards 3\u20136 are excluded from every stage value in this comparison.",
+    "Transformer, encoder and VAE timings are nested inside pipeline forward. Never add them to that enclosing total.",
+    "The native model gathers replicated text together with sharded image tokens; this does not validate the separate joint-text path or single-GPU equivalence.",
+    "Base shutdown logged no terminate or kill escalation. Head shutdown required terminate after the 15-second graceful wait; both Omni.close calls returned normally.",
+    "cleanup_complete means close returned without exception; the driver did not independently inspect worker liveness."
+  ]
+}
