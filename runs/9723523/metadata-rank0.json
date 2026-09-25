@@ -1,0 +1,32 @@
+{
+  "scope": "real VAE weights, native executor, synthetic latents; not end-to-end",
+  "rank": 0,
+  "world_size": 4,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "gpu_memory_bytes": 42298834944,
+  "versions": {
+    "torch": "2.13.0+cu130",
+    "vllm": "0.30.0",
+    "diffusers": "0.40.0",
+    "transformers": "5.14.1"
+  },
+  "cuda_build": "13.0",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "vae_dtype": "torch.bfloat16",
+  "parameter_dtypes": [
+    "torch.bfloat16"
+  ],
+  "buffer_dtypes": [
+    "torch.bfloat16",
+    "torch.int64"
+  ],
+  "default_dtype": "torch.float32",
+  "autocast": false,
+  "warmups": 2,
+  "repeats": 8,
+  "harness_sha256": "bed5351612a8281b671e7eed0625e78402a9bd8d134825467c9fca305d68c23c"
+}

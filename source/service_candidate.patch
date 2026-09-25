@@ -1,0 +1,714 @@
+diff --git a/docs/user_guide/diffusion/parallelism/vae_parallelism.md b/docs/user_guide/diffusion/parallelism/vae_parallelism.md
+index ca0c428e1..9702eccca 100644
+--- a/docs/user_guide/diffusion/parallelism/vae_parallelism.md
++++ b/docs/user_guide/diffusion/parallelism/vae_parallelism.md
+@@ -1,12 +1,12 @@
+ # VAE Parallelism Guide
+ 
+-
+ ## Table of Content
+ 
+ - [Overview](#overview)
+ - [Quick Start](#quick-start)
+ - [Example Script](#example-script)
+ - [Configuration Parameters](#configuration-parameters)
++- [Batch Parallel Decode](#batch-parallel-decode)
+ - [Best Practices](#best-practices)
+ - [Troubleshooting](#troubleshooting)
+ - [Summary](#summary)
+@@ -15,23 +15,22 @@
+ 
+ ## Overview
+ 
+-VAE parallelism distributes VAE (Variational AutoEncoder) decode/encode work across multiple GPUs. This guide covers VAE patch/tile parallelism, which splits latent space into spatial tiles or patches, and Wan spatial-shard decode, which shards decoder feature maps along height or width.
++VAE parallelism distributes VAE (Variational AutoEncoder) decode/encode work across multiple GPUs. This guide covers patch/tile parallelism, batch parallel decode for image VAEs, and Wan spatial-shard decode. Patch/tile parallelism divides images into spatial regions; batch parallel decode assigns complete images to ranks.
+ 
+ This is particularly useful for:
++
+ - **High-resolution image generation** where VAE decode can become a memory bottleneck
+ - **Memory-constrained environments** where the VAE decode activation peak exceeds available VRAM
+ - **Multi-GPU setups** where you want to leverage distributed resources for the VAE stage
+ 
+ See supported models list in [Supported Models](../../diffusion_features.md#supported-models).
+ 
+-
+ VAE patch parallelism uses two strategies based on image size:
+ 
+-| Strategy | Use Case | How It Works | Overlap Handling | Output Quality |
+-|----------|----------|--------------|------------------|----------------|
+-| **Tiled Decode** | Large images (triggers VAE tiling) | Distributes existing VAE tiling computation across ranks. Each rank decodes a subset of overlapping tiles. | Uses VAE's native `blend_v` and `blend_h` functions to seamlessly merge overlapping regions | Bit-identical (same logic as single-GPU tiling) |
+-| **Patch Decode** | Small images (no VAE tiling) | Splits latent into spatial patches with halos. Each rank decodes one patch with boundary context. | Halo regions provide edge context; core regions are directly stitched without blending | Near-identical (diff < 0.5%, visually imperceptible) |
+-
++| Strategy         | Use Case                           | How It Works                                                                                               | Overlap Handling                                                                            | Output Quality                                       |
++| ---------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
++| **Tiled Decode** | Large images (triggers VAE tiling) | Distributes existing VAE tiling computation across ranks. Each rank decodes a subset of overlapping tiles. | Uses VAE's native `blend_v` and `blend_h` functions to seamlessly merge overlapping regions | Bit-identical (same logic as single-GPU tiling)      |
++| **Patch Decode** | Small images (no VAE tiling)       | Splits latent into spatial patches with halos. Each rank decodes one patch with boundary context.          | Halo regions provide edge context; core regions are directly stitched without blending      | Near-identical (diff < 0.5%, visually imperceptible) |
+ 
+ VAE Patch Parallelism **reuses the DiT process group** (`dit_group`) and does not initialize a separate ProcessGroup. This means:
+ 
+@@ -110,19 +109,72 @@ vllm serve Tongyi-MAI/Z-Image-Turbo --omni --port 8091 \
+ 
+ In `DiffusionParallelConfig`:
+ 
+-| Parameter | Type | Default | Description |
+-|-----------|------|---------|-------------|
+-| `vae_patch_parallel_size` | int | 1 | Number of GPUs for VAE patch/tile parallelism. Set to 2 or higher to enable. Should typically match `tensor_parallel_size` as they share the same process group. |
+-| `vae_parallel_mode` | str | `"tile"` | VAE parallel decode strategy: `"tile"` (default tile/patch parallel decode), `"spatial_shard_height"`, or `"spatial_shard_width"` (spatially-sharded decode, Wan only). See [Spatially-Sharded Decode](#spatially-sharded-decode-wan). |
++| Parameter                 | Type   | Default   | Description                                                                                                                                                       |
++| ------------------------- | ------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
++| `vae_patch_parallel_size` | int    | 1         | Number of ranks requested for VAE parallelism, including batch mode. Set to 2 or higher to enable. Batch mode caps this degree at the existing worker group size. |
++| `vae_parallel_mode`       | str    | `"tile"`  | `"tile"` for tile/patch decode, `"batch"` for complete-image batch decode, or `"spatial_shard_height"` / `"spatial_shard_width"` for Wan spatial-shard decode.    |
+ 
+ Additional requirements:
+ 
+-| Parameter | Type | Default | Description |
+-|-----------|------|---------|-------------|
+-| `vae_use_tiling` | bool | False | Must be set to `True` when using VAE patch parallelism. |
++| Parameter        | Type   | Default   | Description                                             |
++| ---------------- | ------ | --------- | ------------------------------------------------------- |
++| `vae_use_tiling` | bool   | False     | Must be set to `True` when using VAE patch parallelism. |
+ 
+ !!! note "Automatic VAE Tiling"
+-    When `vae_patch_parallel_size > 1` and the model has a distributed VAE (`DistributedVaeMixin`), the system automatically sets `vae_use_tiling=True` if not already enabled.
++    When `vae_patch_parallel_size > 1` and the model has a distributed VAE (`DistributedVaeMixin`), tile and spatial-shard modes automatically enable `vae_use_tiling`. Batch mode preserves the requested tiling setting.
++
++---
++
++## Batch Parallel Decode
++
++Set `vae_parallel_mode="batch"` to distribute complete images across ranks during
++VAE decode. This mode supports pipelines that load `DistributedAutoencoderKL`
++or `DistributedAutoencoderKLFlux2`, including FLUX.2-dev and FLUX.2 Klein. Klein
++selects the distributed VAE only for batch mode; its default path is unchanged.
++Selecting this mode for an
++unsupported VAE, including Wan, raises an error at model initialization.
++
++For a pipeline already using two tensor-parallel workers, select batch decode
++with these Python settings:
++
++```python
++parallel_config = DiffusionParallelConfig(
++    tensor_parallel_size=2,
++    vae_patch_parallel_size=2,
++    vae_parallel_mode="batch",
++)
++sampling_params = OmniDiffusionSamplingParams(num_outputs_per_prompt=2)
++```
++
++The corresponding serving flags are `--vae-patch-parallel-size 2
++--vae-parallel-mode batch`. Keep the existing DiT parallelism configuration;
++the VAE degree does not allocate extra workers. Send a request for multiple
++images to use the batch split.
++
++Each rank decodes a contiguous part of the image batch through its native VAE
++decoder. Results are reassembled in the original image order and made available
++on every worker. With two images and four workers, two workers decode one image
++each. With five images and four workers, the assigned batch sizes are 2, 1, 1,
++and 1. Workers without images still participate in the required communication.
++
++**Constraints and behavior:**
++
++- This mode changes decode only; encoding keeps the native path.
++- Batch size one, VAE degree one, or a single worker uses native decode.
++- Data parallelism, pipeline parallelism, and CFG parallelism must each have
++  degree one because this implementation communicates over the worker WORLD
++  group. Tensor and sequence parallelism may supply the shared workers.
++- Batch mode does not force tiling. Explicit native VAE tiling and slicing
++  settings remain in effect within each rank's assigned batch.
++- It does not merge independent serving requests. The VAE must receive a batch
++  containing multiple images, for example through `num_outputs_per_prompt`.
++
++Splitting the batch can reduce per-rank decoder work and activation memory, but
++collecting decoded images adds communication and buffers. Measure complete
++request latency and memory for the intended model, image count, and resolution.
++This feature has no universal speedup or memory-saving guarantee. Changing the
++decoder batch shape can also change floating-point rounding; validate generated
++outputs when selecting a deployment configuration.
+ 
+ ---
+ 
+@@ -194,7 +246,8 @@ python3 benchmarks/diffusion/diffusion_benchmark_serving.py \
+ ### Common Issue 1: Model Not Support VAE Patch Parallel
+ 
+ **Symptoms**:
+-```
++
++```text
+ WARNING: vae_patch_parallel_size=2 is set but VAE patch parallelism is NOT enabled for xxxPipeline; ignoring.
+ ```
+ 
+@@ -217,7 +270,6 @@ if vae_pp_size > 1 and not is_distributed_vae:
+ 
+ 2. To add support for a new model, implement `DistributedVaeMixin` on its VAE class (contributions are welcome).
+ 
+-
+ ### Common Issue 2: `vae_patch_parallel_size` Exceeds DiT Process Group Size
+ 
+ **Symptoms**: Shows warning message, and vae patch parallel size is resized to DiT process group size
+@@ -227,6 +279,7 @@ if vae_pp_size > 1 and not is_distributed_vae:
+ **Recommendation**: Always set `vae_patch_parallel_size` to be no greater than your DiT process group size.
+ 
+ Note that the size of DiT process group size equals to:
++
+ ```text
+ dit_parallel_size = data_parallel_size
+                   × cfg_parallel_size
+@@ -235,7 +288,8 @@ dit_parallel_size = data_parallel_size
+                   × tensor_parallel_size
+ 
+ ```
+-_sequence_parallel_size = ulysses_degree × ring_degree_
++
++`sequence_parallel_size = ulysses_degree × ring_degree`
+ 
+ ---
+ 
+diff --git a/tests/diffusion/distributed/test_distributed_vae_executor.py b/tests/diffusion/distributed/test_distributed_vae_executor.py
+index dcaa8e01a..c61a680cc 100644
+--- a/tests/diffusion/distributed/test_distributed_vae_executor.py
++++ b/tests/diffusion/distributed/test_distributed_vae_executor.py
+@@ -1,5 +1,7 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
++
+ from dataclasses import dataclass
+-from types import SimpleNamespace
+ 
+ import pytest
+ import torch
+@@ -25,7 +27,7 @@ class E2EOperator:
+         h_size = z.shape[0]
+         w_size = z.shape[1]
+ 
+-        tasks = []
++        tasks: list[TileTask] = []
+         for i in range(rows_num):
+             for j in range(cols_num):
+                 tasks.append(
+@@ -67,7 +69,8 @@ class FakeWorldGroup:
+ class DummyMixin(DistributedVaeMixin):
+     def __init__(self):
+         self.use_tiling = True
+-        self.distributed_executor = SimpleNamespace(parallel_size=2, group=None)
++        self.distributed_executor = DistributedVaeExecutor()
++        self.distributed_executor.set_parallel_size(2)
+ 
+ 
+ @pytest.fixture(autouse=True)
+diff --git a/tests/diffusion/distributed/test_vae_batch_parallel.py b/tests/diffusion/distributed/test_vae_batch_parallel.py
+new file mode 100644
+index 000000000..56f6525ff
+--- /dev/null
++++ b/tests/diffusion/distributed/test_vae_batch_parallel.py
+@@ -0,0 +1,218 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
++
++from dataclasses import dataclass
++from datetime import timedelta
++
++import pytest
++import torch
++import torch.distributed as dist
++import torch.multiprocessing as mp
++from diffusers import AutoencoderKL, AutoencoderKLFlux2
++from torch import nn
++
++from vllm_omni.config.omni_config import OmniStageDiffusionParallelConfig
++from vllm_omni.diffusion import registry
++from vllm_omni.diffusion.data import DiffusionParallelConfig, OmniDiffusionConfig
++from vllm_omni.diffusion.distributed.autoencoders import autoencoder_kl as kl_module
++from vllm_omni.diffusion.distributed.autoencoders import distributed_vae_executor as executor_module
++from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl import DistributedAutoencoderKL
++from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl_flux2 import DistributedAutoencoderKLFlux2
++from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl_wan import DistributedAutoencoderKLWan
++from vllm_omni.diffusion.distributed.autoencoders.distributed_vae_executor import DistributedVaeExecutor
++
++pytestmark = [pytest.mark.core_model, pytest.mark.cpu, pytest.mark.diffusion, pytest.mark.parallel]
++
++
++class _RecordingDecoder(nn.Module):
++    def __init__(self, dtype):
++        super().__init__()
++        self.conv = nn.Conv2d(1, 3, kernel_size=1, bias=False, dtype=dtype)
++        with torch.no_grad():
++            self.conv.weight.copy_(torch.arange(1, 4, dtype=dtype).reshape(3, 1, 1, 1))
++        self.batch_sizes = []
++
++    def forward(self, z):
++        self.batch_sizes.append(z.shape[0])
++        return self.conv(z)
++
++
++def _make_vae(vae_type=DistributedAutoencoderKLFlux2, dtype=torch.float32):
++    """Keep the native decode methods; replace only the learned decoder."""
++    vae = vae_type.__new__(vae_type)
++    nn.Module.__init__(vae)
++    vae.register_to_config(use_post_quant_conv=False)
++    vae.decoder = _RecordingDecoder(dtype)
++    vae.post_quant_conv = None
++    vae.use_slicing = False
++    vae.use_tiling = False
++    return vae
++
++
++@dataclass
++class _WorldGroup:
++    device_group: dist.ProcessGroup
++
++
++def _batch_worker(rank, rendezvous):
++    torch.set_num_threads(1)
++    dist.init_process_group("gloo", init_method=rendezvous, rank=rank, world_size=4, timeout=timedelta(seconds=60))
++    try:
++        with pytest.MonkeyPatch.context() as patch:
++            patch.setattr(executor_module, "get_world_group", lambda: _WorldGroup(dist.group.WORLD))
++            for name in (
++                "get_data_parallel_world_size",
++                "get_pipeline_parallel_world_size",
++                "get_classifier_free_guidance_world_size",
++            ):
++                patch.setattr(kl_module, name, lambda: 1)
++            for vae_type, native_type in (
++                (DistributedAutoencoderKL, AutoencoderKL),
++                (DistributedAutoencoderKLFlux2, AutoencoderKLFlux2),
++            ):
++                for dtype, autocast in ((torch.float32, False), (torch.bfloat16, False), (torch.float32, True)):
++                    vae = _make_vae(vae_type, dtype)
++                    vae.init_distributed()
++                    vae.set_parallel_size(4, mode="batch")
++                    vae.use_tiling = True
++                    assert not vae.is_distributed_enabled()  # Spatial encode/decode stays disabled.
++                    vae.use_tiling = False
++                    # Reuse the same instance with changing batches and contents.
++                    for batch, return_dict, expected_sizes in (
++                        (2, False, (1, 1, 0, 0)),
++                        (5, True, (2, 1, 1, 1)),
++                        (1, True, (1, 1, 1, 1)),
++                    ):
++                        z = torch.arange(batch * 6, dtype=dtype).reshape(batch, 1, 2, 3) + batch
++                        with torch.autocast("cpu", dtype=torch.bfloat16, enabled=autocast):
++                            expected = native_type.decode(vae, z, return_dict=False)[0]
++                            vae.decoder.batch_sizes.clear()
++                            if vae_type is DistributedAutoencoderKL and not return_dict:
++                                result = vae.decode(z, False, torch.Generator().manual_seed(0))
++                            else:
++                                result = vae.decode(z, return_dict=return_dict)
++                        actual = result.sample if return_dict else result[0]
++                        torch.testing.assert_close(actual, expected, rtol=0, atol=0)
++                        assert actual.dtype == expected.dtype
++                        assert sum(vae.decoder.batch_sizes) == expected_sizes[rank]
++                        assert not vae.use_tiling
++
++                    # Degree one bypasses collectives and keeps native slicing.
++                    vae.set_parallel_size(1, mode="batch")
++                    vae.use_slicing = True
++                    z = torch.ones(2, 1, 2, 3, dtype=dtype)
++                    vae.decoder.batch_sizes.clear()
++                    if vae_type is DistributedAutoencoderKL:
++                        actual = vae.decode(z, False, torch.Generator().manual_seed(0))[0]
++                    else:
++                        actual = vae.decode(z, return_dict=False)[0]
++                    assert vae.decoder.batch_sizes == [1, 1]
++                    expected = native_type.decode(vae, z, return_dict=False)[0]
++                    torch.testing.assert_close(actual, expected, rtol=0, atol=0)
++    finally:
++        dist.destroy_process_group()
++
++
++@pytest.mark.skipif(not dist.is_gloo_available(), reason="Requires the CPU Gloo backend")
++def test_batch_decode_matches_native_on_all_ranks(tmp_path):
++    mp.spawn(_batch_worker, args=(f"file://{tmp_path / 'rendezvous'}",), nprocs=4, join=True)
++
++
++def test_batch_decode_without_distributed_initialization_uses_native(monkeypatch, mocker):
++    vae = _make_vae()
++    executor = mocker.Mock(spec=DistributedVaeExecutor)
++    executor.parallel_mode = "batch"
++    executor.parallel_size = executor.world_size = 4
++    vae.distributed_executor = executor
++    monkeypatch.setattr(dist, "is_initialized", lambda: False)
++    z = torch.ones(2, 1, 2, 3)
++    expected = AutoencoderKLFlux2.decode(vae, z, return_dict=False)[0]
++    torch.testing.assert_close(vae.decode(z).sample, expected, rtol=0, atol=0)
++    executor.execute.assert_not_called()
++
++
++@pytest.mark.parametrize("config_type", [DiffusionParallelConfig, OmniStageDiffusionParallelConfig])
++@pytest.mark.parametrize("axis", ["data_parallel_size", "pipeline_parallel_size", "cfg_parallel_size"])
++def test_batch_mode_rejects_separate_request_or_pipeline_groups(config_type, axis):
++    with pytest.raises(ValueError, match="batch.*DP, PP, and CFG"):
++        config_type(vae_parallel_mode="batch", **{axis: 2})
++
++
++@pytest.mark.parametrize("config_type", [DiffusionParallelConfig, OmniStageDiffusionParallelConfig])
++def test_batch_mode_accepts_tensor_parallel_group(config_type):
++    config = config_type(tensor_parallel_size=4, vae_patch_parallel_size=4, vae_parallel_mode="batch")
++    assert config.world_size == 4
++
++
++def test_batch_mode_rejects_implicitly_resolved_data_parallelism():
++    config = DiffusionParallelConfig(vae_parallel_mode="batch", data_parallel_size=None)
++    with pytest.raises(ValueError, match="batch.*DP"):
++        config.resolve_data_parallel_size(2)
++
++
++@pytest.mark.parametrize("tiling", [False, True])
++def test_registry_preserves_requested_tiling_in_batch_mode(monkeypatch, mocker, tiling):
++    vae = _make_vae()
++    vae.distributed_executor = mocker.Mock(spec=DistributedVaeExecutor)
++
++    class Pipeline(nn.Module):
++        def __init__(self, od_config):
++            super().__init__()
++            self.vae = vae
++
++    monkeypatch.setattr(registry.DiffusionModelRegistry, "_try_load_model_cls", lambda _: Pipeline)
++    config = OmniDiffusionConfig(
++        model_class_name="test_batch_vae",
++        parallel_config=DiffusionParallelConfig(
++            tensor_parallel_size=4, vae_patch_parallel_size=4, vae_parallel_mode="batch"
++        ),
++        vae_use_tiling=tiling,
++        vae_use_slicing=True,
++        vae_fast_path="off",
++    )
++    model = registry.initialize_model(config)
++    assert model.vae.use_tiling is tiling
++    assert model.vae.use_slicing is True
++    assert config.vae_use_tiling is tiling
++    vae.distributed_executor.set_parallel_size.assert_called_once_with(4, mode="batch")
++
++
++@pytest.mark.parametrize("vae_type", [nn.Identity, DistributedAutoencoderKLWan])
++def test_registry_rejects_unsupported_batch_vae(monkeypatch, vae_type):
++    class Pipeline(nn.Module):
++        def __init__(self, od_config):
++            super().__init__()
++            self.vae = vae_type.__new__(vae_type)
++            nn.Module.__init__(self.vae)
++
++    monkeypatch.setattr(registry.DiffusionModelRegistry, "_try_load_model_cls", lambda _: Pipeline)
++    config = OmniDiffusionConfig(
++        model_class_name="unsupported_batch_vae",
++        parallel_config=DiffusionParallelConfig(vae_parallel_mode="batch"),
++    )
++    with pytest.raises(ValueError, match="batch.*AutoencoderKL"):
++        registry.initialize_model(config)
++
++
++@pytest.mark.parametrize("mode", ["tile", "batch"])
++def test_klein_uses_distributed_vae_only_for_batch_mode(monkeypatch, tmp_path, mode):
++    from vllm_omni.diffusion.models.flux2_klein import pipeline_flux2_klein as module
++
++    class StopAtVaeLoadError(Exception):
++        pass
++
++    def load_component(factory, *args, subfolder, **kwargs):
++        if subfolder == "text_encoder":
++            return nn.Identity()
++        expected = DistributedAutoencoderKLFlux2 if mode == "batch" else AutoencoderKLFlux2
++        assert factory.__self__ is expected
++        raise StopAtVaeLoadError
++
++    monkeypatch.setattr(module, "get_local_device", lambda: torch.device("cpu"))
++    monkeypatch.setattr(module, "prefetch_subfolders", lambda *args, **kwargs: None)
++    monkeypatch.setattr(module, "from_pretrained_with_prefetch", load_component)
++    monkeypatch.setattr(module.FlowMatchEulerDiscreteScheduler, "from_pretrained", lambda *args, **kwargs: None)
++    monkeypatch.setattr(module.Qwen2TokenizerFast, "from_pretrained", lambda *args, **kwargs: None)
++    config = OmniDiffusionConfig(model=str(tmp_path), parallel_config=DiffusionParallelConfig(vae_parallel_mode=mode))
++    with pytest.raises(StopAtVaeLoadError):
++        module.Flux2KleinPipeline(od_config=config)
+diff --git a/vllm_omni/config/omni_config.py b/vllm_omni/config/omni_config.py
+index 578aa8db1..13f705f16 100644
+--- a/vllm_omni/config/omni_config.py
++++ b/vllm_omni/config/omni_config.py
+@@ -733,11 +733,15 @@ class OmniStageDiffusionParallelConfig(OmniStageParallelConfig):
+             raise ValueError("allgather_degree > 1 is mutually exclusive with ulysses_degree/ring_degree > 1")
+         if self.ulysses_mode not in {"strict", "advanced_uaa"}:
+             raise ValueError("ulysses_mode must be 'strict' or 'advanced_uaa'")
+-        if self.vae_parallel_mode not in {"tile", "spatial_shard_height", "spatial_shard_width"}:
++        if self.vae_parallel_mode not in {"tile", "batch", "spatial_shard_height", "spatial_shard_width"}:
+             raise ValueError(
+-                "vae_parallel_mode must be one of {'tile', 'spatial_shard_height', 'spatial_shard_width'}, "
++                "vae_parallel_mode must be one of {'tile', 'batch', 'spatial_shard_height', 'spatial_shard_width'}, "
+                 f"but got {self.vae_parallel_mode!r}."
+             )
++        if self.vae_parallel_mode == "batch" and (
++            self.data_parallel_size != 1 or self.pipeline_parallel_size != 1 or self.cfg_parallel_size != 1
++        ):
++            raise ValueError("VAE batch parallel decode requires DP, PP, and CFG parallel sizes to be 1")
+ 
+         other_parallel_world_size = (
+             self.pipeline_parallel_size
+diff --git a/vllm_omni/diffusion/data.py b/vllm_omni/diffusion/data.py
+index 9bf32a6bc..89f57998c 100644
+--- a/vllm_omni/diffusion/data.py
++++ b/vllm_omni/diffusion/data.py
+@@ -317,6 +317,8 @@ class DiffusionParallelConfig:
+ 
+     - "tile": Patch/tile parallel decode (default). Each rank decodes a subset
+       of spatial tiles and the results are stitched on rank 0.
++    - "batch": Decode complete images on different ranks, preserving their
++      batch order. Requires AutoencoderKL/Flux2 and DP/PP/CFG sizes of 1.
+     - "spatial_shard_height": Spatially-sharded decode that splits decoder
+       feature maps along height and exchanges halo rows around spatial
+       convolutions.
+@@ -357,10 +359,14 @@ class DiffusionParallelConfig:
+         assert self.allgather_degree > 0, "AllGather degree must be > 0"
+         assert self.cfg_parallel_size > 0, "CFG parallel size must be > 0"
+         assert self.vae_patch_parallel_size > 0, "VAE patch parallel size must be > 0"
+-        assert self.vae_parallel_mode in {"tile", "spatial_shard_height", "spatial_shard_width"}, (
+-            "vae_parallel_mode must be one of {'tile', 'spatial_shard_height', 'spatial_shard_width'}, "
++        assert self.vae_parallel_mode in {"tile", "batch", "spatial_shard_height", "spatial_shard_width"}, (
++            "vae_parallel_mode must be one of {'tile', 'batch', 'spatial_shard_height', 'spatial_shard_width'}, "
+             f"but got {self.vae_parallel_mode!r}."
+         )
++        if self.vae_parallel_mode == "batch" and (
++            self.data_parallel_size not in (None, 1) or self.pipeline_parallel_size != 1 or self.cfg_parallel_size != 1
++        ):
++            raise ValueError("VAE batch parallel decode requires DP, PP, and CFG parallel sizes to be 1")
+         if self.allgather_degree > 1:
+             assert self.ulysses_degree == 1 and self.ring_degree == 1, (
+                 "AllGather-KV (allgather_degree>1) is mutually exclusive with Ulysses/Ring in v1. "
+@@ -478,6 +484,8 @@ class DiffusionParallelConfig:
+         if world_size % non_dp_size != 0:
+             raise ValueError(f"WORLD size ({world_size}) must be divisible by non-DP parallel size ({non_dp_size})")
+         inferred_data_parallel_size = world_size // non_dp_size
++        if self.vae_parallel_mode == "batch" and inferred_data_parallel_size != 1:
++            raise ValueError("VAE batch parallel decode requires DP, PP, and CFG parallel sizes to be 1")
+         if self.data_parallel_size is not None and self.data_parallel_size != inferred_data_parallel_size:
+             raise ValueError(
+                 f"data_parallel_size ({self.data_parallel_size}) does not match WORLD-derived value "
+diff --git a/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py b/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py
+index 1045a6135..5aeba7e12 100644
+--- a/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py
++++ b/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py
+@@ -1,11 +1,13 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ 
+ import math
+ from typing import Any
+ 
+ import torch
++import torch.distributed as dist
+ from diffusers.models.autoencoders import AutoencoderKL as Diffusers_AutoencoderKL
++from diffusers.models.autoencoders.vae import DecoderOutput
+ from vllm.logger import init_logger
+ 
+ from vllm_omni.diffusion.distributed.autoencoders.distributed_vae_executor import (
+@@ -14,6 +16,11 @@ from vllm_omni.diffusion.distributed.autoencoders.distributed_vae_executor impor
+     GridSpec,
+     TileTask,
+ )
++from vllm_omni.diffusion.distributed.parallel_state import (
++    get_classifier_free_guidance_world_size,
++    get_data_parallel_world_size,
++    get_pipeline_parallel_world_size,
++)
+ 
+ # from vllm_omni.diffusion.models.nextstep_1_1.modeling_flux_vae import AutoencoderKL as Next_Step_AutoencoderKL
+ 
+@@ -34,6 +41,49 @@ class DistributedAutoencoderKL_base(DistributedVaeMixin):
+         model.init_distributed()
+         return model
+ 
++    def batch_split(self, z: torch.Tensor) -> tuple[list[TileTask], GridSpec]:
++        executor = self.distributed_executor
++        num_chunks = min(z.shape[0], executor.parallel_size, executor.world_size)
++        tasks = [
++            TileTask(index, (index,), chunk, workload=chunk.shape[0])
++            for index, chunk in enumerate(z.tensor_split(num_chunks, dim=0))
++        ]
++        # The concrete diffusers base supplies dtype through the mixin MRO.
++        output_dtype = (
++            torch.get_autocast_dtype(z.device.type) if torch.is_autocast_enabled(z.device.type) else self.dtype  # type: ignore[attr-defined]
++        )
++        return tasks, GridSpec(split_dims=(0,), grid_shape=(num_chunks,), output_dtype=output_dtype)
++
++    def batch_merge(self, coord_tensor_map: dict[tuple[int, ...], torch.Tensor], grid_spec: GridSpec) -> torch.Tensor:
++        return torch.cat([coord_tensor_map[(index,)] for index in range(grid_spec.grid_shape[0])], dim=0)
++
++    def _batch_parallel_decode(self, z: torch.Tensor, return_dict: bool = True, *args: Any, **kwargs: Any):
++        # Resolve the native decoder before defining the task callback. Calling
++        # self.decode here would recursively enter the distributed path. The
++        # concrete diffusers base supplies decode through the mixin MRO.
++        native_decode = super().decode  # type: ignore[misc]
++        executor = self.distributed_executor
++        if z.shape[0] <= 1 or min(executor.parallel_size, executor.world_size) <= 1 or not dist.is_initialized():
++            return native_decode(z, return_dict, *args, **kwargs)
++        if (
++            get_data_parallel_world_size() > 1
++            or get_pipeline_parallel_world_size() > 1
++            or get_classifier_free_guidance_world_size() > 1
++        ):
++            raise ValueError("VAE batch parallel decode requires DP, PP, and CFG parallel sizes to be 1")
++
++        def decode_chunk(task: TileTask) -> torch.Tensor:
++            # Keep native slicing/tiling and decoder arguments for each complete
++            # image chunk; only the batch dimension is distributed.
++            return native_decode(task.tensor, False, *args, **kwargs)[0]
++
++        result = executor.execute(
++            z,
++            DistributedOperator(split=self.batch_split, exec=decode_chunk, merge=self.batch_merge),
++            broadcast_result=True,
++        )
++        return DecoderOutput(sample=result) if return_dict else (result,)
++
+     def tile_split(self, z: torch.Tensor) -> tuple[list[TileTask], GridSpec]:
+         # mostly copy from AutoencoderKL
+         overlap_size = int(self.tile_latent_min_size * (1 - self.tile_overlap_factor))
+@@ -185,6 +235,8 @@ class DistributedAutoencoderKL_base(DistributedVaeMixin):
+     # Normally, we should override tiled_decode. However, since we also need to
+     # support the patch split strategy, we override decode instead.
+     def decode(self, z: torch.Tensor, return_dict: bool = True, *args: Any, **kwargs: Any):
++        if self.distributed_executor.parallel_mode == "batch":
++            return self._batch_parallel_decode(z, return_dict, *args, **kwargs)
+         if not self.is_distributed_enabled():
+             return super().decode(z, return_dict=return_dict, *args, **kwargs)
+ 
+diff --git a/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py b/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py
+index 7c0cee0f5..22c75cd15 100644
+--- a/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py
++++ b/vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ 
+ from typing import Any
+ 
+@@ -93,6 +93,8 @@ class DistributedAutoencoderKLFlux2(DistributedAutoencoderKL_base, AutoencoderKL
+         return enc
+ 
+     def decode(self, z: torch.Tensor, return_dict: bool = True, *args: Any, **kwargs: Any):
++        if self.distributed_executor.parallel_mode == "batch":
++            return self._batch_parallel_decode(z, return_dict, *args, **kwargs)
+         if not self.is_distributed_enabled():
+             return super().decode(z, return_dict=return_dict, *args, **kwargs)
+ 
+diff --git a/vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py b/vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py
+index e8ae6bf32..1f3eae7d9 100644
+--- a/vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py
++++ b/vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ 
+ from __future__ import annotations
+ 
+@@ -179,6 +179,7 @@ class DistributedVaeMixin:
+     def is_distributed_enabled(self) -> bool:
+         if (
+             self.distributed_executor.parallel_size <= 1
++            or self.distributed_executor.parallel_mode == "batch"
+             or not dist.is_initialized()
+             or not getattr(self, "use_tiling", False)
+         ):
+diff --git a/vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py b/vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py
+index beb0b3787..218359a32 100644
+--- a/vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py
++++ b/vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
+ #
+ # Copyright 2025 Black Forest Labs and The HuggingFace Team. All rights reserved.
+ #
+@@ -36,6 +36,7 @@ from vllm.logger import init_logger
+ from vllm.model_executor.models.utils import AutoWeightsLoader
+ 
+ from vllm_omni.diffusion.data import DiffusionOutput, OmniDiffusionConfig
++from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl_flux2 import DistributedAutoencoderKLFlux2
+ from vllm_omni.diffusion.distributed.cfg_parallel import CFGParallelMixin
+ from vllm_omni.diffusion.distributed.utils import get_local_device
+ from vllm_omni.diffusion.model_loader.diffusers_loader import DiffusersPipelineLoader
+@@ -247,8 +248,13 @@ class Flux2KleinPipeline(
+             subfolder="tokenizer",
+             local_files_only=local_files_only,
+         )
++        vae_class = (
++            DistributedAutoencoderKLFlux2
++            if od_config.parallel_config.vae_parallel_mode == "batch"
++            else AutoencoderKLFlux2
++        )
+         self.vae = from_pretrained_with_prefetch(
+-            AutoencoderKLFlux2.from_pretrained,
++            vae_class.from_pretrained,
+             model,
+             subfolder="vae",
+             prefetch_list=flux2_subfolders,
+diff --git a/vllm_omni/diffusion/registry.py b/vllm_omni/diffusion/registry.py
+index ff6c82899..1742f9862 100644
+--- a/vllm_omni/diffusion/registry.py
++++ b/vllm_omni/diffusion/registry.py
+@@ -10,6 +10,7 @@ from vllm.model_executor.models.registry import _LazyRegisteredModel, _ModelRegi
+ 
+ from vllm_omni.diffusion.config import set_current_diffusion_config
+ from vllm_omni.diffusion.data import OmniDiffusionConfig, uses_diffusers_adapter
++from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl import DistributedAutoencoderKL_base
+ from vllm_omni.diffusion.distributed.autoencoders.distributed_vae_executor import DistributedVaeMixin
+ from vllm_omni.diffusion.distributed.sp_plan import SequenceParallelConfig, get_sp_plan_from_model
+ from vllm_omni.diffusion.forward_context import get_forward_context
+@@ -465,14 +466,19 @@ def initialize_model(
+             model = model_class(od_config=od_config)
+ 
+         vae_pp_size = od_config.parallel_config.vae_patch_parallel_size
++        vae_mode = od_config.parallel_config.vae_parallel_mode
+         is_distributed_vae = hasattr(model, "vae") and isinstance(model.vae, DistributedVaeMixin)
++        if vae_mode == "batch" and not isinstance(getattr(model, "vae", None), DistributedAutoencoderKL_base):
++            raise ValueError(
++                "VAE batch parallel decode requires DistributedAutoencoderKL or DistributedAutoencoderKLFlux2"
++            )
+         if vae_pp_size > 1 and not is_distributed_vae:
+             logger.warning(
+                 "vae_patch_parallel_size=%d is set but VAE patch parallelism is NOT enabled for %s; ignoring.",
+                 vae_pp_size,
+                 od_config.model_class_name,
+             )
+-        if vae_pp_size > 1 and is_distributed_vae and not od_config.vae_use_tiling:
++        if vae_pp_size > 1 and is_distributed_vae and vae_mode != "batch" and not od_config.vae_use_tiling:
+             logger.info(
+                 "vae_patch_parallel_size=%d requires vae_use_tiling; automatically enabling it.",
+                 vae_pp_size,
+@@ -486,7 +492,7 @@ def initialize_model(
+             model.vae.use_tiling = od_config.vae_use_tiling
+ 
+         if is_distributed_vae:
+-            model.vae.set_parallel_size(vae_pp_size, mode=od_config.parallel_config.vae_parallel_mode)
++            model.vae.set_parallel_size(vae_pp_size, mode=vae_mode)
+ 
+         # Apply sequence parallelism if enabled
+         # This follows diffusers' pattern where enable_parallelism() is called
+diff --git a/vllm_omni/entrypoints/cli/serve.py b/vllm_omni/entrypoints/cli/serve.py
+index c26ba9375..56958dab3 100644
+--- a/vllm_omni/entrypoints/cli/serve.py
++++ b/vllm_omni/entrypoints/cli/serve.py
+@@ -991,8 +991,8 @@ class OmniServeCommand(CLISubcommand):
+             "--vae-patch-parallel-size",
+             type=int,
+             default=1,
+-            help="VAE Patch Parallelism degree for diffusion models. "
+-            "Distributes VAE decode workload across multiple ranks by splitting the latent spatially. "
++            help="VAE parallelism degree for diffusion models. "
++            "Distributes VAE decode across ranks using --vae-parallel-mode. "
+             "Equivalent to setting DiffusionParallelConfig.vae_patch_parallel_size.",
+         )
+         omni_config_group.add_argument(
+@@ -1007,9 +1007,10 @@ class OmniServeCommand(CLISubcommand):
+             "--vae-parallel-mode",
+             type=str,
+             default="tile",
+-            choices=["tile", "spatial_shard_height", "spatial_shard_width"],
++            choices=["tile", "batch", "spatial_shard_height", "spatial_shard_width"],
+             help="VAE parallel decode strategy for diffusion models. "
+             "'tile' (default) uses patch/tile parallel decode; "
++            "'batch' distributes complete images for AutoencoderKL/Flux2 with DP/PP/CFG sizes of 1; "
+             "'spatial_shard_height'/'spatial_shard_width' use spatially-sharded decode that splits "
+             "decoder feature maps along height/width and exchanges halo regions. The "
+             "'spatial_shard_*' modes require vae_patch_parallel_size to match the DiT group size. "

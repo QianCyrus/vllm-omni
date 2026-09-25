@@ -1,0 +1,20 @@
+[
+  {
+    "batch": 2,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "relative_l2": 0.0,
+    "cosine": 1.0,
+    "finite": true
+  },
+  {
+    "batch": 4,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "relative_l2": 0.0,
+    "cosine": 1.0000001192092896,
+    "finite": true
+  }
+]

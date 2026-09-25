@@ -1,0 +1,17 @@
+{"arm": "batch", "batch": 2, "label": "b2-warmup-00", "scored": false, "wall_ms": 15846.02638008073, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-warmup-01", "scored": false, "wall_ms": 1211.1388120101765, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-00", "scored": false, "wall_ms": 1190.8974789548665, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-01", "scored": false, "wall_ms": 1188.3718869648874, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-02", "scored": false, "wall_ms": 1189.1551680164412, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-03", "scored": false, "wall_ms": 1194.381483946927, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-04", "scored": false, "wall_ms": 1190.4228170169517, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-05", "scored": false, "wall_ms": 1191.2317409878597, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-warmup-00", "scored": false, "wall_ms": 2181.8196639651433, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-warmup-01", "scored": false, "wall_ms": 2154.4593650614843, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-00", "scored": false, "wall_ms": 2166.320100077428, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-01", "scored": false, "wall_ms": 2163.693408947438, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-02", "scored": false, "wall_ms": 2163.443553959951, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-03", "scored": false, "wall_ms": 2165.693145012483, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-04", "scored": false, "wall_ms": 2163.431780063547, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-05", "scored": false, "wall_ms": 2164.8767109727487, "http_status": 200}
+{"arm": "batch", "batch": 1, "label": "b1-correctness", "scored": false, "wall_ms": 933.90763993375, "http_status": 200}

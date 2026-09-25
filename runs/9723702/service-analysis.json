@@ -1,0 +1,16 @@
+{
+  "status": "INCOMPLETE_OR_INVALID",
+  "scoring_eligible": false,
+  "run": "/Users/aniya/vllm-omni-experiments/vae-batch-parallel-20260926/9723702",
+  "analyzer_sha256": "589cee02b3ecf69ef75eee83cb8954e8ddd537fa5dcd6c353b8ed41b8bd76881",
+  "errors": [
+    "job: ValueError: Job exit code is not zero",
+    "control-a: ValueError: Failure artifacts exist: [PosixPath('/Users/aniya/vllm-omni-experiments/vae-batch-parallel-20260926/9723702/control-a/failure.json')]",
+    "batch: FileNotFoundError: [Errno 2] No such file or directory: '/Users/aniya/vllm-omni-experiments/vae-batch-parallel-20260926/9723702/batch/metadata.json'",
+    "control-b: FileNotFoundError: [Errno 2] No such file or directory: '/Users/aniya/vllm-omni-experiments/vae-batch-parallel-20260926/9723702/control-b/metadata.json'"
+  ],
+  "scope": "Sequential HTTP POST through complete response read; six requests per batch per process. No p99 estimate.",
+  "std_definition": "Sample standard deviation (n-1), within one process; controls are never pooled.",
+  "rgb_definition": "Decoded RGB uint8 channel values in [0,255]; differing pixel means any RGB channel differs; PSNR uses peak 255.",
+  "metrics_policy": "Original server response fields and client-normalized values are preserved verbatim. Missing metrics stay absent; no inferred fields or units."
+}

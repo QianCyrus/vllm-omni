@@ -1,0 +1,15 @@
+{
+  "scope": "CPU-only synthetic manifest/PNG/request-ID/capture fixture; no model execution",
+  "analyzer_sha256": "bea01ba0de973c86f27e30adad5e4a261091cb8302e66c933bc64a4f6443a378",
+  "hook_sha256": "2b739d98544861265c8b5c944d986935eedba61d3a05508d62c23b75eb39e54d",
+  "outcomes": {
+    "complete_original_shape_history": "PASS",
+    "upstream_input_difference_localized": "PASS",
+    "native_output_difference_localized": "PASS",
+    "wrong_b1_seed_rejected": "PASS",
+    "ambiguous_request_mapping_rejected": "PASS",
+    "nonexact_native_replay_preserved": "PASS"
+  },
+  "startup_none_context_excluded": "PASS",
+  "no_performance_score": "PASS"
+}

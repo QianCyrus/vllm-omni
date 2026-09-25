@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "scope": "Local curation, syntax, CLI parser and hash checks only; no server/model/GPU execution",
+  "copied_artifact_count": 216,
+  "copied_files_hashes_match": true,
+  "python_scripts_parse": true,
+  "new_cli_help_checks": 3,
+  "historical_service_harness_hashes_match_jobs": [
+    "9723702",
+    "9723802",
+    "9723875"
+  ],
+  "historical_manifest_location": "Some early jobs store the exact service manifest as runs/JOB/source_manifest.json rather than under harness/.",
+  "previous_component_harness_check_receipt": "curation-validation-before-9723875.json",
+  "public_client_v2_only_normalization_ast_difference": true,
+  "scored_harness_preserved": true,
+  "http_analysis_status": "COMPLETE_NONEXACT_REVIEW_REQUIRED",
+  "b1_quality_review_required": true,
+  "stage_diagnostic_pending": true,
+  "production_source_changes": false,
+  "git_commits": 0,
+  "git_pushes": 0,
+  "posts": 0
+}

@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+venv/
+.env
+.env.*
+*.pem
+*.key
+*.safetensors
+*.pt
+*.pth
+*.bin
+models/
+checkpoints/
+results/
+trace-*.json
+
+# Diagnostic input latents only; no model weights.
+!runs/9724061/*/vae_boundary/*-input.pt

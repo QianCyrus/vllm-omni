@@ -1,0 +1,27 @@
+{
+  "scope": "CPU-only synthetic diagnostic/source/hook/log/image fixture; not GPU evidence",
+  "analyzer_sha256": "945db76b94af42da3d563394b69603ebb051a258008a48d003b2438cf931f77f",
+  "shared_analysis_sha256": "ae1d242427df4aa7d1e66817dbce9fdf513217d1d7e5cb99670449020eb04d50",
+  "outcomes": {
+    "full_two_arm_diagnostic": {
+      "exit_code": 0,
+      "status": "VALIDATED_DIAGNOSTIC"
+    },
+    "missing_transformer_log_call_not_guessed": {
+      "exit_code": 2,
+      "status": "VALIDATED_DIAGNOSTIC_WITH_LIMITATIONS"
+    },
+    "wrong_hook_hash_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "missing_positive_vae_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "scored_diagnostic_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    }
+  }
+}

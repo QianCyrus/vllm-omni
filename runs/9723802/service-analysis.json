@@ -1,0 +1,3894 @@
+{
+  "status": "INCOMPLETE_OR_INVALID",
+  "scoring_eligible": false,
+  "run": "/Users/aniya/vllm-omni-experiments/vae-batch-parallel-20260926/9723802",
+  "analyzer_sha256": "ae1d242427df4aa7d1e66817dbce9fdf513217d1d7e5cb99670449020eb04d50",
+  "errors": [
+    "job: ValueError: Job exit code is not zero",
+    "batch: ValueError: batch: missing/empty server.log",
+    "control-b: ValueError: control-b: missing/empty server.log"
+  ],
+  "scope": "Sequential HTTP POST through complete response read; six requests per batch per process. No p99 estimate.",
+  "std_definition": "Sample standard deviation (n-1), within one process; controls are never pooled.",
+  "rgb_definition": "Decoded RGB uint8 channel values in [0,255]; differing pixel means any RGB channel differs; PSNR uses peak 255.",
+  "metrics_policy": "Original raw and client-derived metrics are preserved verbatim. Corrected scalar times use explicit _ms/_s suffixes; only exact frozen Klein profiler stage names have a source-backed seconds rule. Unknown units remain unnormalized. Available arm observations do not qualify an incomplete A/B run.",
+  "known_client_normalization_bug": "Frozen client treats all stage_durations as seconds; explicit *_ms values become erroneous *_ms_ms fields scaled by 1000. Offline corrections use raw response fields only.",
+  "raw_server_metrics": {
+    "control-a": [
+      {
+        "label": "b2-warmup-00",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356222,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 14878.343343734741,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 3719.5858359336853,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 14883.167266845703,
+                "image_time_to_first_output_ms": 14878.321170806885,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.24716590996831656,
+              "stage_0_gen_ms": 14878.343343734741
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 14878.343343734741,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 3719.5858359336853,
+          "stage_metrics.0.serving_time_to_first_output_ms": 14883.167266845703,
+          "stage_metrics.0.image_time_to_first_output_ms": 14878.321170806885,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 247.16590996831656,
+          "stage_durations.stage_0_gen_ms_ms": 14878343.343734741
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 14878.343343734741,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 3719.5858359336853,
+          "stage_metrics.0.serving_time_to_first_output_ms": 14883.167266845703,
+          "stage_metrics.0.image_time_to_first_output_ms": 14878.321170806885,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.24716590996831656,
+          "stage_durations.stage_0_gen_ms": 14878.343343734741
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-warmup-01",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356224,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1296.7135906219482,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 324.17839765548706,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1297.7104187011719,
+                "image_time_to_first_output_ms": 1296.691656112671,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.20268396474421024,
+              "stage_0_gen_ms": 1296.7135906219482
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1296.7135906219482,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 324.17839765548706,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1297.7104187011719,
+          "stage_metrics.0.image_time_to_first_output_ms": 1296.691656112671,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 202.68396474421024,
+          "stage_durations.stage_0_gen_ms_ms": 1296713.5906219482
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1296.7135906219482,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 324.17839765548706,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1297.7104187011719,
+          "stage_metrics.0.image_time_to_first_output_ms": 1296.691656112671,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.20268396474421024,
+          "stage_durations.stage_0_gen_ms": 1296.7135906219482
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-00",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356225,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1290.7655239105225,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 322.6913809776306,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1291.6336059570312,
+                "image_time_to_first_output_ms": 1290.7137870788574,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.17562706489115953,
+              "stage_0_gen_ms": 1290.7655239105225
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1290.7655239105225,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 322.6913809776306,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1291.6336059570312,
+          "stage_metrics.0.image_time_to_first_output_ms": 1290.7137870788574,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 175.62706489115953,
+          "stage_durations.stage_0_gen_ms_ms": 1290765.5239105225
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1290.7655239105225,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 322.6913809776306,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1291.6336059570312,
+          "stage_metrics.0.image_time_to_first_output_ms": 1290.7137870788574,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.17562706489115953,
+          "stage_durations.stage_0_gen_ms": 1290.7655239105225
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-01",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356227,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1296.1454391479492,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 324.0363597869873,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1299.837589263916,
+                "image_time_to_first_output_ms": 1296.100378036499,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.3373980289325118,
+              "stage_0_gen_ms": 1296.1454391479492
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1296.1454391479492,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 324.0363597869873,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1299.837589263916,
+          "stage_metrics.0.image_time_to_first_output_ms": 1296.100378036499,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 337.3980289325118,
+          "stage_durations.stage_0_gen_ms_ms": 1296145.4391479492
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1296.1454391479492,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 324.0363597869873,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1299.837589263916,
+          "stage_metrics.0.image_time_to_first_output_ms": 1296.100378036499,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.3373980289325118,
+          "stage_durations.stage_0_gen_ms": 1296.1454391479492
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-02",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356228,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1285.6271266937256,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 321.4067816734314,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1289.0384197235107,
+                "image_time_to_first_output_ms": 1285.6063842773438,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.28402393218129873,
+              "stage_0_gen_ms": 1285.6271266937256
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1285.6271266937256,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.4067816734314,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1289.0384197235107,
+          "stage_metrics.0.image_time_to_first_output_ms": 1285.6063842773438,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 284.02393218129873,
+          "stage_durations.stage_0_gen_ms_ms": 1285627.1266937256
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1285.6271266937256,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.4067816734314,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1289.0384197235107,
+          "stage_metrics.0.image_time_to_first_output_ms": 1285.6063842773438,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.28402393218129873,
+          "stage_durations.stage_0_gen_ms": 1285.6271266937256
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-03",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356230,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1281.1658382415771,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 320.2914595603943,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1282.0477485656738,
+                "image_time_to_first_output_ms": 1281.1453342437744,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.21036493126302958,
+              "stage_0_gen_ms": 1281.1658382415771
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1281.1658382415771,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.2914595603943,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1282.0477485656738,
+          "stage_metrics.0.image_time_to_first_output_ms": 1281.1453342437744,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 210.36493126302958,
+          "stage_durations.stage_0_gen_ms_ms": 1281165.8382415771
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1281.1658382415771,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.2914595603943,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1282.0477485656738,
+          "stage_metrics.0.image_time_to_first_output_ms": 1281.1453342437744,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.21036493126302958,
+          "stage_durations.stage_0_gen_ms": 1281.1658382415771
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-04",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356231,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1287.1856689453125,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 321.7964172363281,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1288.013219833374,
+                "image_time_to_first_output_ms": 1287.139654159546,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.16619497910141945,
+              "stage_0_gen_ms": 1287.1856689453125
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1287.1856689453125,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.7964172363281,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1288.013219833374,
+          "stage_metrics.0.image_time_to_first_output_ms": 1287.139654159546,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 166.19497910141945,
+          "stage_durations.stage_0_gen_ms_ms": 1287185.6689453125
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1287.1856689453125,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.7964172363281,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1288.013219833374,
+          "stage_metrics.0.image_time_to_first_output_ms": 1287.139654159546,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.16619497910141945,
+          "stage_durations.stage_0_gen_ms": 1287.1856689453125
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-sample-05",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356233,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1286.388874053955,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 321.59721851348877,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1287.5444889068604,
+                "image_time_to_first_output_ms": 1286.3693237304688,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.20928296726197004,
+              "stage_0_gen_ms": 1286.388874053955
+            },
+            "peak_memory_mb": 18980.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1286.388874053955,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.59721851348877,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1287.5444889068604,
+          "stage_metrics.0.image_time_to_first_output_ms": 1286.3693237304688,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 209.28296726197004,
+          "stage_durations.stage_0_gen_ms_ms": 1286388.874053955
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1286.388874053955,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 321.59721851348877,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1287.5444889068604,
+          "stage_metrics.0.image_time_to_first_output_ms": 1286.3693237304688,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.20928296726197004,
+          "stage_durations.stage_0_gen_ms": 1286.388874053955
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-warmup-00",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356236,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2439.9123191833496,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 609.9780797958374,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2441.164016723633,
+                "image_time_to_first_output_ms": 2439.894914627075,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.18661690410226583,
+              "stage_0_gen_ms": 2439.9123191833496
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2439.9123191833496,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.9780797958374,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2441.164016723633,
+          "stage_metrics.0.image_time_to_first_output_ms": 2439.894914627075,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 186.61690410226583,
+          "stage_durations.stage_0_gen_ms_ms": 2439912.3191833496
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2439.9123191833496,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.9780797958374,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2441.164016723633,
+          "stage_metrics.0.image_time_to_first_output_ms": 2439.894914627075,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.18661690410226583,
+          "stage_durations.stage_0_gen_ms": 2439.9123191833496
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-warmup-01",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356238,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2437.390089035034,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 609.3475222587585,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2438.2071495056152,
+                "image_time_to_first_output_ms": 2437.3679161071777,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.17985107842832804,
+              "stage_0_gen_ms": 2437.390089035034
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2437.390089035034,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.3475222587585,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2438.2071495056152,
+          "stage_metrics.0.image_time_to_first_output_ms": 2437.3679161071777,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 179.85107842832804,
+          "stage_durations.stage_0_gen_ms_ms": 2437390.089035034
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2437.390089035034,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.3475222587585,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2438.2071495056152,
+          "stage_metrics.0.image_time_to_first_output_ms": 2437.3679161071777,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.17985107842832804,
+          "stage_durations.stage_0_gen_ms": 2437.390089035034
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-00",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356241,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2442.575693130493,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 610.6439232826233,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2443.4285163879395,
+                "image_time_to_first_output_ms": 2442.500591278076,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.20663195755332708,
+              "stage_0_gen_ms": 2442.575693130493
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2442.575693130493,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.6439232826233,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2443.4285163879395,
+          "stage_metrics.0.image_time_to_first_output_ms": 2442.500591278076,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 206.63195755332708,
+          "stage_durations.stage_0_gen_ms_ms": 2442575.693130493
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2442.575693130493,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.6439232826233,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2443.4285163879395,
+          "stage_metrics.0.image_time_to_first_output_ms": 2442.500591278076,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.20663195755332708,
+          "stage_durations.stage_0_gen_ms": 2442.575693130493
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-01",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356244,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2444.934844970703,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 611.2337112426758,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2446.213960647583,
+                "image_time_to_first_output_ms": 2444.915533065796,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.20443100947886705,
+              "stage_0_gen_ms": 2444.934844970703
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2444.934844970703,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 611.2337112426758,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2446.213960647583,
+          "stage_metrics.0.image_time_to_first_output_ms": 2444.915533065796,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 204.43100947886705,
+          "stage_durations.stage_0_gen_ms_ms": 2444934.844970703
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2444.934844970703,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 611.2337112426758,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2446.213960647583,
+          "stage_metrics.0.image_time_to_first_output_ms": 2444.915533065796,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.20443100947886705,
+          "stage_durations.stage_0_gen_ms": 2444.934844970703
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-02",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356247,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2438.7266635894775,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 609.6816658973694,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2439.5551681518555,
+                "image_time_to_first_output_ms": 2438.706398010254,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.16837904695421457,
+              "stage_0_gen_ms": 2438.7266635894775
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2438.7266635894775,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.6816658973694,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2439.5551681518555,
+          "stage_metrics.0.image_time_to_first_output_ms": 2438.706398010254,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 168.37904695421457,
+          "stage_durations.stage_0_gen_ms_ms": 2438726.6635894775
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2438.7266635894775,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.6816658973694,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2439.5551681518555,
+          "stage_metrics.0.image_time_to_first_output_ms": 2438.706398010254,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.16837904695421457,
+          "stage_durations.stage_0_gen_ms": 2438.7266635894775
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-03",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356250,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2438.0319118499756,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 609.5079779624939,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2438.8020038604736,
+                "image_time_to_first_output_ms": 2438.0099773406982,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.16431394033133984,
+              "stage_0_gen_ms": 2438.0319118499756
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2438.0319118499756,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.5079779624939,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2438.8020038604736,
+          "stage_metrics.0.image_time_to_first_output_ms": 2438.0099773406982,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 164.31394033133984,
+          "stage_durations.stage_0_gen_ms_ms": 2438031.9118499756
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2438.0319118499756,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 609.5079779624939,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2438.8020038604736,
+          "stage_metrics.0.image_time_to_first_output_ms": 2438.0099773406982,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.16431394033133984,
+          "stage_durations.stage_0_gen_ms": 2438.0319118499756
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-04",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356253,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2443.9783096313477,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 610.9945774078369,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2445.3859329223633,
+                "image_time_to_first_output_ms": 2443.9380168914795,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.2788000274449587,
+              "stage_0_gen_ms": 2443.9783096313477
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2443.9783096313477,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.9945774078369,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2445.3859329223633,
+          "stage_metrics.0.image_time_to_first_output_ms": 2443.9380168914795,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 278.8000274449587,
+          "stage_durations.stage_0_gen_ms_ms": 2443978.3096313477
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2443.9783096313477,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.9945774078369,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2445.3859329223633,
+          "stage_metrics.0.image_time_to_first_output_ms": 2443.9380168914795,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.2788000274449587,
+          "stage_durations.stage_0_gen_ms": 2443.9783096313477
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b4-sample-05",
+        "scored": true,
+        "server_response_fields": {
+          "created": 1790356255,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 2441.6275024414062,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 4194304,
+                "denoise_step_latency_ms": 610.4068756103516,
+                "output_unit_type": "image",
+                "output_unit_count": 4,
+                "serving_time_to_first_output_ms": 2442.7027702331543,
+                "image_time_to_first_output_ms": 2441.6069984436035,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.17955293878912926,
+              "stage_0_gen_ms": 2441.6275024414062
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2441.6275024414062,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.4068756103516,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2442.7027702331543,
+          "stage_metrics.0.image_time_to_first_output_ms": 2441.6069984436035,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 179.55293878912926,
+          "stage_durations.stage_0_gen_ms_ms": 2441627.5024414062
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 2441.6275024414062,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 610.4068756103516,
+          "stage_metrics.0.serving_time_to_first_output_ms": 2442.7027702331543,
+          "stage_metrics.0.image_time_to_first_output_ms": 2441.6069984436035,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.17955293878912926,
+          "stage_durations.stage_0_gen_ms": 2441.6275024414062
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b1-correctness",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356256,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 646.0824012756348,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 1048576,
+                "denoise_step_latency_ms": 161.5206003189087,
+                "output_unit_type": "image",
+                "output_unit_count": 1,
+                "serving_time_to_first_output_ms": 646.9001770019531,
+                "image_time_to_first_output_ms": 646.0614204406738,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.19685598090291023,
+              "stage_0_gen_ms": 646.0824012756348
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 646.0824012756348,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 161.5206003189087,
+          "stage_metrics.0.serving_time_to_first_output_ms": 646.9001770019531,
+          "stage_metrics.0.image_time_to_first_output_ms": 646.0614204406738,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 196.85598090291023,
+          "stage_durations.stage_0_gen_ms_ms": 646082.4012756348
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 646.0824012756348,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 161.5206003189087,
+          "stage_metrics.0.serving_time_to_first_output_ms": 646.9001770019531,
+          "stage_metrics.0.image_time_to_first_output_ms": 646.0614204406738,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.19685598090291023,
+          "stage_durations.stage_0_gen_ms": 646.0824012756348
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-quality-00",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356258,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1282.857894897461,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 320.71447372436523,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1283.6699485778809,
+                "image_time_to_first_output_ms": 1282.841444015503,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.20219199359416962,
+              "stage_0_gen_ms": 1282.857894897461
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1282.857894897461,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.71447372436523,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1283.6699485778809,
+          "stage_metrics.0.image_time_to_first_output_ms": 1282.841444015503,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 202.19199359416962,
+          "stage_durations.stage_0_gen_ms_ms": 1282857.894897461
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1282.857894897461,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.71447372436523,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1283.6699485778809,
+          "stage_metrics.0.image_time_to_first_output_ms": 1282.841444015503,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.20219199359416962,
+          "stage_durations.stage_0_gen_ms": 1282.857894897461
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      },
+      {
+        "label": "b2-quality-01",
+        "scored": false,
+        "server_response_fields": {
+          "created": 1790356259,
+          "output_format": "png",
+          "size": "1024x1024",
+          "cot_output": null,
+          "metrics": {
+            "stage_metrics": {
+              "0": {
+                "stage_id": 0,
+                "final_output_type": "image",
+                "finish_reason": null,
+                "num_tokens_in": 0,
+                "num_tokens_out": 0,
+                "stage_gen_time_ms": 1283.4901809692383,
+                "postprocess_time_ms": 0.0,
+                "audio_frames": 0,
+                "audio_sample_rate": 0,
+                "audio_duration_s": 0.0,
+                "image_pixels": 2097152,
+                "denoise_step_latency_ms": 320.87254524230957,
+                "output_unit_type": "image",
+                "output_unit_count": 2,
+                "serving_time_to_first_output_ms": 1284.2283248901367,
+                "image_time_to_first_output_ms": 1283.4720611572266,
+                "time_per_output_unit_ms": 0.0,
+                "inter_output_latency_ms": 0.0,
+                "inter_output_latencies_ms": [],
+                "vllm_ttft_ms": 0.0,
+                "vllm_tpot_ms": 0.0,
+                "vllm_itl_ms": 0.0,
+                "vllm_itls_ms": [],
+                "stage_name": "diffusion"
+              }
+            },
+            "stage_id": 0,
+            "final_output_type": "image",
+            "num_tokens_in": 0,
+            "num_tokens_out": 0,
+            "stage_durations": {
+              "queue_wait_ms": 0.15517103020101786,
+              "stage_0_gen_ms": 1283.4901809692383
+            },
+            "peak_memory_mb": 29738.0
+          },
+          "data": [
+            {
+              "url": null,
+              "revised_prompt": null
+            },
+            {
+              "url": null,
+              "revised_prompt": null
+            }
+          ]
+        },
+        "client_recorded_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1283.4901809692383,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.87254524230957,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1284.2283248901367,
+          "stage_metrics.0.image_time_to_first_output_ms": 1283.4720611572266,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms_ms": 155.17103020101786,
+          "stage_durations.stage_0_gen_ms_ms": 1283490.1809692383
+        },
+        "corrected_server_time_metrics_ms": {
+          "stage_metrics.0.stage_gen_time_ms": 1283.4901809692383,
+          "stage_metrics.0.postprocess_time_ms": 0.0,
+          "stage_metrics.0.audio_duration_ms": 0.0,
+          "stage_metrics.0.denoise_step_latency_ms": 320.87254524230957,
+          "stage_metrics.0.serving_time_to_first_output_ms": 1284.2283248901367,
+          "stage_metrics.0.image_time_to_first_output_ms": 1283.4720611572266,
+          "stage_metrics.0.time_per_output_unit_ms": 0.0,
+          "stage_metrics.0.inter_output_latency_ms": 0.0,
+          "stage_metrics.0.vllm_ttft_ms": 0.0,
+          "stage_metrics.0.vllm_tpot_ms": 0.0,
+          "stage_metrics.0.vllm_itl_ms": 0.0,
+          "stage_durations.queue_wait_ms": 0.15517103020101786,
+          "stage_durations.stage_0_gen_ms": 1283.4901809692383
+        },
+        "normalization_sources": {
+          "stage_metrics.0.stage_gen_time_ms": {
+            "raw_path": "stage_metrics.0.stage_gen_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.postprocess_time_ms": {
+            "raw_path": "stage_metrics.0.postprocess_time_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.audio_duration_ms": {
+            "raw_path": "stage_metrics.0.audio_duration_s",
+            "raw_unit": "s",
+            "scale_to_ms": 1000.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.denoise_step_latency_ms": {
+            "raw_path": "stage_metrics.0.denoise_step_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.serving_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.serving_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.image_time_to_first_output_ms": {
+            "raw_path": "stage_metrics.0.image_time_to_first_output_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.time_per_output_unit_ms": {
+            "raw_path": "stage_metrics.0.time_per_output_unit_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.inter_output_latency_ms": {
+            "raw_path": "stage_metrics.0.inter_output_latency_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_ttft_ms": {
+            "raw_path": "stage_metrics.0.vllm_ttft_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_tpot_ms": {
+            "raw_path": "stage_metrics.0.vllm_tpot_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_metrics.0.vllm_itl_ms": {
+            "raw_path": "stage_metrics.0.vllm_itl_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.queue_wait_ms": {
+            "raw_path": "stage_durations.queue_wait_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          },
+          "stage_durations.stage_0_gen_ms": {
+            "raw_path": "stage_durations.stage_0_gen_ms",
+            "raw_unit": "ms",
+            "scale_to_ms": 1.0,
+            "unit_basis": "explicit_suffix"
+          }
+        },
+        "unknown_stage_unit_paths": [],
+        "normalization_differences": {
+          "client_only_paths": [
+            "stage_durations.queue_wait_ms_ms",
+            "stage_durations.stage_0_gen_ms_ms"
+          ],
+          "corrected_only_paths": [
+            "stage_durations.queue_wait_ms",
+            "stage_durations.stage_0_gen_ms"
+          ],
+          "different_value_paths": []
+        }
+      }
+    ]
+  },
+  "corrected_server_metric_observations": {
+    "control-a": {
+      "2": {
+        "stage_durations.queue_wait_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.17562706489115953,
+            0.3373980289325118,
+            0.28402393218129873,
+            0.21036493126302958,
+            0.16619497910141945,
+            0.20928296726197004
+          ],
+          "mean_ms": 0.23048198393856487,
+          "sample_std_ms": 0.06677388134564088,
+          "missing_request_count": 0
+        },
+        "stage_durations.stage_0_gen_ms": {
+          "count": 6,
+          "samples_ms": [
+            1290.7655239105225,
+            1296.1454391479492,
+            1285.6271266937256,
+            1281.1658382415771,
+            1287.1856689453125,
+            1286.388874053955
+          ],
+          "mean_ms": 1287.879745165507,
+          "sample_std_ms": 5.0892964270096925,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.audio_duration_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.denoise_step_latency_ms": {
+          "count": 6,
+          "samples_ms": [
+            322.6913809776306,
+            324.0363597869873,
+            321.4067816734314,
+            320.2914595603943,
+            321.7964172363281,
+            321.59721851348877
+          ],
+          "mean_ms": 321.96993629137677,
+          "sample_std_ms": 1.2723241067524231,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.image_time_to_first_output_ms": {
+          "count": 6,
+          "samples_ms": [
+            1290.7137870788574,
+            1296.100378036499,
+            1285.6063842773438,
+            1281.1453342437744,
+            1287.139654159546,
+            1286.3693237304688
+          ],
+          "mean_ms": 1287.8458102544148,
+          "sample_std_ms": 5.078449698406504,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.inter_output_latency_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.postprocess_time_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.serving_time_to_first_output_ms": {
+          "count": 6,
+          "samples_ms": [
+            1291.6336059570312,
+            1299.837589263916,
+            1289.0384197235107,
+            1282.0477485656738,
+            1288.013219833374,
+            1287.5444889068604
+          ],
+          "mean_ms": 1289.685845375061,
+          "sample_std_ms": 5.882081975628126,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.stage_gen_time_ms": {
+          "count": 6,
+          "samples_ms": [
+            1290.7655239105225,
+            1296.1454391479492,
+            1285.6271266937256,
+            1281.1658382415771,
+            1287.1856689453125,
+            1286.388874053955
+          ],
+          "mean_ms": 1287.879745165507,
+          "sample_std_ms": 5.0892964270096925,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.time_per_output_unit_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_itl_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_tpot_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_ttft_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        }
+      },
+      "4": {
+        "stage_durations.queue_wait_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.20663195755332708,
+            0.20443100947886705,
+            0.16837904695421457,
+            0.16431394033133984,
+            0.2788000274449587,
+            0.17955293878912926
+          ],
+          "mean_ms": 0.20035148675863942,
+          "sample_std_ms": 0.04234095325338868,
+          "missing_request_count": 0
+        },
+        "stage_durations.stage_0_gen_ms": {
+          "count": 6,
+          "samples_ms": [
+            2442.575693130493,
+            2444.934844970703,
+            2438.7266635894775,
+            2438.0319118499756,
+            2443.9783096313477,
+            2441.6275024414062
+          ],
+          "mean_ms": 2441.6458209355674,
+          "sample_std_ms": 2.782265227325426,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.audio_duration_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.denoise_step_latency_ms": {
+          "count": 6,
+          "samples_ms": [
+            610.6439232826233,
+            611.2337112426758,
+            609.6816658973694,
+            609.5079779624939,
+            610.9945774078369,
+            610.4068756103516
+          ],
+          "mean_ms": 610.4114552338918,
+          "sample_std_ms": 0.6955663068313565,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.image_time_to_first_output_ms": {
+          "count": 6,
+          "samples_ms": [
+            2442.500591278076,
+            2444.915533065796,
+            2438.706398010254,
+            2438.0099773406982,
+            2443.9380168914795,
+            2441.6069984436035
+          ],
+          "mean_ms": 2441.6129191716514,
+          "sample_std_ms": 2.7759823437109543,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.inter_output_latency_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.postprocess_time_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.serving_time_to_first_output_ms": {
+          "count": 6,
+          "samples_ms": [
+            2443.4285163879395,
+            2446.213960647583,
+            2439.5551681518555,
+            2438.8020038604736,
+            2445.3859329223633,
+            2442.7027702331543
+          ],
+          "mean_ms": 2442.681392033895,
+          "sample_std_ms": 3.0058330830681936,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.stage_gen_time_ms": {
+          "count": 6,
+          "samples_ms": [
+            2442.575693130493,
+            2444.934844970703,
+            2438.7266635894775,
+            2438.0319118499756,
+            2443.9783096313477,
+            2441.6275024414062
+          ],
+          "mean_ms": 2441.6458209355674,
+          "sample_std_ms": 2.782265227325426,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.time_per_output_unit_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_itl_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_tpot_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        },
+        "stage_metrics.0.vllm_ttft_ms": {
+          "count": 6,
+          "samples_ms": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_ms": 0.0,
+          "sample_std_ms": 0.0,
+          "missing_request_count": 0
+        }
+      }
+    }
+  },
+  "independently_validated_arms": [
+    "control-a"
+  ]
+}

@@ -1,0 +1,41 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                          vae_decode_b2         0.00%       0.000us         0.00%       0.000us       0.000us     384.564ms       102.09%     384.564ms     384.564ms             1  
+                                aten::cudnn_convolution         1.78%       8.012ms         3.76%      16.940ms     470.563us      96.534ms        25.63%      96.583ms       2.683ms            36  
+                                            aten::copy_         0.03%     145.878us         0.06%     257.023us      12.851us      92.186ms        24.47%      92.186ms       4.609ms            20  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      92.186ms        24.47%      92.186ms       4.609ms            20  
+                                aten::native_group_norm         0.19%     861.688us         0.46%       2.052ms      68.406us      78.687ms        20.89%      78.687ms       2.623ms            30  
+void cutlass__5x_cudnn::Kernel<cutlass_tensorop_bf16...         0.00%       0.000us         0.00%       0.000us       0.000us      70.553ms        18.73%      70.553ms       2.276ms            31  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      68.006ms        18.05%      68.006ms       1.283ms            53  
+void at::native::(anonymous namespace)::RowwiseMomen...         0.00%       0.000us         0.00%       0.000us       0.000us      62.501ms        16.59%      62.501ms       2.083ms            30  
+                                              aten::add         0.03%     136.405us         0.05%     204.512us      13.634us      45.927ms        12.19%      45.927ms       3.062ms            15  
+                                             aten::add_         0.06%     291.889us         0.11%     473.754us      12.148us      22.157ms         5.88%      22.157ms     568.124us            39  
+                     aten::_efficient_attention_forward         0.00%      20.356us         0.01%      49.963us      49.963us      17.312ms         4.60%      17.312ms      17.312ms             1  
+fmha_cutlassF_bf16_aligned_32x128_gmem_sm80(PyTorchM...         0.00%       0.000us         0.00%       0.000us       0.000us      17.312ms         4.60%      17.312ms      17.312ms             1  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us      16.085ms         4.27%      16.085ms     536.153us            30  
+void cudnn::engines_precompiled::nchwToNhwcKernel<__...         0.00%       0.000us         0.00%       0.000us       0.000us      13.557ms         3.60%      13.557ms     229.781us            59  
+                                             aten::silu         0.05%     239.759us         0.08%     372.908us      12.859us      10.445ms         2.77%      10.445ms     360.181us            29  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      10.445ms         2.77%      10.445ms     360.181us            29  
+void cudnn::engines_precompiled::nhwcToNchwKernel<__...         0.00%       0.000us         0.00%       0.000us       0.000us       9.412ms         2.50%       9.412ms     313.717us            30  
+                               aten::upsample_nearest2d         0.12%     528.071us         0.12%     548.803us     182.934us       8.817ms         2.34%       8.817ms       2.939ms             3  
+void at::native::(anonymous namespace)::upsample_nea...         0.00%       0.000us         0.00%       0.000us       0.000us       8.817ms         2.34%       8.817ms       2.939ms             3  
+                                              aten::div         0.03%     146.222us         0.05%     213.958us      14.264us       4.264ms         1.13%       4.264ms     284.249us            15  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us       4.264ms         1.13%       4.264ms     284.249us            15  
+ampere_bf16_s16816gemm_bf16_128x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us       1.878ms         0.50%       1.878ms     939.177us             2  
+sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_n...         0.00%       0.000us         0.00%       0.000us       0.000us       1.034ms         0.27%       1.034ms       1.034ms             1  
+                                               aten::mm         0.02%      75.913us         0.02%      99.794us      33.265us     267.133us         0.07%     267.133us      89.044us             3  
+ampere_bf16_s16816gemm_bf16_256x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us     267.133us         0.07%     267.133us      89.044us             3  
+void at::native::(anonymous namespace)::ComputeFused...         0.00%       0.000us         0.00%       0.000us       0.000us     101.057us         0.03%     101.057us       3.369us            30  
+                                            aten::addmm         0.01%      30.034us         0.01%      41.984us      41.984us      84.832us         0.02%      84.832us      84.832us             1  
+ampere_bf16_s16816gemm_bf16_128x128_ldg8_relu_f2f_st...         0.00%       0.000us         0.00%       0.000us       0.000us      84.832us         0.02%      84.832us      84.832us             1  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      77.759us         0.02%      77.759us      77.759us             1  
+sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_n...         0.00%       0.000us         0.00%       0.000us       0.000us      71.551us         0.02%      71.551us      71.551us             1  
+void tensorTransformGeneric<__nv_bfloat16, __nv_bflo...         0.00%       0.000us         0.00%       0.000us       0.000us      15.775us         0.00%      15.775us      15.775us             1  
+                                Activity Buffer Request         0.34%       1.511ms         0.34%       1.511ms       1.511ms      10.431us         0.00%      10.431us      10.431us             1  
+ampere_bf16_s16816gemm_bf16_128x64_ldg8_f2f_stages_3...         0.00%       0.000us         0.00%       0.000us       0.000us      10.431us         0.00%      10.431us      10.431us             1  
+                                        Memset (Device)         0.00%       0.000us         0.00%       0.000us       0.000us       2.303us         0.00%       2.303us       2.303us             1  
+                                          vae_decode_b2        13.16%      59.257ms       100.00%     450.166ms     450.166ms       0.000us         0.00%     376.691ms     376.691ms             1  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 450.174ms
+Self CUDA time total: 376.680ms

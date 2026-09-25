@@ -1,0 +1,28 @@
+{
+  "scope": "Offline CPU synthetic and existing real HTTP records; incomplete job is not a service comparison",
+  "analyzer_sha256": "ae1d242427df4aa7d1e66817dbce9fdf513217d1d7e5cb99670449020eb04d50",
+  "fixture_sha256": "e866ce49bd0cd0e33b10d3ad4ebe8f25d8e42de1b5397c045eec0319c079964a",
+  "outcomes": {
+    "mixed_ms_s_and_native_profiler_seconds": "PASS",
+    "unknown_units_not_guessed": "PASS",
+    "raw_and_original_derived_preserved": "PASS",
+    "ambiguous_normalized_paths_rejected": "PASS",
+    "missing_metrics_not_invented": "PASS",
+    "diagnostic_unscored_rows_supported": "PASS",
+    "real_19_requests_corrected": "PASS",
+    "raw_request_file_unchanged": "PASS",
+    "incomplete_job_has_no_ab_score": "PASS"
+  },
+  "real_control_observations": {
+    "2": {
+      "observed_control_stage_gen_mean_ms": 1287.879745165507,
+      "observed_control_http_wall_mean_ms": 1420.9184326852362,
+      "observed_control_http_wall_sample_std_ms": 10.717005145712527
+    },
+    "4": {
+      "observed_control_stage_gen_mean_ms": 2441.6458209355674,
+      "observed_control_http_wall_mean_ms": 2701.6863200309067,
+      "observed_control_http_wall_sample_std_ms": 4.469374063935335
+    }
+  }
+}

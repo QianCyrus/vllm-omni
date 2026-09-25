@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "time_wait_reproduced": true,
+  "reuseaddr_allows_closed_server_port": true,
+  "reuseaddr_rejects_live_listener": true,
+  "platform": "Linux Wisteria login",
+  "gpu_execution": false,
+  "launcher_sha256": "3f605c650e1f4d4e0ab9cf68409383e8f9e4ae9c3d8b98f3a58da7c53f7bc921"
+}

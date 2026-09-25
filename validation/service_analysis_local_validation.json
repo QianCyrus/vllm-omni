@@ -1,0 +1,48 @@
+{
+  "scope": "CPU-only synthetic fixture, not performance evidence",
+  "analyzer_sha256": "ae1d242427df4aa7d1e66817dbce9fdf513217d1d7e5cb99670449020eb04d50",
+  "python": "3.13.5 (main, Jun 12 2025, 12:22:43) [Clang 20.1.4 ]",
+  "outcomes": {
+    "complete_exact_fixture": {
+      "exit_code": 0,
+      "status": "COMPLETE_EXACT"
+    },
+    "missing_arm_validation_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "missing_server_log_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "diagnostic_scoring_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "false_repeat_summary_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "inconsistent_measured_repeat_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "saved_png_corruption_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "source_verification_failure_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "actual_transformer_hash_missing_rejected": {
+      "exit_code": 1,
+      "status": "INCOMPLETE_OR_INVALID"
+    },
+    "nonexact_pixels_require_review": {
+      "exit_code": 2,
+      "status": "COMPLETE_NONEXACT_REVIEW_REQUIRED"
+    },
+    "rgb_one_channel_one_unit_formula": "PASS"
+  }
+}

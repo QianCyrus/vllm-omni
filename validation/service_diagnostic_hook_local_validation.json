@@ -1,0 +1,10 @@
+{
+  "scope": "CPU-only import fixture; no model imports or GPU execution",
+  "hook_sha256": "98cc68558d3c50059249614b987ad819fc7ca5f811c84022fa313fce3fffabed",
+  "targets_applied_before_instance": "PASS",
+  "disabled_by_default": "PASS",
+  "disabled_at_zero": "PASS",
+  "no_early_torch_import": "PASS",
+  "single_proof_marker": "PASS",
+  "proof_hash_matches": "PASS"
+}

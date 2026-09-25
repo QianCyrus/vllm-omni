@@ -1,0 +1,1086 @@
+INFO 09-26 02:18:55 [patch.py:253] NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+INFO 09-26 02:18:57 [patch.py:565] inductor factorable-divisibility patch: installed.
+INFO 09-26 02:18:57 [patch.py:630] [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+INFO 09-26 02:19:17 [serve.py:314] Detected diffusion model: /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+INFO 09-26 02:19:17 [logo.py:52]        [97m█     █     █▄   ▄█[0m    [34m   ▄▀▀[38;5;208m▀▀▄ [0m[97m█▄   ▄█ █▄    █ ▀█▀ [0m
+INFO 09-26 02:19:17 [logo.py:52]  [38;5;208m▄▄[0m [34m▄█[0m [97m█     █     █ ▀▄▀ █[0m[97m  ▄▄▄ [0m[34m █    [38;5;208m█ [0m[97m█ ▀▄▀ █ █ ▀▄  █  █  [0m
+INFO 09-26 02:19:17 [logo.py:52]   [38;5;208m█[0m[34m▄█▀[0m [97m█     █     █     █[0m[97m      [0m[34m █    [38;5;208m█ [0m[97m█     █ █   ▀▄█  █  [0m
+INFO 09-26 02:19:17 [logo.py:52]    [34m▀▀[0m  [97m▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀[0m      [35m  ▀▀▀▀  [0m[97m▀     ▀ ▀     ▀ ▀▀▀ [0m
+INFO 09-26 02:19:17 [logo.py:52] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:17 [api_utils.py:347] vLLM server version 0.30.0, serving model /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:17 [api_utils.py:286] non-default args: {'model_tag': '/work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27', 'host': '127.0.0.1', 'port': 8091, 'model': '/work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27', 'dtype': 'bfloat16', 'served_model_name': ['klein-vae-bench'], 'tensor_parallel_size': 4}
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:17 [omni_base.py:208] [AsyncOmni] Initializing with model /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:17 [omni_engine_base.py:163] [OmniEngine] Initializing with model /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+[0;36m(APIServer pid=74)[0;0m /work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926/source_head/vllm_omni/config/omni_config.py:1393: FutureWarning: Diffusion config field 'diffusion_attention_backend' is deprecated; use 'diffusion_attention_config'.
+[0;36m(APIServer pid=74)[0;0m   normalized = normalize_omni_diffusion_kwargs(mixed_kwargs, apply_defaults=False)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:38 [config_factory.py:697] Resolved generic diffusion final_output_type='image' for model_class_name='Flux2KleinPipeline'.
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:38 [omni_engine_base.py:312] [OmniEngine] Launching Orchestrator thread with 1 stages
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:19:39 [multiproc_executor.py:372] Starting server...
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:253][0m NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:253][0m NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:253][0m NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:253][0m NVFP4 W4A4 weight_scale NaN-clamp: skipped — upstream serves ModelOpt linears through the generic ModelOptLinearMethod and rejects any NaN weight_scale (unloaded-scale sentinel), so a load-time error replaces the `!!!!` decode-time collapse.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:565][0m inductor factorable-divisibility patch: installed.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:565][0m inductor factorable-divisibility patch: installed.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:565][0m inductor factorable-divisibility patch: installed.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:565][0m inductor factorable-divisibility patch: installed.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:630][0m [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:630][0m [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:630][0m [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+[32mINFO[0m [90m09-26 02:20:13[0m [90m[patch.py:630][0m [cumem-cuda] CuMemAllocator._python_free_callback patched: asleep guard extended to all platforms.
+[0;36m(DiffusionWorker pid=107)[0;0m [0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:23[0m [90m[diffusion_worker.py:1169][0m Worker 0 created result MessageQueue
+[0;36m(DiffusionWorker pid=110)[0;0m [32mINFO[0m [90m09-26 02:20:23[0m [90m[diffusion_worker.py:1169][0m Worker 2 created result MessageQueue
+[32mINFO[0m [90m09-26 02:20:23[0m [90m[diffusion_worker.py:1169][0m Worker 3 created result MessageQueue
+[0;36m(DiffusionWorker pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:23[0m [90m[diffusion_worker.py:1169][0m Worker 1 created result MessageQueue
+[0;36m(DiffusionWorker pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[scheduler.py:288][0m Chunked prefill is enabled with max_num_batched_tokens=2048.
+[0;36m(DiffusionWorker pid=107)[0;0m [0;36m(DiffusionWorker pid=110)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[scheduler.py:288][0m Chunked prefill is enabled with max_num_batched_tokens=2048.
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[scheduler.py:288][0m Chunked prefill is enabled with max_num_batched_tokens=2048.
+[0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[scheduler.py:288][0m Chunked prefill is enabled with max_num_batched_tokens=2048.
+[0;36m(DiffusionWorker pid=108)[0;0m [0;36m(DiffusionWorker pid=107)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[kernel.py:416][0m Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+[0;36m(DiffusionWorker pid=110)[0;0m [0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[kernel.py:416][0m Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[kernel.py:416][0m Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[kernel.py:416][0m Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+[0;36m(DiffusionWorker pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:346][0m Final IR op priority after setting vLLM-Omni overrides: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[0;36m(DiffusionWorker pid=107)[0;0m [0;36m(DiffusionWorker pid=110)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:346][0m Final IR op priority after setting vLLM-Omni overrides: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:346][0m Final IR op priority after setting vLLM-Omni overrides: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:346][0m Final IR op priority after setting vLLM-Omni overrides: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[W926 02:20:24.830774211 socket.cpp:764] [c10d] The client socket cannot be initialized to connect to [localhost]:38285 (errno: 97 - Address family not supported by protocol).
+[W926 02:20:24.831182938 socket.cpp:764] [c10d] The client socket cannot be initialized to connect to [localhost]:38285 (errno: 97 - Address family not supported by protocol).
+[W926 02:20:24.831320167 socket.cpp:764] [c10d] The client socket cannot be initialized to connect to [localhost]:38285 (errno: 97 - Address family not supported by protocol).
+[W926 02:20:24.884235365 socket.cpp:764] [c10d] The client socket cannot be initialized to connect to [localhost]:38285 (errno: 97 - Address family not supported by protocol).
+[0;36m(DiffusionWorker pid=107)[0;0m [0;36m(DiffusionWorker pid=110)[0;0m [0;36m(DiffusionWorker pid=108)[0;0m [0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:358][0m Worker 0: Initialized device and distributed environment.
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:358][0m Worker 3: Initialized device and distributed environment.
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:358][0m Worker 1: Initialized device and distributed environment.
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[diffusion_worker.py:358][0m Worker 2: Initialized device and distributed environment.
+[0;36m(DiffusionWorker pid=109)[0;0m [0;36m(DiffusionWorker pid=110)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:610][0m Building SP subgroups from explicit sp_group_ranks (sp_size=1, ulysses=1, ring=1, use_ulysses_low=True).
+[32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:610][0m Building SP subgroups from explicit sp_group_ranks (sp_size=1, ulysses=1, ring=1, use_ulysses_low=True).
+[0;36m(DiffusionWorker pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:610][0m Building SP subgroups from explicit sp_group_ranks (sp_size=1, ulysses=1, ring=1, use_ulysses_low=True).
+[0;36m(DiffusionWorker pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:652][0m SP group details for rank 2: sp_group=[2], ulysses_group=[2], ring_group=[2]
+[0;36m(DiffusionWorker pid=110)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:652][0m SP group details for rank 3: sp_group=[3], ulysses_group=[3], ring_group=[3]
+[0;36m(DiffusionWorker pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:652][0m SP group details for rank 1: sp_group=[1], ulysses_group=[1], ring_group=[1]
+[0;36m(DiffusionWorker pid=107)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:610][0m Building SP subgroups from explicit sp_group_ranks (sp_size=1, ulysses=1, ring=1, use_ulysses_low=True).
+[0;36m(DiffusionWorker pid=107)[0;0m [32mINFO[0m [90m09-26 02:20:24[0m [90m[parallel_state.py:652][0m SP group details for rank 0: sp_group=[0], ulysses_group=[0], ring_group=[0]
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m Loading weights:   0%|          | 0/398 [00:00<?, ?it/s][0;36m(DiffusionWorker_TP1 pid=108)[0;0m Loading weights:   0%|          | 0/398 [00:00<?, ?it/s][0;36m(DiffusionWorker_TP3 pid=110)[0;0m Loading weights:   0%|          | 0/398 [00:00<?, ?it/s][0;36m(DiffusionWorker_TP2 pid=109)[0;0m Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:03<20:36,  3.11s/it]Loading weights:   0%|          | 1/398 [00:03<20:38,  3.12s/it]Loading weights:   0%|          | 1/398 [00:03<20:40,  3.13s/it]Loading weights:   0%|          | 1/398 [00:03<20:40,  3.13s/it]Loading weights:   1%|▏         | 5/398 [00:03<03:18,  1.98it/s]Loading weights:   1%|▏         | 5/398 [00:03<03:20,  1.96it/s]Loading weights:   1%|          | 3/398 [00:03<05:52,  1.12it/s]Loading weights:   3%|▎         | 10/398 [00:03<01:23,  4.66it/s]Loading weights:   1%|          | 2/398 [00:03<10:02,  1.52s/it]Loading weights:   2%|▏         | 9/398 [00:03<01:40,  3.86it/s]Loading weights:   1%|          | 4/398 [00:03<04:21,  1.51it/s]Loading weights:   3%|▎         | 13/398 [00:03<01:05,  5.87it/s]Loading weights:   1%|▏         | 5/398 [00:03<03:21,  1.95it/s]Loading weights:   1%|▏         | 5/398 [00:03<03:15,  2.01it/s]Loading weights:   4%|▎         | 14/398 [00:03<01:01,  6.22it/s]Loading weights:   2%|▏         | 9/398 [00:04<01:33,  4.16it/s]Loading weights:   2%|▏         | 7/398 [00:04<02:05,  3.12it/s]Loading weights:   4%|▍         | 16/398 [00:04<00:59,  6.41it/s]Loading weights:   4%|▍         | 16/398 [00:04<01:01,  6.20it/s]Loading weights:   3%|▎         | 12/398 [00:04<00:50,  7.60it/s]Loading weights:   3%|▎         | 12/398 [00:04<01:03,  6.08it/s]Loading weights:   4%|▎         | 14/398 [00:04<00:45,  8.50it/s]Loading weights:   4%|▎         | 14/398 [00:04<00:55,  6.97it/s]Loading weights:   5%|▌         | 20/398 [00:04<00:45,  8.28it/s]Loading weights:   5%|▌         | 20/398 [00:04<00:44,  8.52it/s]Loading weights:   6%|▌         | 22/398 [00:04<00:38,  9.70it/s]Loading weights:   6%|▌         | 23/398 [00:04<00:36, 10.37it/s]Loading weights:   6%|▌         | 24/398 [00:04<00:36, 10.30it/s]Loading weights:   4%|▍         | 16/398 [00:04<00:51,  7.43it/s]Loading weights:   7%|▋         | 26/398 [00:04<00:33, 11.10it/s]Loading weights:   4%|▍         | 16/398 [00:04<01:01,  6.21it/s]Loading weights:   6%|▌         | 22/398 [00:04<00:27, 13.72it/s]Loading weights:   7%|▋         | 28/398 [00:04<00:31, 11.60it/s]Loading weights:   7%|▋         | 27/398 [00:04<00:33, 11.18it/s]Loading weights:   6%|▌         | 24/398 [00:04<00:30, 12.26it/s]Loading weights:   6%|▋         | 25/398 [00:04<00:26, 14.10it/s]Loading weights:   8%|▊         | 31/398 [00:04<00:27, 13.36it/s]Loading weights:   8%|▊         | 33/398 [00:04<00:21, 17.24it/s]Loading weights:   9%|▉         | 36/398 [00:05<00:22, 16.45it/s]Loading weights:   9%|▉         | 36/398 [00:05<00:21, 16.56it/s]Loading weights:   7%|▋         | 26/398 [00:05<00:32, 11.52it/s]Loading weights:   7%|▋         | 28/398 [00:05<00:30, 12.17it/s]Loading weights:   7%|▋         | 28/398 [00:05<00:31, 11.65it/s]Loading weights:   8%|▊         | 33/398 [00:05<00:21, 17.37it/s]Loading weights:  10%|▉         | 38/398 [00:05<00:28, 12.81it/s]Loading weights:   9%|▉         | 36/398 [00:05<00:19, 18.35it/s]Loading weights:  11%|█         | 43/398 [00:05<00:19, 17.82it/s]Loading weights:   9%|▊         | 34/398 [00:05<00:25, 14.07it/s]Loading weights:  10%|▉         | 38/398 [00:05<00:35, 10.15it/s]Loading weights:  12%|█▏        | 47/398 [00:05<00:18, 18.68it/s]Loading weights:  10%|▉         | 39/398 [00:05<00:22, 16.06it/s]Loading weights:  10%|█         | 40/398 [00:05<00:34, 10.48it/s]Loading weights:   9%|▉         | 37/398 [00:05<00:28, 12.77it/s]Loading weights:  11%|█         | 44/398 [00:06<00:27, 12.90it/s]Loading weights:  11%|█         | 42/398 [00:06<00:24, 14.25it/s]Loading weights:  10%|▉         | 39/398 [00:06<00:31, 11.27it/s]Loading weights:  12%|█▏        | 47/398 [00:06<00:26, 13.01it/s]Loading weights:  12%|█▏        | 46/398 [00:06<00:21, 16.10it/s]Loading weights:  13%|█▎        | 50/398 [00:06<00:29, 11.70it/s]Loading weights:  10%|█         | 41/398 [00:06<00:32, 10.98it/s]Loading weights:  13%|█▎        | 53/398 [00:06<00:26, 13.03it/s]Loading weights:  12%|█▏        | 48/398 [00:06<00:25, 13.99it/s]Loading weights:  13%|█▎        | 50/398 [00:06<00:23, 14.68it/s]Loading weights:  12%|█▏        | 49/398 [00:06<00:33, 10.32it/s]Loading weights:  14%|█▍        | 55/398 [00:06<00:26, 13.12it/s]Loading weights:  11%|█         | 44/398 [00:06<00:30, 11.64it/s]Loading weights:  13%|█▎        | 53/398 [00:06<00:20, 17.24it/s]Loading weights:  14%|█▍        | 55/398 [00:06<00:21, 16.19it/s]Loading weights:  12%|█▏        | 47/398 [00:06<00:26, 13.12it/s]Loading weights:  15%|█▍        | 58/398 [00:06<00:16, 20.13it/s]Loading weights:  15%|█▍        | 58/398 [00:06<00:20, 16.78it/s]Loading weights:  15%|█▍        | 58/398 [00:06<00:27, 12.18it/s]Loading weights:  12%|█▏        | 49/398 [00:07<00:33, 10.36it/s]Loading weights:  16%|█▌        | 63/398 [00:07<00:23, 14.02it/s]Loading weights:  15%|█▌        | 61/398 [00:07<00:24, 13.91it/s]Loading weights:  15%|█▌        | 61/398 [00:07<00:21, 15.41it/s]Loading weights:  13%|█▎        | 53/398 [00:07<00:24, 14.03it/s]Loading weights:  17%|█▋        | 69/398 [00:07<00:16, 19.69it/s]Loading weights:  16%|█▌        | 64/398 [00:07<00:20, 16.38it/s]Loading weights:  16%|█▌        | 64/398 [00:07<00:23, 14.50it/s]Loading weights:  15%|█▍        | 58/398 [00:07<00:21, 16.06it/s]Loading weights:  17%|█▋        | 68/398 [00:07<00:18, 18.21it/s]Loading weights:  17%|█▋        | 68/398 [00:07<00:19, 17.01it/s]Loading weights:  18%|█▊        | 72/398 [00:07<00:22, 14.68it/s]Loading weights:  18%|█▊        | 70/398 [00:07<00:21, 14.97it/s]Loading weights:  18%|█▊        | 70/398 [00:07<00:22, 14.61it/s]Loading weights:  15%|█▌        | 60/398 [00:07<00:25, 13.04it/s]Loading weights:  19%|█▉        | 75/398 [00:07<00:20, 16.11it/s]Loading weights:  16%|█▌        | 64/398 [00:07<00:19, 17.08it/s]Loading weights:  18%|█▊        | 72/398 [00:07<00:22, 14.61it/s]Loading weights:  19%|█▉        | 77/398 [00:07<00:14, 22.71it/s]Loading weights:  20%|█▉        | 78/398 [00:07<00:17, 18.27it/s]Loading weights:  17%|█▋        | 69/398 [00:08<00:15, 21.28it/s]Loading weights:  20%|██        | 80/398 [00:08<00:14, 21.23it/s]Loading weights:  20%|██        | 80/398 [00:08<00:16, 19.29it/s]Loading weights:  18%|█▊        | 72/398 [00:08<00:15, 20.57it/s]Loading weights:  19%|█▉        | 75/398 [00:08<00:14, 21.55it/s]Loading weights:  20%|██        | 81/398 [00:08<00:26, 12.18it/s]Loading weights:  20%|██        | 80/398 [00:08<00:12, 26.26it/s]Loading weights:  21%|██        | 83/398 [00:08<00:18, 16.67it/s]Loading weights:  21%|██        | 83/398 [00:08<00:20, 15.49it/s]Loading weights:  22%|██▏       | 86/398 [00:08<00:16, 18.55it/s]Loading weights:  23%|██▎       | 91/398 [00:08<00:12, 24.17it/s]Loading weights:  21%|██        | 83/398 [00:08<00:13, 23.43it/s]Loading weights:  23%|██▎       | 90/398 [00:08<00:09, 33.09it/s]Loading weights:  23%|██▎       | 92/398 [00:09<00:19, 15.95it/s]Loading weights:  24%|██▎       | 94/398 [00:09<00:21, 13.96it/s]Loading weights:  24%|██▎       | 94/398 [00:09<00:17, 16.96it/s]Loading weights:  24%|██▍       | 95/398 [00:09<00:22, 13.70it/s]Loading weights:  22%|██▏       | 86/398 [00:09<00:39,  7.97it/s]Loading weights:  25%|██▍       | 99/398 [00:09<00:17, 16.68it/s]Loading weights:  25%|██▍       | 99/398 [00:09<00:19, 14.97it/s]Loading weights:  25%|██▍       | 99/398 [00:09<00:15, 18.69it/s]Loading weights:  25%|██▌       | 100/398 [00:09<00:16, 18.59it/s]Loading weights:  26%|██▌       | 102/398 [00:09<00:18, 15.82it/s]Loading weights:  26%|██▌       | 102/398 [00:09<00:20, 14.30it/s]Loading weights:  26%|██▌       | 102/398 [00:09<00:22, 13.38it/s]Loading weights:  26%|██▋       | 105/398 [00:10<00:19, 14.95it/s]Loading weights:  26%|██▌       | 104/398 [00:10<00:23, 12.43it/s]Loading weights:  26%|██▌       | 104/398 [00:10<00:24, 11.97it/s]Loading weights:  26%|██▋       | 105/398 [00:10<00:19, 15.03it/s]Loading weights:  28%|██▊       | 112/398 [00:10<00:12, 22.82it/s]Loading weights:  28%|██▊       | 113/398 [00:10<00:17, 16.24it/s]Loading weights:  28%|██▊       | 113/398 [00:10<00:16, 16.79it/s]Loading weights:  28%|██▊       | 113/398 [00:10<00:17, 16.73it/s]Loading weights:  29%|██▉       | 115/398 [00:10<00:24, 11.47it/s]Loading weights:  29%|██▉       | 116/398 [00:10<00:23, 11.87it/s]Loading weights:  29%|██▉       | 115/398 [00:10<00:24, 11.48it/s]Loading weights:  29%|██▉       | 117/398 [00:10<00:20, 13.79it/s]Loading weights:  30%|██▉       | 119/398 [00:11<00:21, 13.25it/s]Loading weights:  30%|██▉       | 119/398 [00:11<00:19, 14.05it/s]Loading weights:  30%|███       | 120/398 [00:11<00:18, 14.80it/s]Loading weights:  30%|██▉       | 119/398 [00:11<00:20, 13.74it/s]Loading weights:  31%|███▏      | 125/398 [00:11<00:17, 15.17it/s]Loading weights:  31%|███       | 122/398 [00:11<00:22, 12.17it/s]Loading weights:  31%|███       | 124/398 [00:11<00:22, 12.42it/s]Loading weights:  31%|███       | 123/398 [00:11<00:23, 11.65it/s]Loading weights:  32%|███▏      | 127/398 [00:11<00:22, 12.04it/s]Loading weights:  32%|███▏      | 126/398 [00:11<00:23, 11.65it/s]Loading weights:  32%|███▏      | 126/398 [00:11<00:23, 11.71it/s]Loading weights:  32%|███▏      | 127/398 [00:11<00:24, 11.25it/s]Loading weights:  33%|███▎      | 130/398 [00:11<00:18, 14.14it/s]Loading weights:  33%|███▎      | 130/398 [00:11<00:18, 14.17it/s]Loading weights:  33%|███▎      | 130/398 [00:11<00:20, 13.17it/s]Loading weights:  33%|███▎      | 130/398 [00:11<00:20, 13.39it/s]Loading weights:  33%|███▎      | 133/398 [00:12<00:16, 15.92it/s]Loading weights:  33%|███▎      | 133/398 [00:12<00:16, 15.83it/s]Loading weights:  33%|███▎      | 133/398 [00:12<00:17, 15.07it/s]Loading weights:  33%|███▎      | 133/398 [00:12<00:19, 13.42it/s]Loading weights:  34%|███▍      | 136/398 [00:12<00:20, 12.98it/s]Loading weights:  34%|███▍      | 136/398 [00:12<00:19, 13.59it/s]Loading weights:  34%|███▍      | 136/398 [00:12<00:19, 13.49it/s]Loading weights:  34%|███▍      | 136/398 [00:12<00:19, 13.42it/s]Loading weights:  35%|███▍      | 138/398 [00:12<00:22, 11.53it/s]Loading weights:  35%|███▍      | 138/398 [00:12<00:23, 11.12it/s]Loading weights:  35%|███▍      | 138/398 [00:12<00:22, 11.50it/s]Loading weights:  35%|███▍      | 138/398 [00:12<00:23, 11.24it/s]Loading weights:  35%|███▌      | 140/398 [00:12<00:21, 12.08it/s]Loading weights:  36%|███▌      | 142/398 [00:12<00:18, 14.22it/s]Loading weights:  35%|███▌      | 141/398 [00:12<00:19, 13.19it/s]Loading weights:  35%|███▌      | 141/398 [00:12<00:21, 12.21it/s]Loading weights:  36%|███▌      | 142/398 [00:12<00:21, 11.89it/s]Loading weights:  36%|███▋      | 145/398 [00:12<00:15, 16.09it/s]Loading weights:  37%|███▋      | 146/398 [00:12<00:15, 16.46it/s]Loading weights:  36%|███▌      | 144/398 [00:12<00:17, 14.26it/s]Loading weights:  37%|███▋      | 147/398 [00:13<00:15, 15.79it/s]Loading weights:  37%|███▋      | 147/398 [00:13<00:17, 14.54it/s]Loading weights:  37%|███▋      | 148/398 [00:13<00:21, 11.73it/s]Loading weights:  37%|███▋      | 148/398 [00:13<00:24, 10.36it/s]Loading weights:  37%|███▋      | 149/398 [00:13<00:21, 11.73it/s]Loading weights:  37%|███▋      | 149/398 [00:13<00:20, 12.35it/s]Loading weights:  38%|███▊      | 152/398 [00:13<00:16, 15.35it/s]Loading weights:  38%|███▊      | 153/398 [00:13<00:14, 16.60it/s]Loading weights:  39%|███▊      | 154/398 [00:13<00:14, 16.46it/s]Loading weights:  38%|███▊      | 152/398 [00:13<00:17, 13.77it/s]Loading weights:  39%|███▉      | 157/398 [00:13<00:14, 16.41it/s]Loading weights:  39%|███▉      | 157/398 [00:13<00:13, 18.26it/s]Loading weights:  39%|███▉      | 157/398 [00:13<00:13, 18.08it/s]Loading weights:  39%|███▉      | 157/398 [00:13<00:14, 17.18it/s]Loading weights:  40%|████      | 160/398 [00:14<00:20, 11.86it/s]Loading weights:  40%|████      | 160/398 [00:14<00:19, 12.30it/s]Loading weights:  40%|████      | 160/398 [00:14<00:19, 12.37it/s]Loading weights:  40%|████      | 160/398 [00:14<00:19, 12.34it/s]Loading weights:  41%|████      | 164/398 [00:14<00:16, 13.80it/s]Loading weights:  41%|████▏     | 165/398 [00:14<00:16, 14.42it/s]Loading weights:  41%|████▏     | 165/398 [00:14<00:15, 14.76it/s]Loading weights:  42%|████▏     | 168/398 [00:14<00:17, 12.80it/s]Loading weights:  42%|████▏     | 167/398 [00:14<00:20, 11.31it/s]Loading weights:  42%|████▏     | 166/398 [00:14<00:21, 10.79it/s]Loading weights:  41%|████      | 164/398 [00:14<00:24,  9.73it/s]Loading weights:  42%|████▏     | 169/398 [00:14<00:19, 11.98it/s]Loading weights:  42%|████▏     | 169/398 [00:14<00:17, 12.85it/s]Loading weights:  42%|████▏     | 169/398 [00:14<00:20, 11.20it/s]Loading weights:  43%|████▎     | 171/398 [00:15<00:21, 10.46it/s]Loading weights:  43%|████▎     | 170/398 [00:15<00:23,  9.57it/s]Loading weights:  43%|████▎     | 171/398 [00:15<00:19, 11.76it/s]Loading weights:  43%|████▎     | 171/398 [00:15<00:22,  9.91it/s]Loading weights:  44%|████▎     | 174/398 [00:15<00:16, 13.80it/s]Loading weights:  44%|████▍     | 175/398 [00:15<00:16, 13.83it/s]Loading weights:  44%|████▍     | 175/398 [00:15<00:16, 13.31it/s]Loading weights:  43%|████▎     | 173/398 [00:15<00:20, 11.19it/s]Loading weights:  45%|████▍     | 179/398 [00:15<00:15, 13.89it/s]Loading weights:  45%|████▍     | 179/398 [00:15<00:14, 15.45it/s]Loading weights:  45%|████▍     | 179/398 [00:15<00:15, 14.48it/s]Loading weights:  45%|████▍     | 179/398 [00:15<00:16, 13.39it/s]Loading weights:  45%|████▌     | 181/398 [00:16<00:23,  9.14it/s]Loading weights:  45%|████▌     | 181/398 [00:16<00:25,  8.61it/s]Loading weights:  45%|████▌     | 181/398 [00:16<00:23,  9.25it/s]Loading weights:  45%|████▌     | 181/398 [00:16<00:24,  8.79it/s]Loading weights:  46%|████▋     | 185/398 [00:16<00:17, 12.33it/s]Loading weights:  46%|████▌     | 184/398 [00:16<00:19, 10.88it/s]Loading weights:  46%|████▋     | 185/398 [00:16<00:18, 11.51it/s]Loading weights:  46%|████▌     | 184/398 [00:16<00:19, 11.02it/s]Loading weights:  48%|████▊     | 190/398 [00:16<00:13, 15.32it/s]Loading weights:  48%|████▊     | 190/398 [00:16<00:14, 14.47it/s]Loading weights:  47%|████▋     | 188/398 [00:16<00:17, 12.27it/s]Loading weights:  48%|████▊     | 190/398 [00:16<00:14, 14.47it/s]Loading weights:  48%|████▊     | 191/398 [00:16<00:15, 13.51it/s]Loading weights:  48%|████▊     | 192/398 [00:16<00:19, 10.64it/s]Loading weights:  48%|████▊     | 192/398 [00:16<00:18, 11.11it/s]Loading weights:  48%|████▊     | 193/398 [00:16<00:17, 11.89it/s]Loading weights:  48%|████▊     | 193/398 [00:16<00:17, 11.67it/s]Loading weights:  49%|████▉     | 196/398 [00:17<00:14, 13.70it/s]Loading weights:  49%|████▉     | 196/398 [00:17<00:14, 14.04it/s]Loading weights:  49%|████▉     | 196/398 [00:17<00:14, 14.34it/s]Loading weights:  50%|████▉     | 198/398 [00:17<00:13, 15.14it/s]Loading weights:  50%|████▉     | 198/398 [00:17<00:13, 14.40it/s]Loading weights:  50%|█████     | 199/398 [00:17<00:12, 15.92it/s]Loading weights:  51%|█████     | 201/398 [00:17<00:14, 13.88it/s]Loading weights:  51%|█████     | 201/398 [00:17<00:14, 13.59it/s]Loading weights:  49%|████▊     | 194/398 [00:17<00:24,  8.30it/s]Loading weights:  51%|█████     | 202/398 [00:17<00:15, 12.74it/s]Loading weights:  51%|█████     | 202/398 [00:17<00:19, 10.02it/s]Loading weights:  51%|█████     | 203/398 [00:17<00:19,  9.82it/s]Loading weights:  51%|█████     | 203/398 [00:17<00:20,  9.74it/s]Loading weights:  53%|█████▎    | 212/398 [00:17<00:10, 18.11it/s]Loading weights:  53%|█████▎    | 212/398 [00:17<00:09, 19.44it/s]Loading weights:  53%|█████▎    | 211/398 [00:18<00:11, 16.30it/s]Loading weights:  54%|█████▍    | 214/398 [00:18<00:12, 14.88it/s]Loading weights:  53%|█████▎    | 212/398 [00:18<00:16, 11.43it/s]Loading weights:  54%|█████▍    | 216/398 [00:18<00:12, 15.00it/s]Loading weights:  54%|█████▍    | 215/398 [00:18<00:16, 10.78it/s]Loading weights:  54%|█████▍    | 215/398 [00:18<00:16, 10.89it/s]Loading weights:  56%|█████▌    | 223/398 [00:18<00:09, 17.87it/s]Loading weights:  56%|█████▌    | 221/398 [00:18<00:10, 16.43it/s]Loading weights:  55%|█████▍    | 218/398 [00:18<00:14, 12.21it/s]Loading weights:  55%|█████▍    | 218/398 [00:18<00:15, 11.98it/s]Loading weights:  56%|█████▌    | 221/398 [00:18<00:12, 13.79it/s]Loading weights:  56%|█████▌    | 221/398 [00:18<00:12, 13.75it/s]Loading weights:  56%|█████▋    | 224/398 [00:19<00:13, 12.55it/s]Loading weights:  56%|█████▋    | 224/398 [00:19<00:13, 12.58it/s]Loading weights:  57%|█████▋    | 226/398 [00:19<00:12, 13.69it/s]Loading weights:  56%|█████▋    | 224/398 [00:19<00:14, 11.99it/s]Loading weights:  58%|█████▊    | 229/398 [00:19<00:10, 15.51it/s]Loading weights:  58%|█████▊    | 229/398 [00:19<00:10, 16.46it/s]Loading weights:  58%|█████▊    | 229/398 [00:19<00:10, 16.59it/s]Loading weights:  58%|█████▊    | 229/398 [00:19<00:11, 14.58it/s]Loading weights:  58%|█████▊    | 231/398 [00:19<00:10, 15.85it/s]Loading weights:  58%|█████▊    | 231/398 [00:19<00:11, 15.00it/s]Loading weights:  58%|█████▊    | 232/398 [00:19<00:09, 17.06it/s]Loading weights:  58%|█████▊    | 232/398 [00:19<00:12, 12.79it/s]Loading weights:  59%|█████▉    | 235/398 [00:20<00:14, 11.35it/s]Loading weights:  59%|█████▉    | 235/398 [00:20<00:13, 12.23it/s]Loading weights:  59%|█████▊    | 233/398 [00:20<00:17,  9.52it/s]Loading weights:  59%|█████▊    | 233/398 [00:20<00:17,  9.50it/s]Loading weights:  59%|█████▉    | 236/398 [00:20<00:14, 11.12it/s]Loading weights:  59%|█████▉    | 236/398 [00:20<00:14, 11.21it/s]Loading weights:  60%|█████▉    | 237/398 [00:20<00:12, 12.38it/s]Loading weights:  60%|█████▉    | 237/398 [00:20<00:13, 11.65it/s]Loading weights:  60%|██████    | 240/398 [00:20<00:10, 14.70it/s]Loading weights:  60%|██████    | 240/398 [00:20<00:11, 13.88it/s]Loading weights:  60%|██████    | 240/398 [00:20<00:10, 14.56it/s]Loading weights:  60%|██████    | 240/398 [00:20<00:10, 14.44it/s]Loading weights:  61%|██████    | 242/398 [00:20<00:10, 14.63it/s]Loading weights:  61%|██████    | 243/398 [00:20<00:10, 15.35it/s]Loading weights:  61%|██████    | 243/398 [00:20<00:15,  9.87it/s]Loading weights:  61%|██████▏   | 244/398 [00:20<00:15,  9.68it/s]Loading weights:  62%|██████▏   | 246/398 [00:21<00:14, 10.14it/s]Loading weights:  62%|██████▏   | 246/398 [00:21<00:13, 11.25it/s]Loading weights:  61%|██████    | 242/398 [00:21<00:21,  7.19it/s]Loading weights:  62%|██████▏   | 246/398 [00:21<00:18,  8.01it/s]Loading weights:  62%|██████▏   | 248/398 [00:21<00:16,  9.27it/s]Loading weights:  62%|██████▏   | 247/398 [00:21<00:15, 10.01it/s]Loading weights:  62%|██████▏   | 248/398 [00:21<00:14, 10.18it/s]Loading weights:  63%|██████▎   | 249/398 [00:21<00:14, 10.03it/s]Loading weights:  63%|██████▎   | 250/398 [00:21<00:14, 10.06it/s]Loading weights:  63%|██████▎   | 252/398 [00:21<00:11, 12.35it/s]Loading weights:  64%|██████▎   | 253/398 [00:21<00:10, 13.22it/s]Loading weights:  64%|██████▍   | 256/398 [00:21<00:12, 11.73it/s]Loading weights:  64%|██████▍   | 256/398 [00:21<00:11, 11.98it/s]Loading weights:  64%|██████▍   | 256/398 [00:21<00:10, 12.93it/s]Loading weights:  64%|██████▍   | 255/398 [00:21<00:14,  9.80it/s]Loading weights:  66%|██████▋   | 264/398 [00:22<00:07, 18.78it/s]Loading weights:  66%|██████▌   | 262/398 [00:22<00:08, 15.89it/s]Loading weights:  66%|██████▌   | 262/398 [00:22<00:08, 16.94it/s]Loading weights:  66%|██████▌   | 262/398 [00:22<00:08, 16.52it/s]Loading weights:  67%|██████▋   | 267/398 [00:22<00:08, 15.94it/s]Loading weights:  67%|██████▋   | 267/398 [00:22<00:08, 14.80it/s]Loading weights:  67%|██████▋   | 267/398 [00:22<00:08, 15.59it/s]Loading weights:  67%|██████▋   | 266/398 [00:22<00:09, 14.31it/s]Loading weights:  68%|██████▊   | 269/398 [00:22<00:10, 12.39it/s]Loading weights:  67%|██████▋   | 268/398 [00:22<00:11, 11.78it/s]Loading weights:  68%|██████▊   | 269/398 [00:22<00:10, 12.60it/s]Loading weights:  68%|██████▊   | 269/398 [00:22<00:10, 11.75it/s]Loading weights:  69%|██████▉   | 274/398 [00:22<00:07, 15.57it/s]Loading weights:  69%|██████▉   | 275/398 [00:22<00:07, 16.95it/s]Loading weights:  69%|██████▉   | 275/398 [00:22<00:07, 17.03it/s]Loading weights:  70%|██████▉   | 278/398 [00:23<00:07, 16.83it/s]Loading weights:  70%|██████▉   | 278/398 [00:23<00:07, 16.96it/s]Loading weights:  70%|██████▉   | 278/398 [00:23<00:07, 16.76it/s]Loading weights:  69%|██████▉   | 274/398 [00:23<00:09, 12.55it/s]Loading weights:  70%|███████   | 279/398 [00:23<00:08, 13.71it/s]Loading weights:  70%|███████   | 280/398 [00:23<00:11, 10.05it/s]Loading weights:  70%|███████   | 280/398 [00:23<00:11, 10.05it/s]Loading weights:  71%|███████   | 281/398 [00:23<00:09, 11.89it/s]Loading weights:  71%|███████   | 281/398 [00:23<00:10, 10.82it/s]Loading weights:  71%|███████▏  | 284/398 [00:23<00:09, 12.24it/s]Loading weights:  71%|███████▏  | 284/398 [00:23<00:09, 12.06it/s]Loading weights:  71%|███████▏  | 284/398 [00:23<00:08, 12.83it/s]Loading weights:  71%|███████▏  | 284/398 [00:23<00:09, 12.14it/s]Loading weights:  73%|███████▎  | 289/398 [00:24<00:08, 13.23it/s]Loading weights:  73%|███████▎  | 289/398 [00:24<00:08, 12.69it/s]Loading weights:  73%|███████▎  | 289/398 [00:24<00:08, 12.81it/s]Loading weights:  72%|███████▏  | 288/398 [00:24<00:09, 11.85it/s]Loading weights:  73%|███████▎  | 291/398 [00:24<00:08, 13.03it/s]Loading weights:  73%|███████▎  | 291/398 [00:24<00:08, 13.02it/s]Loading weights:  73%|███████▎  | 291/398 [00:24<00:08, 12.69it/s]Loading weights:  73%|███████▎  | 291/398 [00:24<00:08, 12.32it/s]Loading weights:  75%|███████▍  | 297/398 [00:24<00:06, 16.34it/s]Loading weights:  74%|███████▍  | 296/398 [00:24<00:06, 15.48it/s]Loading weights:  75%|███████▍  | 297/398 [00:24<00:06, 16.56it/s]Loading weights:  74%|███████▍  | 295/398 [00:24<00:07, 13.84it/s]Loading weights:  75%|███████▌  | 300/398 [00:25<00:07, 13.80it/s]Loading weights:  75%|███████▌  | 300/398 [00:25<00:06, 14.15it/s]Loading weights:  75%|███████▌  | 300/398 [00:25<00:07, 13.66it/s]Loading weights:  75%|███████▌  | 300/398 [00:25<00:06, 14.32it/s]Loading weights:  76%|███████▌  | 302/398 [00:25<00:08, 11.62it/s]Loading weights:  76%|███████▌  | 302/398 [00:25<00:08, 11.13it/s]Loading weights:  76%|███████▌  | 302/398 [00:25<00:08, 11.58it/s]Loading weights:  76%|███████▌  | 302/398 [00:25<00:08, 11.23it/s]Loading weights:  78%|███████▊  | 311/398 [00:25<00:05, 16.87it/s]Loading weights:  78%|███████▊  | 311/398 [00:25<00:05, 16.94it/s]Loading weights:  78%|███████▊  | 311/398 [00:25<00:05, 17.17it/s]Loading weights:  78%|███████▊  | 311/398 [00:25<00:05, 16.86it/s]Loading weights:  79%|███████▊  | 313/398 [00:25<00:06, 13.50it/s]Loading weights:  81%|████████  | 322/398 [00:26<00:03, 21.67it/s]Loading weights:  79%|███████▊  | 313/398 [00:26<00:07, 11.02it/s]Loading weights:  79%|███████▊  | 313/398 [00:26<00:07, 11.08it/s]Loading weights:  79%|███████▊  | 313/398 [00:26<00:07, 10.88it/s]Loading weights:  82%|████████▏ | 325/398 [00:26<00:03, 21.19it/s]Loading weights:  80%|███████▉  | 317/398 [00:26<00:05, 13.71it/s]Loading weights:  80%|███████▉  | 317/398 [00:26<00:05, 13.58it/s]Loading weights:  79%|███████▉  | 315/398 [00:26<00:07, 10.62it/s]Loading weights:  80%|████████  | 320/398 [00:26<00:05, 14.83it/s]Loading weights:  80%|████████  | 320/398 [00:26<00:05, 14.93it/s]Loading weights:  84%|████████▎ | 333/398 [00:26<00:02, 23.26it/s]Loading weights:  84%|████████▍ | 336/398 [00:26<00:02, 24.15it/s]Loading weights:  81%|████████  | 322/398 [00:26<00:05, 12.67it/s]Loading weights:  81%|████████  | 322/398 [00:26<00:06, 12.58it/s]Loading weights:  81%|████████  | 322/398 [00:26<00:05, 14.05it/s]Loading weights:  86%|████████▌ | 342/398 [00:26<00:02, 26.83it/s]Loading weights:  87%|████████▋ | 346/398 [00:26<00:01, 28.20it/s]Loading weights:  89%|████████▊ | 353/398 [00:27<00:01, 23.92it/s]Loading weights:  81%|████████▏ | 324/398 [00:27<00:08,  8.78it/s]Loading weights:  81%|████████▏ | 324/398 [00:27<00:09,  7.48it/s]Loading weights:  81%|████████▏ | 324/398 [00:27<00:09,  7.43it/s]Loading weights:  89%|████████▉ | 356/398 [00:27<00:01, 24.52it/s]Loading weights:  83%|████████▎ | 330/398 [00:27<00:05, 11.61it/s]Loading weights:  83%|████████▎ | 330/398 [00:27<00:05, 12.34it/s]Loading weights:  91%|█████████ | 363/398 [00:27<00:01, 28.47it/s]Loading weights:  82%|████████▏ | 328/398 [00:27<00:07,  9.46it/s]Loading weights:  92%|█████████▏| 367/398 [00:27<00:01, 28.25it/s]Loading weights:  95%|█████████▍| 377/398 [00:27<00:00, 39.01it/s]Loading weights:  84%|████████▎ | 333/398 [00:28<00:06, 10.53it/s]Loading weights:  84%|████████▎ | 333/398 [00:28<00:06,  9.94it/s]Loading weights:  96%|█████████▌| 382/398 [00:28<00:00, 37.29it/s]Loading weights:  83%|████████▎ | 332/398 [00:28<00:07,  9.15it/s]Loading weights:  97%|█████████▋| 386/398 [00:28<00:00, 34.99it/s]Loading weights:  84%|████████▍ | 334/398 [00:28<00:07,  8.93it/s]Loading weights:  98%|█████████▊| 390/398 [00:28<00:00, 30.64it/s]Loading weights: 100%|██████████| 398/398 [00:28<00:00, 13.97it/s]
+Loading weights:  86%|████████▋ | 344/398 [00:28<00:03, 17.90it/s]Loading weights:  84%|████████▍ | 335/398 [00:28<00:08,  7.32it/s]Loading weights:  84%|████████▍ | 335/398 [00:28<00:08,  7.77it/s]Loading weights:  87%|████████▋ | 347/398 [00:28<00:02, 18.79it/s]Loading weights:  88%|████████▊ | 352/398 [00:28<00:02, 22.98it/s]Loading weights:  86%|████████▌ | 342/398 [00:28<00:04, 12.41it/s]Loading weights:  86%|████████▌ | 342/398 [00:28<00:04, 12.64it/s]Loading weights:  89%|████████▉ | 356/398 [00:28<00:01, 24.77it/s]Loading weights:  87%|████████▋ | 345/398 [00:28<00:03, 13.88it/s]Loading weights:  91%|█████████ | 363/398 [00:29<00:01, 33.24it/s]Loading weights:  87%|████████▋ | 345/398 [00:29<00:04, 12.13it/s]Loading weights:  88%|████████▊ | 351/398 [00:29<00:02, 18.40it/s]Loading weights:  89%|████████▉ | 355/398 [00:29<00:01, 21.87it/s]Loading weights:  92%|█████████▏| 368/398 [00:29<00:01, 28.95it/s]Loading weights:  95%|█████████▍| 377/398 [00:29<00:00, 37.24it/s]Loading weights:  96%|█████████▌| 382/398 [00:29<00:00, 37.28it/s]Loading weights:  90%|█████████ | 359/398 [00:29<00:02, 17.92it/s]Loading weights:  89%|████████▉ | 356/398 [00:29<00:02, 15.09it/s]Loading weights:  97%|█████████▋| 388/398 [00:29<00:00, 40.96it/s]Loading weights:  91%|█████████ | 361/398 [00:29<00:01, 19.23it/s]Loading weights:  91%|█████████ | 363/398 [00:29<00:01, 18.41it/s]Loading weights:  99%|█████████▊| 393/398 [00:29<00:00, 40.57it/s]Loading weights: 100%|██████████| 398/398 [00:29<00:00, 13.33it/s]
+Loading weights:  92%|█████████▏| 367/398 [00:29<00:01, 20.03it/s]Loading weights:  92%|█████████▏| 366/398 [00:29<00:01, 16.77it/s]Loading weights:  94%|█████████▍| 374/398 [00:30<00:01, 21.03it/s]Loading weights:  94%|█████████▍| 374/398 [00:30<00:01, 20.77it/s]Loading weights:  95%|█████████▍| 377/398 [00:30<00:01, 18.94it/s]Loading weights:  95%|█████████▍| 377/398 [00:30<00:01, 19.04it/s]Loading weights:  95%|█████████▌| 380/398 [00:30<00:01, 13.13it/s]Loading weights:  95%|█████████▌| 380/398 [00:30<00:01, 13.22it/s]Loading weights:  96%|█████████▌| 383/398 [00:31<00:00, 15.10it/s]Loading weights:  96%|█████████▌| 382/398 [00:31<00:01, 13.86it/s]Loading weights:  97%|█████████▋| 385/398 [00:31<00:00, 14.90it/s]Loading weights:  97%|█████████▋| 386/398 [00:31<00:00, 15.71it/s]Loading weights:  97%|█████████▋| 388/398 [00:31<00:00, 14.86it/s]Loading weights:  97%|█████████▋| 388/398 [00:31<00:00, 15.49it/s]Loading weights:  98%|█████████▊| 390/398 [00:31<00:00,  8.85it/s]Loading weights:  98%|█████████▊| 390/398 [00:31<00:00,  9.14it/s]Loading weights: 100%|██████████| 398/398 [00:31<00:00, 12.44it/s]
+Loading weights: 100%|██████████| 398/398 [00:31<00:00, 12.44it/s]
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:20:57[0m [90m[selector.py:93][0m Resolved diffusion attention backend 'SDPA' for role='self' via attention_config.default
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:20:57[0m [90m[selector.py:93][0m Resolved diffusion attention backend 'SDPA' for role='self' via attention_config.default
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:20:59[0m [90m[selector.py:93][0m Resolved diffusion attention backend 'SDPA' for role='self' via attention_config.default
+[32mINFO[0m [90m09-26 02:20:59[0m [90m[selector.py:93][0m Resolved diffusion attention backend 'SDPA' for role='self' via attention_config.default
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m Multi-thread loading shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m Multi-thread loading shards: 100% Completed | 1/1 [00:09<00:00,  9.32s/it]
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m Multi-thread loading shards: 100% Completed | 1/1 [00:09<00:00,  9.32s/it]
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m 
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:08[0m [90m[diffusers_loader.py:1098][0m Loading weights took 9.33 seconds
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:352][0m Model loading took 9.7884 GiB and 44.572885 seconds
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:358][0m Model runner: Model loaded successfully.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:352][0m Model loading took 9.7884 GiB and 44.576954 seconds
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:358][0m Model runner: Model loaded successfully.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:352][0m Model loading took 9.7884 GiB and 44.592696 seconds
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:358][0m Model runner: Model loaded successfully.
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[compile.py:103][0m Regional compilation applied to 25 module(s) for repeated blocks ['Flux2TransformerBlock', 'Flux2SingleTransformerBlock'].
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:267][0m Model runner: transformer configured for lazy regional torch.compile with dynamic=True; compilation errors may surface on the first request.
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:449][0m Model runner: Initialization complete.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[compile.py:103][0m Regional compilation applied to 25 module(s) for repeated blocks ['Flux2TransformerBlock', 'Flux2SingleTransformerBlock'].
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:267][0m Model runner: transformer configured for lazy regional torch.compile with dynamic=True; compilation errors may surface on the first request.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:449][0m Model runner: Initialization complete.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[compile.py:103][0m Regional compilation applied to 25 module(s) for repeated blocks ['Flux2TransformerBlock', 'Flux2SingleTransformerBlock'].
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:267][0m Model runner: transformer configured for lazy regional torch.compile with dynamic=True; compilation errors may surface on the first request.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:449][0m Model runner: Initialization complete.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:352][0m Model loading took 9.7884 GiB and 44.622250 seconds
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:358][0m Model runner: Model loaded successfully.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[compile.py:103][0m Regional compilation applied to 25 module(s) for repeated blocks ['Flux2TransformerBlock', 'Flux2SingleTransformerBlock'].
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:267][0m Model runner: transformer configured for lazy regional torch.compile with dynamic=True; compilation errors may surface on the first request.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_model_runner.py:449][0m Model runner: Initialization complete.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:439][0m Worker 2: Process-scoped GPU memory after model loading: 0.00 GiB.
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:439][0m Worker 0: Process-scoped GPU memory after model loading: 0.00 GiB.
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[manager.py:112][0m Initializing DiffusionLoRAManager: device=cuda:0, dtype=torch.bfloat16, max_cached_adapters=1, static_lora_path=None
+[32mINFO[0m [90m09-26 02:21:09[0m [90m[manager.py:112][0m Initializing DiffusionLoRAManager: device=cuda:2, dtype=torch.bfloat16, max_cached_adapters=1, static_lora_path=None
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:316][0m Worker 0: Initialization complete.
+[32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:316][0m Worker 2: Initialization complete.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1642][0m Worker 2: Scheduler loop started.
+[32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1642][0m Worker 0: Scheduler loop started.
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1486][0m Worker 2 ready to receive requests via shared memory
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1486][0m Worker 0 ready to receive requests via shared memory
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:439][0m Worker 3: Process-scoped GPU memory after model loading: 0.00 GiB.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:439][0m Worker 1: Process-scoped GPU memory after model loading: 0.00 GiB.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[manager.py:112][0m Initializing DiffusionLoRAManager: device=cuda:3, dtype=torch.bfloat16, max_cached_adapters=1, static_lora_path=None
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:316][0m Worker 3: Initialization complete.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[manager.py:112][0m Initializing DiffusionLoRAManager: device=cuda:1, dtype=torch.bfloat16, max_cached_adapters=1, static_lora_path=None
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:316][0m Worker 1: Initialization complete.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1642][0m Worker 3: Scheduler loop started.
+[0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1486][0m Worker 3 ready to receive requests via shared memory
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1642][0m Worker 1: Scheduler loop started.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [32mINFO[0m [90m09-26 02:21:09[0m [90m[diffusion_worker.py:1486][0m Worker 1 ready to receive requests via shared memory
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:21:09 [multiproc_executor.py:925] Async result pump started for 4 worker queue(s)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:21:09 [diffusion_engine.py:430] [RequestBatch] engine init max_num_seqs=1 max_wait_ms=0.0
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:21:09 [diffusion_engine.py:1421] dummy run to warm up the model
+NCCL version 2.29.7+cuda13.2
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [inline_stage_diffusion_client.py:82] [InlineStageDiffusionClient] stage-0 [rep-0] initialized inline (max_num_seqs=1)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [stage_runtime.py:1210] [StageRuntime] Stage 0 replica 0 initialized (diffusion)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [orchestrator.py:432] [Orchestrator] Starting event loop
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [omni_engine_base.py:344] [OmniEngine] Orchestrator ready with 1 stages
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [omni_base.py:227] [AsyncOmni] AsyncOmniEngine initialized in 167.27 seconds
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:04 [omni_base.py:246] [AsyncOmni] Initialized with 1 stages for model /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [api_server.py:776] Detected pure diffusion mode (single diffusion stage)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [serving_video.py:170] Video response frame conversion pool configured: workers=8
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [speaker_cache.py:239] Speaker cache ready (max_bytes=536870912)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [serving_speech.py:270] Speaker storage: dir=/tmp/omni-vae-9723875/speakers, max_speakers=1000, restored=0
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [serving.py:91] Robot OpenPI serving disabled for model klein-vae-bench
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [api_server.py:864] Pure diffusion API server initialized for model: klein-vae-bench
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [api_server.py:373] Starting vLLM API server (pure diffusion mode) on http://127.0.0.1:8091
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:61] Available routes are:
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /openapi.json, Methods: GET, HEAD
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /docs, Methods: GET, HEAD
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /redoc, Methods: GET, HEAD
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /load, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /version, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /metrics, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /tokenize, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /detokenize, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /ping, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /ping, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /invocations, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/responses, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/completions, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/messages, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /generative_scoring, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/speech, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/speech/batch, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/generate, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/voices, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/voices, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/audio/voices/{name}, Methods: DELETE
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/realtime/sessions, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/realtime/sessions/{session_id}/step, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/realtime/sessions/{session_id}/reset, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/realtime/sessions/{session_id}/close, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/realtime/sessions/{session_id}/status, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /health, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/models, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/images/generations, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/images/edits, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos/sync, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos/{video_id}, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos/{video_id}, Methods: DELETE
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/videos/{video_id}/content, Methods: GET
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/omni/sleep, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:70] Route: /v1/omni/wakeup, Methods: POST
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/audio/speech/stream, Endpoint: streaming_speech
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/video/chat/stream, Endpoint: streaming_video_chat
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/realtime/video, Endpoint: streaming_video_output
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/realtime, Endpoint: realtime_websocket
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/duplex, Endpoint: duplex_websocket
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:05 [launcher.py:81] Route: /v1/realtime/robot/openpi, Endpoint: realtime_robot_openpi
+[0;36m(APIServer pid=74)[0;0m INFO:     Started server process [74]
+[0;36m(APIServer pid=74)[0;0m INFO:     Waiting for application startup.
+[0;36m(APIServer pid=74)[0;0m INFO:     Application startup complete.
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58892 - "GET /health HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] +-----------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] | Field                       |      Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] +-----------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] | e2e_requests                |          1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] | e2e_wall_time_ms            | 14,746.416 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] | e2e_avg_time_per_request_ms | 14,746.416 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] | e2e_stage_0_wall_time_ms    | 14,742.606 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:899] +-----------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] [RequestE2EStats [request_id=img_gen-80d3a1eb0ba57b1d-beac1b72]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] +--------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] | Field        |      Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] +--------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] | e2e_total_ms | 14,742.606 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:925] +--------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:966] [OmniTiming] req=img_gen-80d3a1eb0ba57b1d-beac1b72 total=14.74s engine=14.74s stages=[0:14.74s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] [StageRequestStats [request_id=img_gen-80d3a1eb0ba57b1d-beac1b72]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] +---------------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | Field                           |          0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] +---------------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | batch_id                        |          1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | batch_size                      |          1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | denoise_step_latency_ms         |  3,685.475 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | diffusion_engine_exec_time_s    |     14.172 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | height                          |  1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | image_num                       |      2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | image_pixels                    |  2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | image_time_to_first_output_ms   | 14,741.883 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | inter_output_latencies_ms       |            |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | kv_recv_time_s                  |      0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | num_inference_steps             |      4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | output_ready_wait_time_s        |      0.359 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | output_unit_count               |          2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | output_unit_type                |      image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | postprocess_time_s              |      0.210 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | resolution                      |    640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | scheduler_queue_wait_s          |      0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | serving_time_to_first_output_ms | 14,745.868 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | stage_gen_time_ms               | 14,741.901 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | vllm_itls_ms                    |            |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] | width                           |  1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:22 [stats.py:1009] +---------------------------------+------------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58894 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] | e2e_wall_time_ms            | 1,299.822 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] | e2e_avg_time_per_request_ms | 1,299.822 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,296.290 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] [RequestE2EStats [request_id=img_gen-aa7e44a591cf0318-b6c44b61]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] | e2e_total_ms | 1,296.290 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:966] [OmniTiming] req=img_gen-aa7e44a591cf0318-b6c44b61 total=1.30s engine=1.30s stages=[0:1.29s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] [StageRequestStats [request_id=img_gen-aa7e44a591cf0318-b6c44b61]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | batch_id                        |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | denoise_step_latency_ms         |   323.711 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.839 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | image_time_to_first_output_ms   | 1,294.810 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | output_ready_wait_time_s        |     0.401 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | postprocess_time_s              |     0.054 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | serving_time_to_first_output_ms | 1,298.630 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | stage_gen_time_ms               | 1,294.844 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:24 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58896 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] | e2e_wall_time_ms            | 1,288.635 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] | e2e_avg_time_per_request_ms | 1,288.635 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,287.151 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] [RequestE2EStats [request_id=img_gen-bc0ad1090e1604dc-a64bb2e6]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] | e2e_total_ms | 1,287.151 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:966] [OmniTiming] req=img_gen-bc0ad1090e1604dc-a64bb2e6 total=1.29s engine=1.29s stages=[0:1.29s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] [StageRequestStats [request_id=img_gen-bc0ad1090e1604dc-a64bb2e6]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | batch_id                        |         3 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | denoise_step_latency_ms         |   321.522 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.836 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | image_time_to_first_output_ms   | 1,286.051 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | output_ready_wait_time_s        |     0.398 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | postprocess_time_s              |     0.052 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | serving_time_to_first_output_ms | 1,287.788 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | stage_gen_time_ms               | 1,286.090 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:26 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58898 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] | e2e_wall_time_ms            | 1,286.630 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] | e2e_avg_time_per_request_ms | 1,286.630 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,285.688 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] [RequestE2EStats [request_id=img_gen-938625728686dcb7-ae7c5fb2]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] | e2e_total_ms | 1,285.688 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:966] [OmniTiming] req=img_gen-938625728686dcb7-ae7c5fb2 total=1.29s engine=1.29s stages=[0:1.28s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] [StageRequestStats [request_id=img_gen-938625728686dcb7-ae7c5fb2]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | batch_id                        |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | denoise_step_latency_ms         |   321.140 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.836 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | image_time_to_first_output_ms   | 1,284.496 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | output_ready_wait_time_s        |     0.398 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | postprocess_time_s              |     0.050 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | serving_time_to_first_output_ms | 1,285.617 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | stage_gen_time_ms               | 1,284.562 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:27 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58900 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] | e2e_wall_time_ms            | 1,283.499 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] | e2e_avg_time_per_request_ms | 1,283.499 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,281.880 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] [RequestE2EStats [request_id=img_gen-8593507c1ea2aeff-82cfa4a7]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] | e2e_total_ms | 1,281.880 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:966] [OmniTiming] req=img_gen-8593507c1ea2aeff-82cfa4a7 total=1.28s engine=1.28s stages=[0:1.28s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] [StageRequestStats [request_id=img_gen-8593507c1ea2aeff-82cfa4a7]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | batch_id                        |         5 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | denoise_step_latency_ms         |   320.181 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.836 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | image_time_to_first_output_ms   | 1,280.705 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | output_ready_wait_time_s        |     0.394 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | postprocess_time_s              |     0.050 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | serving_time_to_first_output_ms | 1,282.511 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | stage_gen_time_ms               | 1,280.724 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:29 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58902 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] | e2e_wall_time_ms            | 1,288.207 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] | e2e_avg_time_per_request_ms | 1,288.207 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,285.965 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] [RequestE2EStats [request_id=img_gen-9aac05424f9478bf-af3c6184]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] | e2e_total_ms | 1,285.965 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:966] [OmniTiming] req=img_gen-9aac05424f9478bf-af3c6184 total=1.29s engine=1.29s stages=[0:1.29s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] [StageRequestStats [request_id=img_gen-9aac05424f9478bf-af3c6184]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | batch_id                        |         6 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | denoise_step_latency_ms         |   321.251 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.836 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | image_time_to_first_output_ms   | 1,284.909 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | output_ready_wait_time_s        |     0.397 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | postprocess_time_s              |     0.052 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | serving_time_to_first_output_ms | 1,287.257 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | stage_gen_time_ms               | 1,285.003 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:30 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58904 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] | e2e_wall_time_ms            | 1,288.046 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] | e2e_avg_time_per_request_ms | 1,288.046 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,286.209 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] [RequestE2EStats [request_id=img_gen-b18b4aed45717427-8249f692]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] | e2e_total_ms | 1,286.209 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:966] [OmniTiming] req=img_gen-b18b4aed45717427-8249f692 total=1.29s engine=1.29s stages=[0:1.29s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] [StageRequestStats [request_id=img_gen-b18b4aed45717427-8249f692]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | batch_id                        |         7 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | denoise_step_latency_ms         |   321.299 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.835 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | image_time_to_first_output_ms   | 1,285.178 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | output_ready_wait_time_s        |     0.396 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | postprocess_time_s              |     0.053 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | serving_time_to_first_output_ms | 1,287.210 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | stage_gen_time_ms               | 1,285.196 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:32 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58906 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] | e2e_wall_time_ms            | 1,286.258 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] | e2e_avg_time_per_request_ms | 1,286.258 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,285.503 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] [RequestE2EStats [request_id=img_gen-8ab5cbaaf6a50147-a5a7e2d7]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] | e2e_total_ms | 1,285.503 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:966] [OmniTiming] req=img_gen-8ab5cbaaf6a50147-a5a7e2d7 total=1.29s engine=1.29s stages=[0:1.28s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] [StageRequestStats [request_id=img_gen-8ab5cbaaf6a50147-a5a7e2d7]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | batch_id                        |         8 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | denoise_step_latency_ms         |   321.174 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.835 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | image_time_to_first_output_ms   | 1,284.676 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | output_ready_wait_time_s        |     0.397 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | postprocess_time_s              |     0.052 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | serving_time_to_first_output_ms | 1,285.511 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | stage_gen_time_ms               | 1,284.695 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:33 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58908 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] | e2e_wall_time_ms            | 2,440.670 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] | e2e_avg_time_per_request_ms | 2,440.670 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,439.988 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] [RequestE2EStats [request_id=img_gen-acf0402dc635e459-921e207e]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] | e2e_total_ms | 2,439.988 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:966] [OmniTiming] req=img_gen-acf0402dc635e459-921e207e total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] [StageRequestStats [request_id=img_gen-acf0402dc635e459-921e207e]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | batch_id                        |         9 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | denoise_step_latency_ms         |   609.889 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.642 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | image_time_to_first_output_ms   | 2,439.522 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | output_ready_wait_time_s        |     0.699 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | postprocess_time_s              |     0.099 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | serving_time_to_first_output_ms | 2,440.303 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | stage_gen_time_ms               | 2,439.554 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:36 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58910 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] | e2e_wall_time_ms            | 2,441.480 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] | e2e_avg_time_per_request_ms | 2,441.480 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,440.329 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] [RequestE2EStats [request_id=img_gen-a8721b1ee22cb548-81c1ddb1]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] | e2e_total_ms | 2,440.329 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:966] [OmniTiming] req=img_gen-a8721b1ee22cb548-81c1ddb1 total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] [StageRequestStats [request_id=img_gen-a8721b1ee22cb548-81c1ddb1]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | batch_id                        |        10 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | denoise_step_latency_ms         |   609.943 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.588 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | image_time_to_first_output_ms   | 2,439.739 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | output_ready_wait_time_s        |     0.750 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | postprocess_time_s              |     0.101 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | serving_time_to_first_output_ms | 2,441.082 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | stage_gen_time_ms               | 2,439.773 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:39 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58912 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] | e2e_wall_time_ms            | 2,437.831 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] | e2e_avg_time_per_request_ms | 2,437.831 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,436.671 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] [RequestE2EStats [request_id=img_gen-a5592b8d146df522-96ba2f70]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] | e2e_total_ms | 2,436.671 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:966] [OmniTiming] req=img_gen-a5592b8d146df522-96ba2f70 total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] [StageRequestStats [request_id=img_gen-a5592b8d146df522-96ba2f70]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | batch_id                        |        11 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | denoise_step_latency_ms         |   609.011 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.584 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | image_time_to_first_output_ms   | 2,435.998 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | output_ready_wait_time_s        |     0.750 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | postprocess_time_s              |     0.102 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | serving_time_to_first_output_ms | 2,437.376 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | stage_gen_time_ms               | 2,436.044 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:41 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58914 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] | e2e_wall_time_ms            | 2,444.761 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] | e2e_avg_time_per_request_ms | 2,444.761 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,442.403 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] [RequestE2EStats [request_id=img_gen-930fcb9252b83054-a4edaf13]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] | e2e_total_ms | 2,442.403 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:966] [OmniTiming] req=img_gen-930fcb9252b83054-a4edaf13 total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] [StageRequestStats [request_id=img_gen-930fcb9252b83054-a4edaf13]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | batch_id                        |        12 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | denoise_step_latency_ms         |   610.402 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.585 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | image_time_to_first_output_ms   | 2,441.557 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | output_ready_wait_time_s        |     0.752 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | postprocess_time_s              |     0.104 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | serving_time_to_first_output_ms | 2,444.027 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | stage_gen_time_ms               | 2,441.607 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:44 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58916 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] | e2e_wall_time_ms            | 2,442.002 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] | e2e_avg_time_per_request_ms | 2,442.002 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,440.367 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] [RequestE2EStats [request_id=img_gen-814375bcb8442d95-8c5c2dfe]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] | e2e_total_ms | 2,440.367 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:966] [OmniTiming] req=img_gen-814375bcb8442d95-8c5c2dfe total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] [StageRequestStats [request_id=img_gen-814375bcb8442d95-8c5c2dfe]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | batch_id                        |        13 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | denoise_step_latency_ms         |   609.930 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.586 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | image_time_to_first_output_ms   | 2,439.690 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | output_ready_wait_time_s        |     0.748 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | postprocess_time_s              |     0.106 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | serving_time_to_first_output_ms | 2,441.427 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | stage_gen_time_ms               | 2,439.721 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:47 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58918 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] | e2e_wall_time_ms            | 2,442.947 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] | e2e_avg_time_per_request_ms | 2,442.947 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,441.644 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] [RequestE2EStats [request_id=img_gen-b91f23358bfed6b7-ba16f0fc]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] | e2e_total_ms | 2,441.644 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:966] [OmniTiming] req=img_gen-b91f23358bfed6b7-ba16f0fc total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] [StageRequestStats [request_id=img_gen-b91f23358bfed6b7-ba16f0fc]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | batch_id                        |        14 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | denoise_step_latency_ms         |   610.215 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.585 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | image_time_to_first_output_ms   | 2,440.836 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | output_ready_wait_time_s        |     0.750 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | postprocess_time_s              |     0.106 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | serving_time_to_first_output_ms | 2,442.237 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | stage_gen_time_ms               | 2,440.860 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:50 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58920 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] | e2e_wall_time_ms            | 2,442.902 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] | e2e_avg_time_per_request_ms | 2,442.902 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,442.097 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] [RequestE2EStats [request_id=img_gen-979ab3846ea3ea82-af40a0f3]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] | e2e_total_ms | 2,442.097 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:966] [OmniTiming] req=img_gen-979ab3846ea3ea82-af40a0f3 total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] [StageRequestStats [request_id=img_gen-979ab3846ea3ea82-af40a0f3]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | batch_id                        |        15 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | denoise_step_latency_ms         |   610.366 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.589 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | image_time_to_first_output_ms   | 2,441.409 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | output_ready_wait_time_s        |     0.749 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | postprocess_time_s              |     0.103 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | serving_time_to_first_output_ms | 2,442.365 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | stage_gen_time_ms               | 2,441.464 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:53 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58922 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] | e2e_wall_time_ms            | 2,441.627 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] | e2e_avg_time_per_request_ms | 2,441.627 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] | e2e_stage_0_wall_time_ms    | 2,440.584 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] [RequestE2EStats [request_id=img_gen-8652eb6adde54978-8618f95f]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] | e2e_total_ms | 2,440.584 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:966] [OmniTiming] req=img_gen-8652eb6adde54978-8618f95f total=2.44s engine=2.44s stages=[0:2.44s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] [StageRequestStats [request_id=img_gen-8652eb6adde54978-8618f95f]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | batch_id                        |        16 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | denoise_step_latency_ms         |   609.926 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | diffusion_engine_exec_time_s    |     1.585 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | image_num                       |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | image_pixels                    | 4,194,304 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | image_time_to_first_output_ms   | 2,439.683 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | output_ready_wait_time_s        |     0.749 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | output_unit_count               |         4 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | postprocess_time_s              |     0.105 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | serving_time_to_first_output_ms | 2,440.904 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | stage_gen_time_ms               | 2,439.705 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:56 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58924 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] +-----------------------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] | Field                       |   Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] +-----------------------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] | e2e_requests                |       1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] | e2e_wall_time_ms            | 647.554 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] | e2e_avg_time_per_request_ms | 647.554 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] | e2e_stage_0_wall_time_ms    | 646.719 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:899] +-----------------------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] [RequestE2EStats [request_id=img_gen-85f82987a876af0b-9e865166]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] +--------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] | Field        |   Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] +--------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] | e2e_total_ms | 646.719 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:925] +--------------+---------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:966] [OmniTiming] req=img_gen-85f82987a876af0b-9e865166 total=0.65s engine=0.65s stages=[0:0.65s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] [StageRequestStats [request_id=img_gen-85f82987a876af0b-9e865166]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | batch_id                        |        17 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | denoise_step_latency_ms         |   161.541 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.469 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | image_num                       |     1.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | image_pixels                    | 1,048,576 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | image_time_to_first_output_ms   |   646.118 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | output_ready_wait_time_s        |     0.154 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | output_unit_count               |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | postprocess_time_s              |     0.023 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | serving_time_to_first_output_ms |   647.110 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | stage_gen_time_ms               |   646.164 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:57 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58926 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] | e2e_wall_time_ms            | 1,419.795 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] | e2e_avg_time_per_request_ms | 1,419.795 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,418.851 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] [RequestE2EStats [request_id=img_gen-9d314c81148b5ced-95e3e550]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] | e2e_total_ms | 1,418.851 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:966] [OmniTiming] req=img_gen-9d314c81148b5ced-95e3e550 total=1.42s engine=1.42s stages=[0:1.42s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] [StageRequestStats [request_id=img_gen-9d314c81148b5ced-95e3e550]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | batch_id                        |        18 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | denoise_step_latency_ms         |   354.607 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.973 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | image_time_to_first_output_ms   | 1,418.401 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | output_ready_wait_time_s        |     0.391 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | postprocess_time_s              |     0.054 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | serving_time_to_first_output_ms | 1,419.463 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | stage_gen_time_ms               | 1,418.427 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:22:58 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58928 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] [Overall Summary]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] | Field                       |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] | e2e_requests                |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] | e2e_wall_time_ms            | 1,286.741 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] | e2e_avg_time_per_request_ms | 1,286.741 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] | e2e_stage_0_wall_time_ms    | 1,285.678 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:899] +-----------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] [RequestE2EStats [request_id=img_gen-99431bbb04bb5daf-994dd33f]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] | Field        |     Value |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] | e2e_total_ms | 1,285.678 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:925] +--------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:966] [OmniTiming] req=img_gen-99431bbb04bb5daf-994dd33f total=1.29s engine=1.29s stages=[0:1.28s]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] 
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] [StageRequestStats [request_id=img_gen-99431bbb04bb5daf-994dd33f]]
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | Field                           |         0 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | batch_id                        |        19 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | batch_size                      |         1 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | denoise_step_latency_ms         |   321.188 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | diffusion_engine_exec_time_s    |     0.835 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | height                          | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | image_num                       |     2.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | image_pixels                    | 2,097,152 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | image_time_to_first_output_ms   | 1,284.734 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | inter_output_latencies_ms       |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | kv_recv_time_s                  |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | num_inference_steps             |     4.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | output_ready_wait_time_s        |     0.398 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | output_unit_count               |         2 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | output_unit_type                |     image |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | postprocess_time_s              |     0.052 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | resolution                      |   640.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | scheduler_queue_wait_s          |     0.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | serving_time_to_first_output_ms | 1,285.881 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | stage_gen_time_ms               | 1,284.754 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | vllm_itls_ms                    |           |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] | width                           | 1,024.000 |
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [stats.py:1009] +---------------------------------+-----------+
+[0;36m(APIServer pid=74)[0;0m INFO:     127.0.0.1:58930 - "POST /v1/images/generations HTTP/1.1" 200 OK
+[0;36m(DiffusionWorker_TP2 pid=109)[0;0m [32mINFO[0m [90m09-26 02:23:00[0m [90m[diffusion_worker.py:1651][0m Worker 2: Shutdown signal received, starting cleanup.
+[0;36m(DiffusionWorker_TP0 pid=107)[0;0m [32mINFO[0m [90m09-26 02:23:00[0m [90m[diffusion_worker.py:1651][0m Worker 0: Shutdown signal received, starting cleanup.
+[0;36m(DiffusionWorker_TP1 pid=108)[0;0m [0;36m(DiffusionWorker_TP3 pid=110)[0;0m [32mINFO[0m [90m09-26 02:23:00[0m [90m[diffusion_worker.py:1651][0m Worker 1: Shutdown signal received, starting cleanup.
+[32mINFO[0m [90m09-26 02:23:00[0m [90m[diffusion_worker.py:1651][0m Worker 3: Shutdown signal received, starting cleanup.
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [launcher.py:129] [shutdown] API server: shutdown triggered
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0.0s
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [omni_base.py:771] [AsyncOmni] Shutting down
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [omni_engine_base.py:1151] [OmniEngine] Shutting down Orchestrator
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [orchestrator.py:524] [Orchestrator] Received shutdown signal
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:00 [orchestrator.py:2775] [Orchestrator] Shutting down all 1 client(s)
+[0;36m(APIServer pid=74)[0;0m WARNING 09-26 02:23:15 [multiproc_executor.py:142] Calling terminate on diffusion worker DiffusionWorker-0 (pid=107)
+[0;36m(APIServer pid=74)[0;0m WARNING 09-26 02:23:15 [multiproc_executor.py:142] Calling terminate on diffusion worker DiffusionWorker-1 (pid=108)
+[0;36m(APIServer pid=74)[0;0m WARNING 09-26 02:23:15 [multiproc_executor.py:142] Calling terminate on diffusion worker DiffusionWorker-2 (pid=109)
+[0;36m(APIServer pid=74)[0;0m WARNING 09-26 02:23:15 [multiproc_executor.py:142] Calling terminate on diffusion worker DiffusionWorker-3 (pid=110)
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:16 [stage_pool.py:1373] [StagePool] Stage 0 replica 0 shut down
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:16 [launcher.py:154] [shutdown] API server: engine client stopped
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:16 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:16 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+[0;36m(APIServer pid=74)[0;0m INFO:     Shutting down
+[0;36m(APIServer pid=74)[0;0m INFO:     Waiting for application shutdown.
+[0;36m(APIServer pid=74)[0;0m INFO:     Application shutdown complete.
+[0;36m(APIServer pid=74)[0;0m INFO 09-26 02:23:16 [omni_base.py:771] [AsyncOmni] Shutting down

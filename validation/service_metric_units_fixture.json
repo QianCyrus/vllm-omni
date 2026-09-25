@@ -1,0 +1,101 @@
+{
+  "scope": "Offline metric normalization fixtures; no new GPU execution or A/B score",
+  "synthetic": {
+    "raw_metrics": {
+      "stage_metrics": {
+        "0": {
+          "stage_gen_time_ms": 1287.88,
+          "audio_duration_s": 0.25
+        }
+      },
+      "stage_durations": {
+        "queue_wait_ms": 1.5,
+        "stage_0_gen_ms": 1287.88,
+        "transfer_s": 0.003,
+        "Flux2KleinPipeline.vae.decode": 0.8,
+        "Flux2KleinPipeline.transformer.forward": 0.5,
+        "unknown_clock": 7.0,
+        "enabled": true
+      },
+      "peak_memory_mb": 18980.0
+    },
+    "original_client_derived": {
+      "stage_durations.queue_wait_ms_ms": 1500.0,
+      "stage_durations.stage_0_gen_ms_ms": 1287880.0,
+      "stage_durations.transfer_s_ms": 3.0,
+      "stage_durations.Flux2KleinPipeline.vae.decode_ms": 800.0
+    },
+    "expected_corrected_ms": {
+      "stage_metrics.0.stage_gen_time_ms": 1287.88,
+      "stage_metrics.0.audio_duration_ms": 250.0,
+      "stage_durations.queue_wait_ms": 1.5,
+      "stage_durations.stage_0_gen_ms": 1287.88,
+      "stage_durations.transfer_ms": 3.0,
+      "stage_durations.Flux2KleinPipeline.vae.decode_ms": 800.0,
+      "stage_durations.Flux2KleinPipeline.transformer.forward_ms": 500.0
+    },
+    "expected_unknown_stage_unit_paths": [
+      "stage_durations.unknown_clock"
+    ]
+  },
+  "real": {
+    "source_file": "9723802/control-a/http/requests.jsonl",
+    "source_sha256": "ae5e5149c9868b1b3547b2041bffecfd5d2cc0b3322c62e8e3d5e73102eb6ed2",
+    "label": "b2-sample-00",
+    "raw_metrics": {
+      "stage_metrics": {
+        "0": {
+          "stage_id": 0,
+          "final_output_type": "image",
+          "finish_reason": null,
+          "num_tokens_in": 0,
+          "num_tokens_out": 0,
+          "stage_gen_time_ms": 1290.7655239105225,
+          "postprocess_time_ms": 0.0,
+          "audio_frames": 0,
+          "audio_sample_rate": 0,
+          "audio_duration_s": 0.0,
+          "image_pixels": 2097152,
+          "denoise_step_latency_ms": 322.6913809776306,
+          "output_unit_type": "image",
+          "output_unit_count": 2,
+          "serving_time_to_first_output_ms": 1291.6336059570312,
+          "image_time_to_first_output_ms": 1290.7137870788574,
+          "time_per_output_unit_ms": 0.0,
+          "inter_output_latency_ms": 0.0,
+          "inter_output_latencies_ms": [],
+          "vllm_ttft_ms": 0.0,
+          "vllm_tpot_ms": 0.0,
+          "vllm_itl_ms": 0.0,
+          "vllm_itls_ms": [],
+          "stage_name": "diffusion"
+        }
+      },
+      "stage_id": 0,
+      "final_output_type": "image",
+      "num_tokens_in": 0,
+      "num_tokens_out": 0,
+      "stage_durations": {
+        "queue_wait_ms": 0.17562706489115953,
+        "stage_0_gen_ms": 1290.7655239105225
+      },
+      "peak_memory_mb": 18980.0
+    },
+    "original_client_derived": {
+      "stage_metrics.0.stage_gen_time_ms": 1290.7655239105225,
+      "stage_metrics.0.postprocess_time_ms": 0.0,
+      "stage_metrics.0.audio_duration_ms": 0.0,
+      "stage_metrics.0.denoise_step_latency_ms": 322.6913809776306,
+      "stage_metrics.0.serving_time_to_first_output_ms": 1291.6336059570312,
+      "stage_metrics.0.image_time_to_first_output_ms": 1290.7137870788574,
+      "stage_metrics.0.time_per_output_unit_ms": 0.0,
+      "stage_metrics.0.inter_output_latency_ms": 0.0,
+      "stage_metrics.0.vllm_ttft_ms": 0.0,
+      "stage_metrics.0.vllm_tpot_ms": 0.0,
+      "stage_metrics.0.vllm_itl_ms": 0.0,
+      "stage_durations.queue_wait_ms_ms": 175.62706489115953,
+      "stage_durations.stage_0_gen_ms_ms": 1290765.5239105225
+    },
+    "expected_stage_gen_ms": 1290.7655239105225
+  }
+}

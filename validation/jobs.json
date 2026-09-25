@@ -1,0 +1,122 @@
+{
+  "jobs": [
+    {
+      "id": 9723410,
+      "scope": "single-GPU real-VAE batch scaling",
+      "queue": "share-debug",
+      "allocated_gpus": 1,
+      "wall_limit_seconds": 300,
+      "token_hour_upper_bound": 0.25,
+      "status": "END",
+      "exit_code": 0,
+      "elapsed_seconds": 210,
+      "token_hours": 0.175
+    },
+    {
+      "id": 9723523,
+      "scope": "four-GPU native VAE batch mode including collectives",
+      "queue": "share-debug",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 600,
+      "token_hour_upper_bound": 2.0,
+      "status": "END",
+      "source_manifest": "source_manifest.json",
+      "exit_code": 0,
+      "elapsed_seconds": 295,
+      "token_hours": 0.9833333333333333
+    },
+    {
+      "id": 9723702,
+      "scope": "full Klein HTTP compiled control-batch-control, TP4 SP1 B2/B4",
+      "queue": "share-short",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 1800,
+      "token_hour_upper_bound": 6.0,
+      "status": "END",
+      "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+      "exit_code": 1,
+      "elapsed_seconds": 424,
+      "token_hours": 1.4133333333333333,
+      "failure": "HTTP initialization: default speaker storage /pjmhome/.cache is not writable; no scored requests"
+    },
+    {
+      "id": 9723802,
+      "scope": "full Klein HTTP compiled control-batch-control with writable speaker cache",
+      "queue": "share-short",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 1800,
+      "token_hour_upper_bound": 6.0,
+      "status": "END",
+      "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+      "changes_from_failed_run": [
+        "SPEAKER_SAMPLES_DIR under job-local /tmp",
+        "Hash actual Klein transformer module as well"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 424,
+      "token_hours": 1.4133333333333333,
+      "failure": "Completed control-a only; next arm pre-bind probe EADDRINUSE. No complete A/B score."
+    },
+    {
+      "id": 9723875,
+      "scope": "full Klein HTTP compiled control-batch-control, corrected TIME_WAIT port probe",
+      "queue": "share-short",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 1800,
+      "token_hour_upper_bound": 6.0,
+      "status": "END",
+      "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+      "changes_from_failed_run": [
+        "SO_REUSEADDR on pre-bind check; no source/client/measurement changes"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 965,
+      "token_hours": 3.216666666666667,
+      "quality_status": "B2/B4 exact; B1 baseline variation under separate review"
+    },
+    {
+      "id": 9723970,
+      "scope": "separate synchronized-host stage attribution, control and batch, no scored latency claim",
+      "queue": "share-short",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 1200,
+      "token_hour_upper_bound": 4.0,
+      "status": "END",
+      "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+      "diagnostic": true,
+      "client_version": "v2 metric-only normalization fix after scored job completed",
+      "exit_code": 0,
+      "elapsed_seconds": 544,
+      "token_hours": 1.8133333333333332,
+      "analysis_status": "VALIDATED_DIAGNOSTIC_WITH_LIMITATIONS",
+      "limitation": "Interleaved worker logs do not establish per-request four-call alignment on every rank; raw returned stage values and hashes valid"
+    },
+    {
+      "id": 9724061,
+      "scope": "B1 boundary and same-input native replay after original B2/B4 history, two fresh arms; unscored",
+      "queue": "share-short",
+      "allocated_gpus": 4,
+      "wall_limit_seconds": 1200,
+      "token_hour_upper_bound": 4.0,
+      "status": "END",
+      "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+      "diagnostic": true,
+      "exit_code": 0,
+      "elapsed_seconds": 567,
+      "token_hours": 1.89,
+      "analysis_status": "COMPLETE_BOUNDARY_EVIDENCE",
+      "localization": "DIVERGENCE_PRESENT_BEFORE_VAE"
+    }
+  ],
+  "updated_at": "2026-09-25T17:59:33.598048+00:00",
+  "harness_sha256": {
+    "bench_vae_scaling.py": "d1f1f560dee7100d8d520826b3d5997cd64ae5846954b611597b022c5bb81779",
+    "run_scaling.pjm": "d0024b7d44f76d2f35d194c15d939f96aa31a2ac38ca27321c22d021b278c894",
+    "bench_vae_distributed.py": "bed5351612a8281b671e7eed0625e78402a9bd8d134825467c9fca305d68c23c",
+    "run_distributed.pjm": "8f14c891439b8468c15ca6de56160774de2f6caa6c4919bcea33cb4868d5467c",
+    "launch_model_service.py": "3f605c650e1f4d4e0ab9cf68409383e8f9e4ae9c3d8b98f3a58da7c53f7bc921",
+    "bench_image_service.py": "5514834384b08335eda15e513cf9fbf259e9bead9a228381d51fc726126cc12d",
+    "run_service.pjm": "e78c11c640a788b914e70f4677ccd6ec12c88e4766975c1dc9f2c3431f5e4b36"
+  },
+  "total_token_hours": 10.905
+}

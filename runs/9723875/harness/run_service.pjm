@@ -1,0 +1,60 @@
+#!/bin/bash
+#PJM -g jh220036a
+#PJM -L rscgrp=share-short
+#PJM -L gpu=4
+#PJM -L elapse=00:30:00
+#PJM -N omni_vae_http
+#PJM -j
+set -euo pipefail
+ulimit -c 0
+export LC_ALL=C
+TASK_ROOT=/work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926
+TASK_PYTHON=/work/04/jh220036a/v57014/envs/vllm-omni-kv-model-cu130/bin/python
+TASK_MODEL=/work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27
+TASK_SHA=1ccbc20901149b803a135984c2c3e4847fe981dd
+TASK_OUT="$TASK_ROOT/runs/${PJM_JOBID:?Submit through PJM}"
+TASK_CACHE="/tmp/omni-vae-${PJM_JOBID}"
+mkdir -p "$TASK_OUT" "$TASK_CACHE"
+exec > >(tee "$TASK_OUT/job.log") 2>&1
+module load gcc/12.2.0
+export CUDA_HOME=/work/opt/local/x86_64/cores/cuda/13.3
+export LD_LIBRARY_PATH="$CUDA_HOME/compat${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export PATH="$CUDA_HOME/bin:$PATH"
+export PYTHONNOUSERSITE=1 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+export TORCHINDUCTOR_COMPILE_THREADS=4 NCCL_DEBUG=WARN TORCH_NCCL_ASYNC_ERROR_HANDLING=1
+export XDG_CACHE_HOME="$TASK_CACHE/driver" FLASHINFER_WORKSPACE_BASE="$TASK_CACHE/driver-flashinfer"
+export SPEAKER_SAMPLES_DIR="$TASK_CACHE/speakers"
+trap 'rm -rf -- "$TASK_CACHE"' EXIT
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/started_utc.txt"
+nvidia-smi --query-gpu=index,name,memory.total,driver_version --format=csv > "$TASK_OUT/gpus.csv"
+nvidia-smi topo -m > "$TASK_OUT/topology.txt"
+cd "$TASK_ROOT"
+sha256sum launch_model_service.py bench_image_service.py run_service.pjm service_source_manifest.json > "$TASK_OUT/harness_before.sha256"
+cp service_source_manifest.json "$TASK_OUT/source_manifest.json"
+(cd source_head && sha256sum -c "$TASK_ROOT/service_source.sha256") > "$TASK_OUT/source_verify_before.txt"
+TASK_START=$SECONDS
+TASK_EXIT=0
+for TASK_LABEL in control-a batch control-b; do
+    TASK_ARM=control
+    if [[ "$TASK_LABEL" == batch ]]; then TASK_ARM=batch; fi
+    TASK_REMAIN=$((1700 - (SECONDS - TASK_START)))
+    if (( TASK_REMAIN < 90 )); then TASK_EXIT=124; break; fi
+    echo "START_ARM=$TASK_LABEL REMAIN_SECONDS=$TASK_REMAIN"
+    set +e
+    timeout --signal=TERM --kill-after=50s "${TASK_REMAIN}s" "$TASK_PYTHON" launch_model_service.py \
+        --source-root "$TASK_ROOT/source_head" --source-sha "$TASK_SHA" \
+        --source-manifest "$TASK_ROOT/service_source_manifest.json" \
+        --model "$TASK_MODEL" --output "$TASK_OUT/$TASK_LABEL" --arm "$TASK_ARM" \
+        --cache-root "$TASK_CACHE/$TASK_LABEL" --batches 2 4 --warmup 2 --repeats 6 \
+        --compile-mode regional --startup-timeout 600 --request-timeout 600 --run-timeout "$TASK_REMAIN"
+    TASK_EXIT=$?
+    set -e
+    if (( TASK_EXIT != 0 )); then break; fi
+done
+sha256sum -c "$TASK_OUT/harness_before.sha256" > "$TASK_OUT/harness_verify_after.txt" || TASK_EXIT=1
+(cd source_head && sha256sum -c "$TASK_ROOT/service_source.sha256") > "$TASK_OUT/source_verify_after.txt" || TASK_EXIT=1
+printf '%s\n' "$TASK_EXIT" > "$TASK_OUT/exit_code.txt"
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/ended_utc.txt"
+echo "JOB_EXIT=$TASK_EXIT OUTPUT=$TASK_OUT"
+exit "$TASK_EXIT"

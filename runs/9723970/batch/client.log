@@ -1,0 +1,10 @@
+{"arm": "batch", "batch": 2, "label": "b2-warmup-00", "scored": false, "wall_ms": 15327.839773963206, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-warmup-01", "scored": false, "wall_ms": 1307.330135954544, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-00", "scored": false, "wall_ms": 1191.7037239763886, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-01", "scored": false, "wall_ms": 1199.840030982159, "http_status": 200}
+{"arm": "batch", "batch": 2, "label": "b2-sample-02", "scored": false, "wall_ms": 1194.0543889068067, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-warmup-00", "scored": false, "wall_ms": 2160.9295490197837, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-warmup-01", "scored": false, "wall_ms": 2157.0458780042827, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-00", "scored": false, "wall_ms": 2156.9951199926436, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-01", "scored": false, "wall_ms": 2160.4806350078434, "http_status": 200}
+{"arm": "batch", "batch": 4, "label": "b4-sample-02", "scored": false, "wall_ms": 2161.1843020655215, "http_status": 200}

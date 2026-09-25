@@ -1,0 +1,13 @@
+{
+  "client_http_mock": "PASS",
+  "wrong_image_count_rejected": "PASS",
+  "requests": 13,
+  "scored_requests": 6,
+  "saved_pngs": 11,
+  "milliseconds_conversion": "PASS",
+  "source_manifest_check": "PASS",
+  "launcher_check_no_server_no_gpu": "PASS",
+  "python": "3.12.13",
+  "client_sha256": "71ba1989456974a1673a00a10146503faadb794a10327a8754b3b785ab4acb7f",
+  "launcher_sha256": "c0ff2067aea9104bc38101ce608889d7ea4f71323e30e848e665559d9f6fb7a9"
+}

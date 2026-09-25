@@ -1,0 +1,13 @@
+{
+  "base_revision": "43e507117f04a86f2df8d405cbe03c1b1642eac9",
+  "base_errors": 32,
+  "head_errors_after_targeted_annotations": 32,
+  "new_errors": {},
+  "fixed_errors": {},
+  "annotations": [
+    "self.dtype: ignore[attr-defined]",
+    "super().decode: ignore[misc]"
+  ],
+  "runtime_change": false,
+  "remote_snapshot_changed": false
+}

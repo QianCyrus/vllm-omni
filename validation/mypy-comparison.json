@@ -1,0 +1,11 @@
+{
+  "base_revision": "43e507117f04a86f2df8d405cbe03c1b1642eac9",
+  "base_errors": 32,
+  "head_errors": 34,
+  "new_errors": {
+    "vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py: error: \"DistributedAutoencoderKL_base\" has no attribute \"dtype\"  [attr-defined]": 1,
+    "vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py: error: \"decode\" undefined in superclass  [misc]": 1
+  },
+  "fixed_errors": {},
+  "note": "Base worktree has only profiler model/docs edits; all seven checked production files match base revision."
+}

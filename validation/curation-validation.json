@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Final local evidence curation, Python syntax, relative links, and offline analysis replay; no additional GPU/model run",
+  "copied_artifact_count": 330,
+  "copied_artifact_hash_errors": [],
+  "broken_relative_links": [],
+  "python_scripts_parse": true,
+  "offline_analyzers": {
+    "component": {
+      "exit_code": 0,
+      "scope": "component timing/correctness"
+    },
+    "service": {
+      "exit_code": 2,
+      "status": "COMPLETE_NONEXACT_REVIEW_REQUIRED"
+    },
+    "stage_diagnostic": {
+      "exit_code": 2,
+      "status": "VALIDATED_DIAGNOSTIC_WITH_LIMITATIONS"
+    },
+    "b1_boundary": {
+      "exit_code": 0,
+      "status": "COMPLETE_BOUNDARY_EVIDENCE",
+      "localization": "DIVERGENCE_PRESENT_BEFORE_VAE"
+    }
+  },
+  "scored_harness_preserved": true,
+  "b1_original_nonexact_status_preserved": true,
+  "b1_input_tensors_included": 4,
+  "model_weights_included": false,
+  "production_source_changes": false,
+  "publication_performed_by_this_curation": false
+}

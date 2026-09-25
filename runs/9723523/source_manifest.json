@@ -1,0 +1,25 @@
+{
+  "base_sha": "43e507117f04a86f2df8d405cbe03c1b1642eac9",
+  "branch": "codex/vae-batch-parallel",
+  "patch_sha256": "b2f1815d18bc4c8583f059396fd09532d9bdd13e62c9d4a1fe3b242aadf67ae5",
+  "untracked": [
+    "tests/diffusion/distributed/test_vae_batch_parallel.py"
+  ],
+  "files": {
+    "docs/contributing/profiling.md": "c59a9d4a6241000e2e9e5b05cd10964d9c80594063c8cb5036f855274b9a0329",
+    "docs/user_guide/diffusion/parallelism/vae_parallelism.md": "3cad9c4ce4ba30a15d298171871142371746e40566f751f1ccb197c7bf733367",
+    "tests/diffusion/distributed/test_distributed_vae_executor.py": "c887d1f4752f852c43ae14a80f948814f0974c845f8071698ca47d229253d3f8",
+    "tests/diffusion/distributed/test_vae_batch_parallel.py": "1c186047776b2797aeaea5fe689a6570cd299e1f14eabc06bac06716fca615a3",
+    "vllm_omni/config/omni_config.py": "3f54bda2a3b6c5d336b4b6145a56f429c8160ca119ddb3e9c286e05ce323c4e6",
+    "vllm_omni/diffusion/data.py": "28bf8b8ab8ccf6aed619fc8b3c334d86c8f30dc362cbc724371b0a864fa9987d",
+    "vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py": "71203d7574080378eea499fb23e1960937b762748fa3081dc7ae430b50ce513b",
+    "vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py": "12824e708fadd181d4aaae4c8cbed89177454d58864622e9637bb771cf7c3daa",
+    "vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py": "1493f3936cd72322725eabff801176744313203f30192d6cd747f6a8e8eda05d",
+    "vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py": "9364acb53f6382fe31673f2a932aced518f5d1f84bae2d8a3e8d6b0b8ae51649",
+    "vllm_omni/diffusion/registry.py": "952a337800d6d8bd27b30eb20fd9c2826544f2f7339814eec46dabf90d93f1a9",
+    "vllm_omni/entrypoints/cli/serve.py": "6ec92359d8cb1855bb788e4058ee33fa17cf14ca771bfff7282ac221cd9fc5a0"
+  },
+  "remove_in_snapshot": [
+    "tests/diffusion/models/flux2/test_flux2_klein_profiler.py"
+  ]
+}

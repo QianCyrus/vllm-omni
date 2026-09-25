@@ -1,0 +1,39 @@
+#!/bin/bash
+#PJM -g jh220036a
+#PJM -L rscgrp=share-debug
+#PJM -L gpu=1
+#PJM -L elapse=00:05:00
+#PJM -N omni_vae_scale
+#PJM -j
+set -euo pipefail
+ulimit -c 0
+export LC_ALL=C
+TASK_ROOT=/work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926
+TASK_PYTHON=/work/04/jh220036a/v57014/envs/vllm-omni-kv-model-cu130/bin/python
+TASK_OUT="$TASK_ROOT/runs/${PJM_JOBID:?Submit through PJM}"
+mkdir -p "$TASK_OUT"
+exec > >(tee "$TASK_OUT/job.log") 2>&1
+module load gcc/12.2.0
+export CUDA_HOME=/work/opt/local/x86_64/cores/cuda/13.3
+export LD_LIBRARY_PATH="$CUDA_HOME/compat${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export PATH="$CUDA_HOME/bin:$PATH"
+export PYTHONNOUSERSITE=1 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+export XDG_CACHE_HOME="/tmp/omni-vae-${PJM_JOBID}"
+export FLASHINFER_WORKSPACE_BASE="$XDG_CACHE_HOME/flashinfer"
+mkdir -p "$XDG_CACHE_HOME"
+trap 'rm -rf -- "$XDG_CACHE_HOME"' EXIT
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/started_utc.txt"
+nvidia-smi --query-gpu=index,name,memory.total,driver_version --format=csv > "$TASK_OUT/gpus.csv"
+sha256sum "$TASK_ROOT/bench_vae_scaling.py" "$TASK_ROOT/run_scaling.pjm" > "$TASK_OUT/harness_before.sha256"
+set +e
+timeout --signal=TERM --kill-after=10s 265s "$TASK_PYTHON" "$TASK_ROOT/bench_vae_scaling.py" \
+    --model /work/04/jh220036a/v57014/models/FLUX.2-klein-4B-e7b7dc27 \
+    --output "$TASK_OUT"
+TASK_EXIT=$?
+set -e
+sha256sum -c "$TASK_OUT/harness_before.sha256" > "$TASK_OUT/harness_verify_after.txt" || TASK_EXIT=1
+printf '%s\n' "$TASK_EXIT" > "$TASK_OUT/exit_code.txt"
+date -u +%Y-%m-%dT%H:%M:%SZ > "$TASK_OUT/ended_utc.txt"
+echo "JOB_EXIT=$TASK_EXIT OUTPUT=$TASK_OUT"
+exit "$TASK_EXIT"

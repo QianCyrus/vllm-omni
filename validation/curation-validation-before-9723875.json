@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "Local curation, syntax and argument-parser checks only; no server, model or GPU execution",
+  "python_scripts_parse": true,
+  "cli_help_checks": 6,
+  "component_and_service_patch_hashes_match": true,
+  "historical_harness_hashes_match_jobs": [
+    "9723410",
+    "9723523",
+    "9723702",
+    "9723802"
+  ],
+  "copied_files_hashes_match": true,
+  "new_source_runtime_changes": false,
+  "git_commits": 0,
+  "git_pushes": 0,
+  "posts": 0,
+  "current_launcher_sha256": "3f605c650e1f4d4e0ab9cf68409383e8f9e4ae9c3d8b98f3a58da7c53f7bc921",
+  "failed_second_http_attempt_preserved": true,
+  "known_stage_units_error": "Frozen derived stage_durations.*_ms_ms fields have an extra factor of 1000; raw response metrics and wall_ms retained unchanged."
+}

@@ -1,0 +1,5 @@
+{
+  "type": "RuntimeError",
+  "message": "Server exited before readiness: 1",
+  "traceback": "Traceback (most recent call last):\n  File \"/work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926/launch_model_service.py\", line 254, in main\n    raise RuntimeError(f\"Server exited before readiness: {server.returncode}\")\nRuntimeError: Server exited before readiness: 1\n"
+}

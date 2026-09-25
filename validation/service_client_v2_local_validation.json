@@ -1,0 +1,13 @@
+{
+  "scope": "Only normalization function changed; no GPU runs and no replacement of frozen client",
+  "original_sha256": "71ba1989456974a1673a00a10146503faadb794a10327a8754b3b785ab4acb7f",
+  "v2_sha256": "5514834384b08335eda15e513cf9fbf259e9bead9a228381d51fc726126cc12d",
+  "outside_function_bytes_identical": "PASS",
+  "outside_function_ast_identical": "PASS",
+  "http_timer_payload_requests_and_artifact_io_unchanged": "PASS",
+  "mixed_unit_fixture": "PASS",
+  "original_raw_not_mutated": "PASS",
+  "real_19_requests": "PASS",
+  "unknown_units_not_guessed": "PASS",
+  "ambiguous_names_rejected": "PASS"
+}

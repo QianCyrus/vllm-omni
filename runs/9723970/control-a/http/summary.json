@@ -1,0 +1,364 @@
+{
+  "2": {
+    "scored": false,
+    "samples_ms": [
+      1413.7501600198448,
+      1418.8852650113404,
+      1413.9246379490942
+    ],
+    "mean_ms": 1415.5200209934264,
+    "median_ms": 1413.9246379490942,
+    "std_ms": 2.915692218329628,
+    "min_ms": 1413.7501600198448,
+    "max_ms": 1418.8852650113404,
+    "same_seed_repeat_pixels_exact": true,
+    "ordered_pixel_sha256": [
+      "a0dbb8f73242130a5985d352db8d55b88ef28ad3b982b9531166dbc8bbc761b7",
+      "4f29deac79d49a52fee5fa183fe2e837c7912318da83c2971988e3793028e0fc"
+    ],
+    "server_time_metrics_ms": {
+      "stage_durations.Flux2KleinPipeline.text_encoder.forward_ms": {
+        "count": 3,
+        "mean_ms": 39.983715008323394,
+        "median_ms": 40.01634998712689,
+        "samples_ms": [
+          40.01634998712689,
+          39.87950901500881,
+          40.05528602283448
+        ]
+      },
+      "stage_durations.Flux2KleinPipeline.transformer.forward_ms": {
+        "count": 3,
+        "mean_ms": 780.7681952835992,
+        "median_ms": 781.4511568285525,
+        "samples_ms": [
+          781.5171470865607,
+          781.4511568285525,
+          779.3362819356844
+        ]
+      },
+      "stage_durations.Flux2KleinPipeline.vae.decode_ms": {
+        "count": 3,
+        "mean_ms": 375.12442597653717,
+        "median_ms": 375.1457949401811,
+        "samples_ms": [
+          375.1457949401811,
+          375.16887194942683,
+          375.0586110400036
+        ]
+      },
+      "stage_durations.queue_wait_ms": {
+        "count": 3,
+        "mean_ms": 0.20380799348155657,
+        "median_ms": 0.21856999956071377,
+        "samples_ms": [
+          0.22909895051270723,
+          0.16375503037124872,
+          0.21856999956071377
+        ]
+      },
+      "stage_durations.stage_0_gen_ms": {
+        "count": 3,
+        "mean_ms": 1284.7618261973064,
+        "median_ms": 1285.8617305755615,
+        "samples_ms": [
+          1287.2967720031738,
+          1285.8617305755615,
+          1281.1269760131836
+        ]
+      },
+      "stage_metrics.0.audio_duration_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.denoise_step_latency_ms": {
+        "count": 3,
+        "mean_ms": 321.1904565493266,
+        "median_ms": 321.4654326438904,
+        "samples_ms": [
+          321.82419300079346,
+          321.4654326438904,
+          320.2817440032959
+        ]
+      },
+      "stage_metrics.0.image_time_to_first_output_ms": {
+        "count": 3,
+        "mean_ms": 1284.7421964009602,
+        "median_ms": 1285.8431339263916,
+        "samples_ms": [
+          1287.2774600982666,
+          1285.8431339263916,
+          1281.1059951782227
+        ]
+      },
+      "stage_metrics.0.inter_output_latency_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.postprocess_time_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.serving_time_to_first_output_ms": {
+        "count": 3,
+        "mean_ms": 1285.6038411458333,
+        "median_ms": 1286.6215705871582,
+        "samples_ms": [
+          1288.2475852966309,
+          1286.6215705871582,
+          1281.942367553711
+        ]
+      },
+      "stage_metrics.0.stage_gen_time_ms": {
+        "count": 3,
+        "mean_ms": 1284.7618261973064,
+        "median_ms": 1285.8617305755615,
+        "samples_ms": [
+          1287.2967720031738,
+          1285.8617305755615,
+          1281.1269760131836
+        ]
+      },
+      "stage_metrics.0.time_per_output_unit_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_itl_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_tpot_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_ttft_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "4": {
+    "scored": false,
+    "samples_ms": [
+      2703.225607983768,
+      2774.177015060559,
+      2699.0755980368704
+    ],
+    "mean_ms": 2725.4927403603992,
+    "median_ms": 2703.225607983768,
+    "std_ms": 42.212848730573775,
+    "min_ms": 2699.0755980368704,
+    "max_ms": 2774.177015060559,
+    "same_seed_repeat_pixels_exact": true,
+    "ordered_pixel_sha256": [
+      "dbe730ae8b93eeca07a9deceae44346e398b6cd27880fdf523c564c7eed6b128",
+      "337a3573bfc74d655bbac2a7a0568076dbe64078a0cb692d0e0d45611af48515",
+      "6c0f0945834f0affa7cb330463e70705847e42a376449c59bcd167deb6a0fc65",
+      "c2870037b84908869661a82295ecd2f83c581f43a80f182d7e581eeb04fce8cd"
+    ],
+    "server_time_metrics_ms": {
+      "stage_durations.Flux2KleinPipeline.text_encoder.forward_ms": {
+        "count": 3,
+        "mean_ms": 42.10889199748635,
+        "median_ms": 40.0523979915306,
+        "samples_ms": [
+          40.0523979915306,
+          46.35728499852121,
+          39.91699300240725
+        ]
+      },
+      "stage_durations.Flux2KleinPipeline.transformer.forward_ms": {
+        "count": 3,
+        "mean_ms": 1524.6811256123085,
+        "median_ms": 1521.567090996541,
+        "samples_ms": [
+          1520.916593959555,
+          1531.5596918808296,
+          1521.567090996541
+        ]
+      },
+      "stage_durations.Flux2KleinPipeline.vae.decode_ms": {
+        "count": 3,
+        "mean_ms": 695.3838243692493,
+        "median_ms": 695.46616403386,
+        "samples_ms": [
+          695.0539849931374,
+          695.6313240807503,
+          695.46616403386
+        ]
+      },
+      "stage_durations.queue_wait_ms": {
+        "count": 3,
+        "mean_ms": 0.23794197477400303,
+        "median_ms": 0.2440939424559474,
+        "samples_ms": [
+          0.26338896714150906,
+          0.2440939424559474,
+          0.20634301472455263
+        ]
+      },
+      "stage_durations.stage_0_gen_ms": {
+        "count": 3,
+        "mean_ms": 2471.113602320353,
+        "median_ms": 2446.582794189453,
+        "samples_ms": [
+          2446.582794189453,
+          2520.5745697021484,
+          2446.183443069458
+        ]
+      },
+      "stage_metrics.0.audio_duration_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.denoise_step_latency_ms": {
+        "count": 3,
+        "mean_ms": 617.7784005800883,
+        "median_ms": 611.6456985473633,
+        "samples_ms": [
+          611.6456985473633,
+          630.1436424255371,
+          611.5458607673645
+        ]
+      },
+      "stage_metrics.0.image_time_to_first_output_ms": {
+        "count": 3,
+        "mean_ms": 2471.0659980773926,
+        "median_ms": 2446.5506076812744,
+        "samples_ms": [
+          2446.5506076812744,
+          2520.5392837524414,
+          2446.108102798462
+        ]
+      },
+      "stage_metrics.0.inter_output_latency_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.postprocess_time_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.serving_time_to_first_output_ms": {
+        "count": 3,
+        "mean_ms": 2472.2617467244468,
+        "median_ms": 2447.9007720947266,
+        "samples_ms": [
+          2447.9007720947266,
+          2521.780252456665,
+          2447.1042156219482
+        ]
+      },
+      "stage_metrics.0.stage_gen_time_ms": {
+        "count": 3,
+        "mean_ms": 2471.113602320353,
+        "median_ms": 2446.582794189453,
+        "samples_ms": [
+          2446.582794189453,
+          2520.5745697021484,
+          2446.183443069458
+        ]
+      },
+      "stage_metrics.0.time_per_output_unit_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_itl_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_tpot_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "stage_metrics.0.vllm_ttft_ms": {
+        "count": 3,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "samples_ms": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}

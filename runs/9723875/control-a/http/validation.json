@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "requests_completed": 19,
+  "scored": true,
+  "scope": "HTTP completion, image count/shape and within-run repeat checks; cross-arm pixel comparison is separate"
+}

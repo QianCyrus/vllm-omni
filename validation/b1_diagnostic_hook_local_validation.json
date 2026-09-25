@@ -1,0 +1,16 @@
+{
+  "scope": "CPU fake-Torch import/delegation/capture fixture; not a real model execution or GPU proof",
+  "hook_sha256": "2b739d98544861265c8b5c944d986935eedba61d3a05508d62c23b75eb39e54d",
+  "outcomes": {
+    "degree1_b1": "PASS",
+    "degree4_b1": "PASS",
+    "nonzero_difference_detected": "PASS",
+    "b2_skips_probe": "PASS",
+    "rank1_skips_probe": "PASS",
+    "disabled_by_default": "PASS",
+    "direct_failure_preserved": "PASS"
+  },
+  "no_early_torch_import": "PASS",
+  "request_context_restored": "PASS",
+  "capture_contains_request_id_and_tensor_receipts": "PASS"
+}

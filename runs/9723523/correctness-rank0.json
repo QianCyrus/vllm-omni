@@ -1,0 +1,38 @@
+[
+  {
+    "batch": 2,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "finite": true,
+    "dtype_matches": true,
+    "shape_matches": true
+  },
+  {
+    "batch": 4,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "finite": true,
+    "dtype_matches": true,
+    "shape_matches": true
+  },
+  {
+    "batch": 5,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "finite": true,
+    "dtype_matches": true,
+    "shape_matches": true
+  },
+  {
+    "batch": 1,
+    "max_abs": 0.0,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "finite": true,
+    "dtype_matches": true,
+    "shape_matches": true
+  }
+]

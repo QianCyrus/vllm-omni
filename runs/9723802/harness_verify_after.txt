@@ -1,0 +1,4 @@
+launch_model_service.py: OK
+bench_image_service.py: OK
+run_service.pjm: OK
+service_source_manifest.json: OK

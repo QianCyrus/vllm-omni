@@ -1,0 +1,2 @@
+/work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926/bench_vae_distributed.py: OK
+/work/04/jh220036a/v57014/artifacts/omni-vae-batch-20260926/run_distributed.pjm: OK

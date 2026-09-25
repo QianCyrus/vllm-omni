@@ -1,0 +1,44 @@
+{
+  "updated_utc": "2026-09-25T17:59:33.598728+00:00",
+  "vae_head": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+  "publications": {
+    "new_issue": null,
+    "new_pr": null,
+    "code_pushed": false
+  },
+  "scored_service": {
+    "job": 9723875,
+    "status": "END0",
+    "B2_reduction_pct": [
+      15.908792877375044,
+      15.421053513192984
+    ],
+    "B4_reduction_pct": [
+      19.908090847547765,
+      19.76159041800858
+    ],
+    "authoritative": "9723875/service-analysis.json",
+    "quality": "52/53 exact per pair; original B1 nonexact retained. Followup reproduced different inputs before VAE and exact same-input native decode in each arm."
+  },
+  "active_stage_diagnostic": null,
+  "b1_followup": {
+    "job": 9724061,
+    "status": "END0",
+    "scope": "same shape history17requests, rank0 latent capture and same-input native replay, no scores",
+    "analysis": "COMPLETE_BOUNDARY_EVIDENCE",
+    "localization": "DIVERGENCE_PRESENT_BEFORE_VAE",
+    "native_replay": "exact in each arm"
+  },
+  "architecture": {
+    "worktree": "/Users/aniya/vllm-omni-worktrees/klein-request-batching",
+    "base": "5d0963b3dc325475730c1b1cc8321198da98bb39",
+    "status": "45 CPU tests passed; independent source review complete; GPU benchmark preparation",
+    "artifact_root": "/Users/aniya/vllm-omni-experiments/klein-request-batching-20260926"
+  },
+  "skills": "BBuf diffusion VAE flow + repo diffusion-perf-opt, precheck; all evidence preserved",
+  "stage_diagnostic": {
+    "job": 9723970,
+    "status": "END0",
+    "analysis": "VALIDATED_DIAGNOSTIC_WITH_LIMITATIONS; HTTP stage values+image comparison valid; interleaved worker logs"
+  }
+}

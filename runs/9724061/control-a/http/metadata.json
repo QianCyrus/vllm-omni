@@ -1,0 +1,19 @@
+{
+  "arm": "control",
+  "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+  "client_sha256": "5514834384b08335eda15e513cf9fbf259e9bead9a228381d51fc726126cc12d",
+  "endpoint": "http://127.0.0.1:8091/v1/images/generations",
+  "batches": [
+    2,
+    4
+  ],
+  "warmup_per_batch": 2,
+  "repeats_per_batch": 6,
+  "concurrency": 1,
+  "diagnostic": true,
+  "timing_scope": "HTTP POST through complete response read; includes server PNG/base64/transport; excludes local parsing, image decoding, checks and writes",
+  "request_timeout_s": 600.0,
+  "b1_correctness_check": true,
+  "alternate_prompt_seed_cases": 0,
+  "artifact_policy": "Hash every decoded image; save PNG only first measured batch per shape and correctness requests; no base64 payload copies"
+}

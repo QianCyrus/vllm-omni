@@ -1,0 +1,12 @@
+docs/contributing/profiling.md: OK
+docs/user_guide/diffusion/parallelism/vae_parallelism.md: OK
+tests/diffusion/distributed/test_distributed_vae_executor.py: OK
+tests/diffusion/distributed/test_vae_batch_parallel.py: OK
+vllm_omni/config/omni_config.py: OK
+vllm_omni/diffusion/data.py: OK
+vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl.py: OK
+vllm_omni/diffusion/distributed/autoencoders/autoencoder_kl_flux2.py: OK
+vllm_omni/diffusion/distributed/autoencoders/distributed_vae_executor.py: OK
+vllm_omni/diffusion/models/flux2_klein/pipeline_flux2_klein.py: OK
+vllm_omni/diffusion/registry.py: OK
+vllm_omni/entrypoints/cli/serve.py: OK

@@ -1,0 +1,32 @@
+{
+  "source_sha": "1ccbc20901149b803a135984c2c3e4847fe981dd",
+  "scored": false,
+  "arms": [
+    "control-a",
+    "batch"
+  ],
+  "vae_degrees": [
+    1,
+    4
+  ],
+  "batches": [
+    2,
+    4
+  ],
+  "warmup_per_batch": 2,
+  "repeats_per_batch": 3,
+  "steps": 4,
+  "compile_mode": "regional dynamic",
+  "backend": "TORCH_SDPA",
+  "dtype": "bfloat16",
+  "parallelism": {
+    "tp": 4,
+    "sp": 1,
+    "dp": 1,
+    "pp": 1,
+    "cfg": 1
+  },
+  "max_token_hours": 4,
+  "stage_clock": "native profiler synchronized host perf_counter, seconds raw / milliseconds reported",
+  "hook_sha256": "98cc68558d3c50059249614b987ad819fc7ca5f811c84022fa313fce3fffabed"
+}

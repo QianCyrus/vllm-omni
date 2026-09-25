@@ -1,0 +1,14 @@
+..........................................                               [100%]
+=============================== warnings summary ===============================
+../../../envs/vllm-omni-kv-model-cu130/lib/python3.12/site-packages/torch/jit/_script.py:365: 14 warnings
+  /work/04/jh220036a/v57014/envs/vllm-omni-kv-model-cu130/lib/python3.12/site-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+../../omni-klein-profiler-20260926/testdeps/_pytest/config/__init__.py:1464
+  /work/04/jh220036a/v57014/artifacts/omni-klein-profiler-20260926/testdeps/_pytest/config/__init__.py:1464: PytestConfigWarning: Unknown config option: asyncio_mode
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+--- Running Summary
+42 passed, 15 warnings in 42.17s
