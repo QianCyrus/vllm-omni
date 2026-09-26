@@ -202,6 +202,11 @@ class MiniCPMO45Stage0DuplexRuntime:
             # Otherwise the turn-ended latch forces its silent input clock to
             # listen before the model can answer. Generated content clears it.
             state.pending_speech_context = True
+            # The seeded template already opens the assistant turn. Match
+            # that prefix in the native listen/speak state machine so silence
+            # advances this response until the model emits turn_eos.
+            state.current_turn_ended = False
+            state.pending_speech_response_open = True
 
     def _stage_prefill_embeddings_only(
         self,

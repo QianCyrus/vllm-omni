@@ -989,9 +989,11 @@ class MiniCPMO45OmniForConditionalGeneration(nn.Module, SupportsMultiModal, Supp
             with suppress(Exception):
                 state.pending_speech_response_open = False
             return
+        # A seeded prefix can open the response before tts_bos is sampled.
+        # Keep its pending input until the first content token in either case.
         if (
             sampled == tts_bos_id
-            and getattr(state, "current_turn_ended", True)
+            and (getattr(state, "current_turn_ended", True) or getattr(state, "pending_speech_response_open", False))
             and getattr(state, "pending_speech_context", False)
         ):
             with suppress(Exception):
