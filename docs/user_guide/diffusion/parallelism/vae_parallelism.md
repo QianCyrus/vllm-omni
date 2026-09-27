@@ -159,13 +159,21 @@ and 1. Workers without images still participate in the required communication.
 
 **Constraints and behavior:**
 
-- This mode changes decode only; encoding keeps the native path.
-- Batch size one, VAE degree one, or a single worker uses native decode.
+- Batch mode and distributed tile/patch mode are mutually exclusive. Encoding
+  uses the native local path, including native tiling when enabled, rather than
+  distributing spatial tiles across workers.
+- Batch size one, VAE degree one, or a single worker uses native decode on each
+  worker. Batch mode does not automatically switch to distributed tile/patch
+  decode for a single image, even with `vae_use_tiling=True`. To distribute a
+  single image across workers, select `vae_parallel_mode="tile"` on a pipeline
+  that supports distributed tile/patch decoding.
 - Data parallelism, pipeline parallelism, and CFG parallelism must each have
   degree one because this implementation communicates over the worker WORLD
   group. Tensor and sequence parallelism may supply the shared workers.
 - Batch mode does not force tiling. Explicit native VAE tiling and slicing
-  settings remain in effect within each rank's assigned batch.
+  settings remain in effect within each rank's assigned batch and on the
+  single-image fallback. Native tiling splits an image locally on one worker;
+  it does not add cross-worker tile parallelism to batch mode.
 - It does not merge independent serving requests. The VAE must receive a batch
   containing multiple images, for example through `num_outputs_per_prompt`.
 

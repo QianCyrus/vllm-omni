@@ -177,6 +177,11 @@ class DistributedVaeMixin:
         self.distributed_executor.set_parallel_size(parallel_size, mode=mode)
 
     def is_distributed_enabled(self) -> bool:
+        """Whether to use distributed tile/patch execution, not native tiling.
+
+        Batch decode has its own dispatch; in batch mode, encoding and each
+        assigned image chunk keep the native tiling/slicing settings.
+        """
         if (
             self.distributed_executor.parallel_size <= 1
             or self.distributed_executor.parallel_mode == "batch"

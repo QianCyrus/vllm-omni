@@ -109,6 +109,37 @@ def _batch_worker(rank, rendezvous):
                     assert vae.decoder.batch_sizes == [1, 1]
                     expected = native_type.decode(vae, z, return_dict=False)[0]
                     torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+
+                # Execute native tiled decode, including the B1 fallback and
+                # uneven batches with idle ranks; preserving the flag alone
+                # does not prove that tiling is still used.
+                vae = _make_vae(vae_type)
+                vae.init_distributed()
+                vae.set_parallel_size(4, mode="batch")
+                vae.use_tiling = True
+                vae.tile_latent_min_size = vae.tile_sample_min_size = 4
+                vae.tile_overlap_factor = 0.5
+                patch.setattr(
+                    vae, "_strategy_select", lambda _: pytest.fail("Batch mode must not distribute spatial tiles")
+                )
+                for batch, expected_sizes in (
+                    (1, (1, 1, 1, 1)),
+                    (2, (1, 1, 0, 0)),
+                    (5, (2, 1, 1, 1)),
+                ):
+                    z = torch.arange(batch * 36, dtype=torch.float32).reshape(batch, 1, 6, 6)
+                    expected = native_type.decode(vae, z, return_dict=False)[0]
+                    vae.decoder.batch_sizes.clear()
+                    actual = vae.decode(z).sample
+                    torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+                    assigned_batch = expected_sizes[rank]
+                    if assigned_batch:
+                        # More than one decoder call proves native tiling ran.
+                        assert len(vae.decoder.batch_sizes) > 1
+                        assert set(vae.decoder.batch_sizes) == {assigned_batch}
+                    else:
+                        assert vae.decoder.batch_sizes == []
+                    assert vae.use_tiling
     finally:
         dist.destroy_process_group()
 
@@ -128,6 +159,30 @@ def test_batch_decode_without_distributed_initialization_uses_native(monkeypatch
     z = torch.ones(2, 1, 2, 3)
     expected = AutoencoderKLFlux2.decode(vae, z, return_dict=False)[0]
     torch.testing.assert_close(vae.decode(z).sample, expected, rtol=0, atol=0)
+    executor.execute.assert_not_called()
+
+
+def test_flux2_batch_encode_keeps_native_tiling(monkeypatch, mocker):
+    vae = _make_vae()
+    vae.register_to_config(use_quant_conv=False)
+    vae.encoder = _RecordingDecoder(torch.float32)
+    vae.quant_conv = None
+    vae.use_tiling = True
+    vae.tile_sample_min_size = vae.tile_latent_min_size = 4
+    vae.tile_overlap_factor = 0.5
+    executor = mocker.Mock(spec=DistributedVaeExecutor)
+    executor.parallel_mode = "batch"
+    executor.parallel_size = executor.world_size = 4
+    executor.group = None
+    vae.distributed_executor = executor
+    monkeypatch.setattr(dist, "is_initialized", lambda: True)
+    monkeypatch.setattr(dist, "get_world_size", lambda group: 4)
+    x = torch.arange(36, dtype=torch.float32).reshape(1, 1, 6, 6)
+    expected = AutoencoderKLFlux2._encode(vae, x)
+    native_tiling = mocker.spy(vae, "_tiled_encode")
+    actual = vae._encode(x)
+    torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+    native_tiling.assert_called_once_with(x)
     executor.execute.assert_not_called()
 
 
