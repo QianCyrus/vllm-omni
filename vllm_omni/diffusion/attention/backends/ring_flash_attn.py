@@ -68,6 +68,20 @@ def ring_flash_attn_forward(
     lse = None
 
     next_k, next_v = None, None
+    use_fused_merge = (
+        comm.world_size > 1
+        and not torch.is_grad_enabled()
+        and not torch.compiler.is_compiling()
+        and q.is_cuda
+        and torch.version.hip is None
+        and q.device.index == torch.accelerator.current_device_index()
+        and not torch.cuda.is_current_stream_capturing()
+        and torch.distributed.get_backend(process_group) == "nccl"
+        and attn_type in (AttnType.FA, AttnType.FA3)
+    )
+    reuse_receives = use_fused_merge and comm.world_size > 3
+    recv_k_buffers: list[torch.Tensor | None] = [None, None]
+    recv_v_buffers: list[torch.Tensor | None] = [None, None]
 
     # Check and adjust q, k, v to be contiguous
     if not q.is_contiguous():
@@ -79,10 +93,16 @@ def ring_flash_attn_forward(
 
     for step in range(comm.world_size):
         if step + 1 != comm.world_size:
-            next_k: torch.Tensor
-            next_v: torch.Tensor
-            next_k = comm.send_recv(k)
-            next_v = comm.send_recv(v)
+            if reuse_receives:
+                # NCCL waits for the current stream, including the previous
+                # attention read, before overwriting this hop's receive slot.
+                slot = step % 2
+                next_k = comm.send_recv(k, recv_tensor=recv_k_buffers[slot])
+                next_v = comm.send_recv(v, recv_tensor=recv_v_buffers[slot])
+                recv_k_buffers[slot], recv_v_buffers[slot] = next_k, next_v
+            else:
+                next_k = comm.send_recv(k)
+                next_v = comm.send_recv(v)
             comm.commit()
 
         if not causal or step <= comm.rank:
@@ -124,15 +144,19 @@ def ring_flash_attn_forward(
                     out, lse = block_out, block_lse
                 else:
                     # Ring kernel wrappers canonicalize LSE to (B, H, S).
-                    out, lse = update_out_and_lse(out, lse, block_out, block_lse, lse_layout="bhs")
+                    out, lse = update_out_and_lse(
+                        out, lse, block_out, block_lse, lse_layout="bhs", use_fused_merge=use_fused_merge
+                    )
 
         if step + 1 != comm.world_size:
             comm.wait()
             k = next_k
             v = next_v
 
+    assert out is not None
     out = out.to(q.dtype)
     if attn_type != AttnType.SPARSE_SAGE:
+        assert lse is not None
         lse = lse.squeeze(dim=-1).transpose(1, 2)
     return out, lse
 
