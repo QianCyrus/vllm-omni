@@ -148,8 +148,8 @@ def test_local_heads_and_gather_order_match_dense_attention(monkeypatch, tp, hea
         local = _attention(monkeypatch, tp, rank, heads=heads)
         for name, param in local.named_parameters():
             getattr(param, "weight_loader", default_weight_loader)(param, weights[name])
-        feature_calls = []
-        output_calls = []
+        feature_calls: list[int] = []
+        output_calls: list[int] = []
 
         def gather_features(value, dim=-1):
             reference = (full_attention, full_mlp)[len(feature_calls)]
