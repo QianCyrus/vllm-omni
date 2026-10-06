@@ -113,25 +113,26 @@ def test_packed_checkpoint_reconstruction_and_reload(monkeypatch, tp, name):
     torch.testing.assert_close(reconstructed, canonical, rtol=0, atol=0)
 
 
-@pytest.mark.parametrize("tp", [2, 4, 8])
+@pytest.mark.parametrize("tp,heads", [(2, 8), (4, 24), (8, 24)])
 @pytest.mark.parametrize("mask_kind", ["none", "3d", "broadcast", "per_head"])
 @torch.inference_mode()
-def test_local_heads_and_gather_order_match_dense_attention(monkeypatch, tp, mask_kind):
+def test_local_heads_and_gather_order_match_dense_attention(monkeypatch, tp, heads, mask_kind):
     torch.manual_seed(17)
-    baseline = _attention(monkeypatch, 1, 0, local_tp=False)
+    dim = heads * 8
+    baseline = _attention(monkeypatch, 1, 0, local_tp=False, heads=heads)
     for name, param in baseline.named_parameters():
         if name.startswith("norm_"):
             param.fill_(1)
         else:
             param.normal_(std=0.03)
     # A non-contiguous input and batch > 1 exercise the reshape boundaries.
-    hidden = torch.randn(2, 64, 7, dtype=torch.bfloat16).transpose(1, 2)
+    hidden = torch.randn(2, dim, 7, dtype=torch.bfloat16).transpose(1, 2)
     angles = torch.randn(7, 4)
     rotary = angles.cos(), angles.sin()
     mask = None
     if mask_kind != "none":
-        heads = 8 if mask_kind == "per_head" else 1
-        mask = torch.rand(2, heads, 7, 7) > 0.25
+        mask_heads = heads if mask_kind == "per_head" else 1
+        mask = torch.rand(2, mask_heads, 7, 7) > 0.25
         mask[..., 0] = True
         if mask_kind == "3d":
             mask = mask[:, 0]
@@ -140,11 +141,11 @@ def test_local_heads_and_gather_order_match_dense_attention(monkeypatch, tp, mas
     hook = baseline.to_out.register_forward_pre_hook(lambda module, args: captured.append(args[0].clone()))
     expected = baseline(hidden, attention_mask=mask, image_rotary_emb=rotary)
     hook.remove()
-    full_attention, full_mlp = captured[0].split([64, 192], dim=-1)
+    full_attention, full_mlp = captured[0].split([dim, 3 * dim], dim=-1)
     weights = {name: param.detach().clone() for name, param in baseline.named_parameters()}
 
     for rank in range(tp):
-        local = _attention(monkeypatch, tp, rank)
+        local = _attention(monkeypatch, tp, rank, heads=heads)
         for name, param in local.named_parameters():
             getattr(param, "weight_loader", default_weight_loader)(param, weights[name])
         feature_calls = []
@@ -167,8 +168,8 @@ def test_local_heads_and_gather_order_match_dense_attention(monkeypatch, tp, mas
         monkeypatch.setattr(linear, "tensor_model_parallel_all_gather", gather_output)
         actual = local(hidden, attention_mask=mask, image_rotary_emb=rotary)
         torch.testing.assert_close(actual, expected)
-        assert feature_calls == [64 // tp, 192 // tp]
-        assert output_calls == [64 // tp]
+        assert feature_calls == [dim // tp, 3 * dim // tp]
+        assert output_calls == [dim // tp]
 
 
 @pytest.mark.parametrize(
