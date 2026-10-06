@@ -202,14 +202,14 @@ def test_ineligible_shapes_keep_original_projection(monkeypatch, kwargs):
         ({"lora_path": "local-adapter"}, {}, False),
         ({"enable_cpu_offload": True}, {}, False),
         ({"enable_layerwise_offload": True}, {}, False),
-        ({"diffusion_offload_config": {"mode": "module"}}, {}, False),
+        ({"diffusion_offload_config": {"mode": "module", "components": ["dit"]}}, {}, False),
         ({}, {"tensor_parallel_size": 1, "use_hsdp": True, "hsdp_shard_size": 4}, False),
     ],
 )
-def test_pipeline_eligibility_uses_resolved_config(overrides, parallel_overrides, eligible):
+def test_pipeline_eligibility_uses_resolved_config(tmp_path, overrides, parallel_overrides, eligible):
     parallel = DiffusionParallelConfig(**({"tensor_parallel_size": 4} | parallel_overrides))
     config = OmniDiffusionConfig(
-        **({"model": "black-forest-labs/FLUX.2-klein-4B", "dtype": torch.bfloat16} | overrides),
+        **({"model": str(tmp_path), "dtype": torch.bfloat16} | overrides),
         parallel_config=parallel,
     )
     assert klein._use_local_single_stream_tp(config) is eligible
@@ -295,7 +295,7 @@ def test_fused_lora_global_rows_dynamic_activation(monkeypatch, sizes, tp):
 
 
 @pytest.mark.parametrize("image_count", [1, 2])
-def test_native_editing_reaches_normal_input_validation(monkeypatch, image_count):
+def test_native_editing_reaches_normal_input_validation(tmp_path, monkeypatch, image_count):
     from PIL import Image
 
     from vllm_omni.diffusion.models.flux2_klein.pipeline_flux2_klein import Flux2KleinPipeline
@@ -308,7 +308,7 @@ def test_native_editing_reaches_normal_input_validation(monkeypatch, image_count
 
     pipeline = object.__new__(Flux2KleinPipeline)
     pipeline.od_config = OmniDiffusionConfig(
-        model="black-forest-labs/FLUX.2-klein-4B",
+        model=str(tmp_path),
         dtype=torch.bfloat16,
         parallel_config=DiffusionParallelConfig(tensor_parallel_size=4),
     )
