@@ -123,24 +123,41 @@ def _assert_receives(comm: _FakeComm, *, reuse: bool) -> None:
 @hardware_test(res={"cuda": "L4"}, num_cards=1)
 @requires_cuda
 @pytest.mark.parametrize(
-    "world,rank,causal,backend",
+    "world,rank,causal,backend,hip,reuse,fused",
     [
-        (1, 0, False, AttnType.FA3),
-        (2, 1, False, AttnType.FA3),
-        (3, 2, False, AttnType.FA3),
-        (4, 3, False, AttnType.FA3),
-        (5, 4, False, AttnType.FA3),
-        (8, 7, False, AttnType.FA3),
-        (5, 0, True, AttnType.FA3),
-        (5, 2, True, AttnType.FA3),
-        (5, 4, False, AttnType.FA),
-        (5, 4, False, AttnType.FA4),
+        (1, 0, False, AttnType.FA3, False, False, False),
+        (2, 1, False, AttnType.FA3, False, False, True),
+        (3, 2, False, AttnType.FA3, False, False, True),
+        (4, 3, False, AttnType.FA3, False, True, True),
+        (5, 4, False, AttnType.FA3, False, True, True),
+        (8, 7, False, AttnType.FA3, False, True, True),
+        (5, 0, True, AttnType.FA3, False, True, True),
+        (5, 2, True, AttnType.FA3, False, True, True),
+        (5, 4, False, AttnType.FA, False, True, True),
+        (4, 3, False, AttnType.FA4, False, True, False),
+        (5, 4, False, AttnType.FA4, False, True, False),
+        (8, 7, False, AttnType.FA4, False, True, False),
+        (5, 4, False, AttnType.TORCH, False, True, False),
+        (4, 3, False, AttnType.FA3, True, True, False),
+        (5, 4, False, AttnType.FA3, True, True, False),
+        (8, 7, False, AttnType.FA3, True, True, False),
+        (1, 0, False, AttnType.AITER, True, False, False),
+        (2, 1, False, AttnType.AITER, True, False, False),
+        (3, 2, False, AttnType.AITER, True, False, False),
+        (4, 3, False, AttnType.AITER, True, True, False),
+        (5, 4, False, AttnType.AITER, True, True, False),
+        (8, 7, False, AttnType.AITER, True, True, False),
+        (5, 4, False, AttnType.FLASHINFER, False, False, False),
+        (5, 4, False, AttnType.SPARSE_SAGE, False, False, False),
     ],
 )
 @torch.inference_mode()
-def test_native_ring_receive_slots(monkeypatch, world, rank, causal, backend):
+def test_native_ring_receive_slots(monkeypatch, world, rank, causal, backend, hip, reuse, fused):
     # One GPU suffices for ownership checks. Real NCCL stream ordering is a
     # separate distributed qualification; this fake deliberately has no NCCL.
+    # Mocking HIP here checks dispatch only, not execution on ROCm hardware.
+    if hip:
+        monkeypatch.setattr(torch.version, "hip", "test-rocm")
     live_allocations: list[torch.Tensor] = []
     for offset in (0, 20):
         inputs, instances, attended = _install_fake_ring(monkeypatch, "cuda", world, rank, offset)
@@ -157,11 +174,11 @@ def test_native_ring_receive_slots(monkeypatch, world, rank, causal, backend):
         for tensor, snapshot in zip(inputs, snapshots):
             torch.testing.assert_close(tensor, snapshot, rtol=0, atol=0)
         assert attended == expected_visits * 2
-        optimized = world > 1 and backend in (AttnType.FA, AttnType.FA3)
-        assert instances[0].merge_flags == [False] * len(expected_visits)
-        assert instances[1].merge_flags == [optimized] * len(expected_visits)
+        merge_count = 0 if backend == AttnType.SPARSE_SAGE else len(expected_visits)
+        assert instances[0].merge_flags == [False] * merge_count
+        assert instances[1].merge_flags == [fused] * merge_count
         _assert_receives(instances[0], reuse=False)
-        _assert_receives(instances[1], reuse=optimized and world > 3)
+        _assert_receives(instances[1], reuse=reuse)
         for comm in instances:
             prior_pointers = {tensor.data_ptr() for tensor in live_allocations}
             assert not ({tensor.data_ptr() for tensor in comm.allocations} & prior_pointers)
@@ -171,8 +188,11 @@ def test_native_ring_receive_slots(monkeypatch, world, rank, causal, backend):
 @hardware_test(res={"cuda": "L4"}, num_cards=1)
 @requires_cuda
 @pytest.mark.parametrize("fallback", ["grad", "compile", "capture", "backend", "device"])
+@pytest.mark.parametrize("hip", [False, True])
 @torch.inference_mode()
-def test_native_ring_receive_fallbacks(monkeypatch, fallback):
+def test_native_ring_receive_fallbacks(monkeypatch, fallback, hip):
+    if hip:
+        monkeypatch.setattr(torch.version, "hip", "test-rocm")
     inputs, instances, _ = _install_fake_ring(monkeypatch, "cuda", world=5, rank=4)
     device_index = inputs[0].device.index
     assert device_index is not None

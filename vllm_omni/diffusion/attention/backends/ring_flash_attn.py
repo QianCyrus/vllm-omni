@@ -68,18 +68,23 @@ def ring_flash_attn_forward(
     lse = None
 
     next_k, next_v = None, None
-    use_fused_merge = (
+    use_nccl_fast_path = (
         comm.world_size > 1
         and not torch.is_grad_enabled()
         and not torch.compiler.is_compiling()
         and q.is_cuda
-        and torch.version.hip is None
         and q.device.index == torch.accelerator.current_device_index()
         and not torch.cuda.is_current_stream_capturing()
         and torch.distributed.get_backend(process_group) == "nccl"
-        and attn_type in (AttnType.FA, AttnType.FA3)
     )
-    reuse_receives = use_fused_merge and comm.world_size > 3
+    use_fused_merge = use_nccl_fast_path and torch.version.hip is None and attn_type in (AttnType.FA, AttnType.FA3)
+    # Reuse needs current-stream K/V consumption and NCCL/RCCL ordering, not
+    # NVIDIA fused merge kernels. Keep custom attention processors excluded.
+    reuse_receives = (
+        use_nccl_fast_path
+        and comm.world_size > 3
+        and attn_type in (AttnType.FA, AttnType.FA3, AttnType.FA4, AttnType.TORCH, AttnType.AITER)
+    )
     recv_k_buffers: list[torch.Tensor | None] = [None, None]
     recv_v_buffers: list[torch.Tensor | None] = [None, None]
 
@@ -94,7 +99,7 @@ def ring_flash_attn_forward(
     for step in range(comm.world_size):
         if step + 1 != comm.world_size:
             if reuse_receives:
-                # NCCL waits for the current stream, including the previous
+                # NCCL/RCCL waits for the current stream, including the previous
                 # attention read, before overwriting this hop's receive slot.
                 slot = step % 2
                 next_k = comm.send_recv(k, recv_tensor=recv_k_buffers[slot])
