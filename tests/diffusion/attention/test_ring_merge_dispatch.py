@@ -10,6 +10,7 @@ import torch
 from tests.helpers.mark import hardware_test
 from vllm_omni.diffusion.attention.backends import ring_flash_attn
 from vllm_omni.diffusion.attention.backends.ring import ring_utils
+from vllm_omni.diffusion.attention.backends.ring.fused_merge import try_fused_ring_merge
 from vllm_omni.diffusion.attention.backends.ring.ring_selector import AttnType
 
 pytestmark = [pytest.mark.core_model, pytest.mark.diffusion]
@@ -28,6 +29,7 @@ class _FakeComm:
         self.step = 0
         self.channel = 0
         self.merge_flags: list[bool] = []
+        self.fused_results: list[bool] = []
 
     def send_recv(self, tensor: torch.Tensor) -> torch.Tensor:
         shards = self.shards[self.channel]
@@ -80,10 +82,15 @@ def _install_fake_ring(
             out, lse, block_out, block_lse, lse_layout=lse_layout, use_fused_merge=use_fused_merge
         )
 
+    def try_merge(*args):
+        result = try_fused_ring_merge(*args)
+        instances[-1].fused_results.append(result is not None)
+        return result
+
     monkeypatch.setattr(ring_flash_attn, "RingComm", make_comm)
     monkeypatch.setattr(ring_flash_attn, "update_out_and_lse", merge)
+    monkeypatch.setattr(ring_utils, "try_fused_ring_merge", try_merge)
     monkeypatch.setattr(ring_flash_attn, "select_flash_attn_impl", lambda *_args, **_kwargs: attention)
-    monkeypatch.setattr(torch.distributed, "get_backend", lambda _group: "nccl")
     q = torch.zeros(shape, dtype=torch.bfloat16, device=device)
     return (q, keys[rank], values[rank]), instances, attended
 
@@ -91,9 +98,9 @@ def _install_fake_ring(
 @hardware_test(res={"cuda": "L4"}, num_cards=1)
 @requires_cuda
 @pytest.mark.parametrize(
-    "world,rank,causal,backend,hip,fused",
+    "world,rank,causal,backend,hip,opt_in",
     [
-        (1, 0, False, AttnType.FA3, False, False),
+        (1, 0, False, AttnType.FA3, False, True),
         (2, 1, False, AttnType.FA3, False, True),
         (8, 7, False, AttnType.FA3, False, True),
         (8, 0, True, AttnType.FA3, False, True),
@@ -101,12 +108,12 @@ def _install_fake_ring(
         (2, 1, False, AttnType.FA, False, True),
         (8, 7, False, AttnType.FA4, False, False),
         (8, 7, False, AttnType.TORCH, False, False),
-        (8, 7, False, AttnType.FA3, True, False),
+        (8, 7, False, AttnType.FA3, True, True),
         (8, 7, False, AttnType.AITER, True, False),
     ],
 )
 @torch.inference_mode()
-def test_native_ring_merge_dispatch(monkeypatch, world, rank, causal, backend, hip, fused):
+def test_native_ring_merge_dispatch(monkeypatch, world, rank, causal, backend, hip, opt_in):
     # Mocked communication checks dispatch; it does not qualify NCCL ordering.
     # Mocking HIP checks dispatch only, not execution on ROCm hardware.
     if hip:
@@ -124,13 +131,15 @@ def test_native_ring_merge_dispatch(monkeypatch, world, rank, causal, backend, h
     for tensor, snapshot in zip(inputs, snapshots):
         torch.testing.assert_close(tensor, snapshot, rtol=0, atol=0)
     assert attended == expected_visits * 2
-    assert instances[0].merge_flags == [False] * len(expected_visits)
-    assert instances[1].merge_flags == [fused] * len(expected_visits)
+    assert instances[0].merge_flags == instances[1].merge_flags == [opt_in] * len(expected_visits)
+    merge_count = len(expected_visits) - 1 if opt_in else 0
+    assert instances[0].fused_results == [False] * merge_count
+    assert instances[1].fused_results == [not hip] * merge_count
 
 
 @hardware_test(res={"cuda": "L4"}, num_cards=1)
 @requires_cuda
-@pytest.mark.parametrize("fallback", ["grad", "compile", "capture", "backend", "device"])
+@pytest.mark.parametrize("fallback", ["grad", "compile", "device"])
 @torch.inference_mode()
 def test_native_ring_merge_fallbacks(monkeypatch, fallback):
     inputs, instances, _ = _install_fake_ring(monkeypatch, "cuda", world=5, rank=4)
@@ -138,20 +147,18 @@ def test_native_ring_merge_fallbacks(monkeypatch, fallback):
     assert device_index is not None
     overrides: dict[str, tuple[object, str, Callable[[], object]]] = {
         "compile": (torch.compiler, "is_compiling", lambda: True),
-        "capture": (torch.cuda, "is_current_stream_capturing", lambda: True),
         "device": (torch.accelerator, "current_device_index", lambda: device_index + 1),
     }
     if fallback in overrides:
         target, name, value = overrides[fallback]
         monkeypatch.setattr(target, name, value)
-    elif fallback == "backend":
-        monkeypatch.setattr(torch.distributed, "get_backend", lambda _group: "gloo")
     with torch.enable_grad() if fallback == "grad" else nullcontext():
         output, lse = ring_flash_attn.ring_flash_attn_forward(
             None, *inputs, softmax_scale=8**-0.5, causal=False, attn_type=AttnType.FA3
         )
     assert torch.isfinite(output).all() and torch.isfinite(lse).all()
-    assert instances[0].merge_flags == [False] * 5
+    assert instances[0].merge_flags == [True] * 5
+    assert instances[0].fused_results == [False] * 4
 
 
 @pytest.mark.cpu
@@ -167,4 +174,5 @@ def test_native_ring_cpu_skips_fused_merge(monkeypatch):
         None, *inputs, softmax_scale=8**-0.5, causal=False, attn_type=AttnType.FA3
     )
     assert torch.isfinite(output).all() and torch.isfinite(lse).all()
-    assert instances[0].merge_flags == [False] * 5
+    assert instances[0].merge_flags == [True] * 5
+    assert instances[0].fused_results == [False] * 4

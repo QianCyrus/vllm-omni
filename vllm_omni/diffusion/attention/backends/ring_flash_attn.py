@@ -68,17 +68,8 @@ def ring_flash_attn_forward(
     lse = None
 
     next_k, next_v = None, None
-    use_fused_merge = (
-        comm.world_size > 1
-        and torch.version.hip is None
-        and attn_type in (AttnType.FA, AttnType.FA3)
-        and not torch.is_grad_enabled()
-        and not torch.compiler.is_compiling()
-        and q.is_cuda
-        and q.device.index == torch.accelerator.current_device_index()
-        and not torch.cuda.is_current_stream_capturing()
-        and torch.distributed.get_backend(process_group) == "nccl"
-    )
+    # The merge helper handles platform, device, autograd and tracing fallbacks.
+    use_fused_merge = attn_type in (AttnType.FA, AttnType.FA3)
 
     # Check and adjust q, k, v to be contiguous
     if not q.is_contiguous():
@@ -90,8 +81,6 @@ def ring_flash_attn_forward(
 
     for step in range(comm.world_size):
         if step + 1 != comm.world_size:
-            next_k: torch.Tensor
-            next_v: torch.Tensor
             next_k = comm.send_recv(k)
             next_v = comm.send_recv(v)
             comm.commit()
