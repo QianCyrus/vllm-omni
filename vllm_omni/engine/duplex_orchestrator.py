@@ -81,12 +81,15 @@ class DuplexOrchestrator(Orchestrator, DuplexStagePort):
         plugin: DuplexModelPlugin,
         duplex_session_config: DuplexSessionRuntimeConfig,
         model_config: ModelConfig | None = None,
+        frontend_count: int = 1,
+        frontend_index: int = 0,
         **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
         self.plugin = plugin
         self.duplex_session_config = duplex_session_config
         self.replica_placement: DuplexReplicaPlacement | None = None
+        admission_limit = None
         if duplex_session_config.replica_policy == "least_sessions":
             if self._membership is not None or any(
                 pool.is_distributed or pool._lb is not None for pool in self.stage_pools
@@ -98,7 +101,11 @@ class DuplexOrchestrator(Orchestrator, DuplexStagePort):
                 stage_replica_counts=[pool.num_replicas for pool in self.stage_pools],
                 max_sessions_per_replica=cap,
                 replica_groups=duplex_session_config.replica_groups,
+                frontend_count=frontend_count,
+                frontend_index=frontend_index,
             )
+            if frontend_count > 1:
+                admission_limit = self.replica_placement.frontend_session_limit(duplex_session_config.max_sessions)
         self.session_manager = DuplexSessionManager(
             plugin=plugin,
             stage_port=self,
@@ -106,6 +113,7 @@ class DuplexOrchestrator(Orchestrator, DuplexStagePort):
             result_sink=self.rpc_async_queue,
             runtime_config=self.duplex_session_config,
             model_config=model_config,
+            admission_limit=admission_limit,
             log_stats=self.log_stats,
         )
 

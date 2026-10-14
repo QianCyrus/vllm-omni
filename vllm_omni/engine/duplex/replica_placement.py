@@ -34,12 +34,18 @@ class DuplexReplicaPlacement:
         stage_replica_counts: Sequence[int],
         max_sessions_per_replica: int,
         replica_groups: Sequence[Mapping[int, int]] | None = None,
+        frontend_count: int = 1,
+        frontend_index: int = 0,
     ) -> None:
         counts = tuple(stage_replica_counts)
         if not counts or any(type(count) is not int or count < 1 for count in counts):
             raise ValueError("session replica placement requires a positive replica count for every stage")
         if type(max_sessions_per_replica) is not int or max_sessions_per_replica < 1:
             raise ValueError("max_sessions_per_replica must be a positive integer")
+        if type(frontend_count) is not int or frontend_count < 1:
+            raise ValueError("frontend_count must be a positive integer")
+        if type(frontend_index) is not int or not 0 <= frontend_index < frontend_count:
+            raise ValueError("frontend_index must be in [0, frontend_count)")
         if replica_groups is None:
             if len(set(counts)) != 1:
                 raise ValueError("unequal stage replica counts require explicit duplex_session.replica_groups")
@@ -75,13 +81,44 @@ class DuplexReplicaPlacement:
         if covered != all_replicas:
             raise ValueError(f"replica_groups must cover every replica; missing {sorted(all_replicas - covered)}")
 
-        self._groups = tuple(groups)
+        if frontend_count > len(groups):
+            raise ValueError(
+                f"api_server_count ({frontend_count}) must not exceed the number of replica groups ({len(groups)})"
+            )
+        replica_frontends: dict[tuple[int, int], int] = {}
+        for group in groups:
+            owner = group.group_id % frontend_count
+            for replica in group.replicas.items():
+                previous = replica_frontends.setdefault(replica, owner)
+                if previous != owner:
+                    raise ValueError(
+                        f"replica_groups sharing stage {replica[0]} replica {replica[1]} must belong to the same "
+                        f"frontend; group {group.group_id} belongs to frontend {owner}, already owned by {previous}"
+                    )
+
+        self._frontend_count = frontend_count
+        self._frontend_index = frontend_index
+        self._group_count = len(groups)
+        self._groups = tuple(group for group in groups if group.group_id % frontend_count == frontend_index)
+        owned_replicas = {replica for replica, owner in replica_frontends.items() if owner == frontend_index}
+        # Every frontend still attaches to every replica and observes its death.
+        # Only owned replicas participate in reservations and metrics.
+        self._all_replicas = all_replicas
         self._capacity = max_sessions_per_replica
-        self._reserved = dict.fromkeys(sorted(all_replicas), 0)
+        self._reserved = dict.fromkeys(sorted(owned_replicas), 0)
         self._sessions: dict[str, ReplicaReservation] = {}
-        self._owners: dict[tuple[int, int], set[str]] = {replica: set() for replica in all_replicas}
+        self._owners: dict[tuple[int, int], set[str]] = {replica: set() for replica in owned_replicas}
         self._unavailable: set[tuple[int, int]] = set()
         self._cursor = 0
+
+    @property
+    def owned_group_count(self) -> int:
+        return len(self._groups)
+
+    def frontend_session_limit(self, global_max_sessions: int) -> int:
+        """Bound this frontend by its equal share and its owned group capacity."""
+        share, remainder = divmod(global_max_sessions, self._frontend_count)
+        return min(share + (self._frontend_index < remainder), len(self._groups) * self._capacity)
 
     def reserve(self, session_id: str) -> ReplicaReservation:
         """Return an existing reservation or atomically choose an eligible group."""
@@ -109,7 +146,7 @@ class DuplexReplicaPlacement:
             return (
                 max(occupancy) / self._capacity,
                 sum(occupancy),
-                (group.group_id - self._cursor) % len(self._groups),
+                (group.group_id - self._cursor) % self._group_count,
             )
 
         reservation = min(eligible, key=score)
@@ -117,7 +154,7 @@ class DuplexReplicaPlacement:
             self._reserved[replica] += 1
             self._owners[replica].add(session_id)
         self._sessions[session_id] = reservation
-        self._cursor = (reservation.group_id + 1) % len(self._groups)
+        self._cursor = (reservation.group_id + 1) % self._group_count
         return reservation
 
     def release(self, session_id: str) -> None:
@@ -148,8 +185,10 @@ class DuplexReplicaPlacement:
 
     def mark_unavailable(self, stage_id: int, replica_id: int) -> set[str]:
         replica = (stage_id, replica_id)
-        if replica not in self._owners:
+        if replica not in self._all_replicas:
             raise ValueError(f"Unknown stage replica {replica}")
+        if replica not in self._owners:
+            return set()
         self._unavailable.add(replica)
         return set(self._owners[replica])
 

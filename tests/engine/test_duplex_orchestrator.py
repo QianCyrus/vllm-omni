@@ -68,6 +68,8 @@ def _build(
     running_counter: FakeRunningCounter | None = None,
     runtime_config: DuplexSessionRuntimeConfig | None = None,
     plugin=None,
+    frontend_count: int = 1,
+    frontend_index: int = 0,
 ) -> tuple[DuplexOrchestrator, list[FakeStageClient], asyncio.Queue, asyncio.Queue]:
     clients = [FakeStageClient(stage_type="llm", final_output=index == stages - 1) for index in range(stages)]
     pools = _build_stage_pools(
@@ -89,6 +91,8 @@ def _build(
         plugin=plugin or MiniCPMO45DuplexPlugin(_encode_audio),
         duplex_session_config=runtime_config or DuplexSessionRuntimeConfig(reaper_interval_s=0.01),
         model_config=None,
+        frontend_count=frontend_count,
+        frontend_index=frontend_index,
     )
     return orchestrator, clients, rpc_q, output_q
 
@@ -1282,6 +1286,92 @@ def test_least_sessions_rejects_distributed_startup(distributed_hook) -> None:
 def test_orchestrator_validates_groups_against_actual_stage_pools() -> None:
     with pytest.raises(ValueError, match="must cover every replica"):
         _build(stages=2, replicas=2, runtime_config=_placement_config(replica_groups=[{0: 0, 1: 0}]))
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("frontend_index", range(4))
+async def test_frontend_reserves_only_owned_groups_with_local_admission_budget(frontend_index) -> None:
+    config = DuplexSessionRuntimeConfig(replica_policy="least_sessions", max_sessions=11, max_sessions_per_replica=2)
+    orchestrator, _, rpc_q, _ = _build(
+        stages=2, replicas=8, runtime_config=config, frontend_count=4, frontend_index=frontend_index
+    )
+    owned = {frontend_index, frontend_index + 4}
+    limit = 3 if frontend_index < 3 else 2
+    try:
+        assert orchestrator.session_manager.admission_limit == limit
+        assert config.max_sessions == 11 and config.worker_max_sessions == 2
+        assert all(pool.num_replicas == 8 for pool in orchestrator.stage_pools), "all replicas remain attached"
+        for index in range(limit):
+            session_id = f"s{index}"
+            assert (await _open(orchestrator, rpc_q, session_id=session_id)).ok
+            for stage in range(2):
+                assert orchestrator.replica_placement.route(session_id, stage) in owned
+        rejected = await _open(orchestrator, rpc_q, session_id="full")
+        assert rejected.error_code == "resource_exhausted" and rejected.error_retryable
+        assert f"limit={limit}" in rejected.error_message
+        # Death notifications arrive on non-owner connections too.
+        await orchestrator._handle_dead_replica(1, (frontend_index + 1) % 4, EngineDeadError("non-owner"))
+        assert len(orchestrator.session_manager.runners) == limit
+    finally:
+        await orchestrator.session_manager.shutdown()
+
+
+@pytest.mark.asyncio
+async def test_multi_frontend_initial_update_and_prewarm_use_owned_replica(monkeypatch) -> None:
+    orchestrator, _, rpc_q, _ = _build(
+        stages=2, replicas=4, runtime_config=_placement_config(), frontend_count=2, frontend_index=1
+    )
+    orchestrator.async_chunk = True
+    monkeypatch.setattr(orchestrator, "_stage_receives_async_chunks", lambda stage: True)
+    try:
+        assert (await _open(orchestrator, rpc_q)).ok
+        await _submit(orchestrator, _append_audio())
+        await _submit(orchestrator, _append_audio())
+        for pool in orchestrator.stage_pools:
+            assert pool.get_bound_replica_id(_stage0_request_id()) == 1
+            assert pool.clients[1].add_request_calls
+            assert all(not pool.clients[index].add_request_calls for index in (0, 2, 3))
+    finally:
+        await orchestrator.session_manager.shutdown()
+
+
+@pytest.mark.asyncio
+async def test_frontends_emit_reserved_metrics_only_for_owned_replicas() -> None:
+    gauge = {}
+    writes = []
+
+    def set_reserved(stage, replica, count):
+        gauge[stage, replica] = count
+        writes.append((stage, replica))
+
+    frontends = [
+        _build(stages=2, replicas=2, runtime_config=_placement_config(), frontend_count=2, frontend_index=index)
+        for index in range(2)
+    ]
+    try:
+        for index, (orchestrator, _, rpc_q, _) in enumerate(frontends):
+            orchestrator._prom_metrics = SimpleNamespace(set_duplex_reserved_sessions=set_reserved)
+            assert (await _open(orchestrator, rpc_q, session_id=f"owner-{index}")).ok
+            assert writes[-2:] == [(0, index), (1, index)]
+        first, _, rpc_q, _ = frontends[0]
+        await first.session_manager.close(CloseDuplexSessionMessage(control_id="close", session_id="owner-0"))
+        assert (await rpc_q.get()).ok
+        assert gauge == {(0, 0): 0, (1, 0): 0, (0, 1): 1, (1, 1): 1}
+    finally:
+        for orchestrator, _, _, _ in frontends:
+            await orchestrator.session_manager.shutdown()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("policy", ["legacy", "least_sessions"])
+async def test_single_frontend_keeps_global_admission_limit(policy) -> None:
+    config = DuplexSessionRuntimeConfig(replica_policy=policy, max_sessions=11, max_sessions_per_replica=2)
+    orchestrator, _, _, _ = _build(runtime_config=config)
+    try:
+        assert orchestrator.session_manager.admission_limit == 11
+        assert config.worker_max_sessions == (2 if policy == "least_sessions" else 11)
+    finally:
+        await orchestrator.session_manager.shutdown()
 
 
 @pytest.mark.asyncio

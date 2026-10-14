@@ -56,6 +56,9 @@ class DuplexOmniEngine(AsyncOmniEngine):
     plugin: DuplexModelPlugin | None = None
     #: Set by ``_validate_deployment`` from the deploy config before any stage starts.
     duplex_session_config: DuplexSessionRuntimeConfig
+    #: Local startup warmup uses the same ownership and budget as session admission.
+    duplex_frontend_group_count: int
+    duplex_frontend_max_sessions: int
 
     # Any: **kwargs is forwarded verbatim to ``OmniEngineBase.__init__``.
     def __init__(self, model: str, *, duplex_audio_encoder: EncodeAudio, **kwargs: Any) -> None:
@@ -100,12 +103,19 @@ class DuplexOmniEngine(AsyncOmniEngine):
         model_stage_id = next((stage.stage_id for stage in self.pipeline_config.stages if stage.owns_tokenizer), 0)
         stage_vllm_config = self.stage_pools[model_stage_id].stage_vllm_config if self.stage_pools else None
         model_config = getattr(stage_vllm_config, "model_config", None)
-        return DuplexOrchestrator(
+        client_config = self._client_config or {}
+        orchestrator = DuplexOrchestrator(
             plugin=self.plugin,
             duplex_session_config=self.duplex_session_config,
             model_config=model_config,
+            frontend_count=int(client_config.get("client_count", 1)),
+            frontend_index=int(client_config.get("client_index", 0)),
             **orchestrator_kwargs,
         )
+        placement = orchestrator.replica_placement
+        self.duplex_frontend_group_count = placement.owned_group_count if placement is not None else 1
+        self.duplex_frontend_max_sessions = orchestrator.session_manager.admission_limit
+        return orchestrator
 
     # ---- deployment facts ----
 

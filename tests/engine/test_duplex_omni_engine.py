@@ -181,6 +181,34 @@ def test_duplex_capabilities_come_from_the_loaded_plugin() -> None:
     assert engine.duplex_capabilities is capabilities
 
 
+@pytest.mark.parametrize(("count", "index"), [(1, 0), (4, 0), (4, 3)])
+def test_orchestrator_receives_real_frontend_identity_and_exposes_warmup_budget(monkeypatch, count, index) -> None:
+    engine = object.__new__(DuplexOmniEngine)
+    engine.plugin = object()
+    engine.duplex_session_config = DuplexSessionRuntimeConfig(max_sessions=64)
+    engine.pipeline_config = SimpleNamespace(stages=[SimpleNamespace(stage_id=0, owns_tokenizer=True)])
+    engine.stage_pools = []
+    engine._client_config = {"client_count": count, "client_index": index, "stage_addresses": {}}
+    received = {}
+    orchestrator = SimpleNamespace(
+        replica_placement=SimpleNamespace(owned_group_count=2),
+        session_manager=SimpleNamespace(admission_limit=16),
+    )
+
+    def create(**kwargs):
+        received.update(kwargs)
+        return orchestrator
+
+    monkeypatch.setattr("vllm_omni.engine.duplex_orchestrator.DuplexOrchestrator", create)
+    assert engine._create_orchestrator() is orchestrator
+    assert received["frontend_count"] == count
+    assert received["frontend_index"] == index
+    assert received["duplex_session_config"].max_sessions == 64
+    assert engine._client_config["client_count"] == count and engine._client_config["client_index"] == index
+    assert engine.duplex_frontend_group_count == 2
+    assert engine.duplex_frontend_max_sessions == 16
+
+
 def test_validate_deployment_requires_a_plugin_and_duplex_session_mode() -> None:
     engine = object.__new__(DuplexOmniEngine)
     engine.model = "plain-model"
@@ -206,11 +234,21 @@ def test_duplex_runtime_uses_tokenizer_owner_model_config(monkeypatch):
     engine.plugin = object()
     engine.pipeline_config = JOYAI_VL_INTERACTION_ASR_PIPELINE
     engine.duplex_session_config = object()
+    engine._client_config = None
     configs = [object(), object(), object(), object()]
     engine.stage_pools = [SimpleNamespace(stage_vllm_config=SimpleNamespace(model_config=config)) for config in configs]
-    monkeypatch.setattr("vllm_omni.engine.duplex_orchestrator.DuplexOrchestrator", lambda **kwargs: kwargs)
-    result = engine._create_orchestrator()
-    assert result["model_config"] is configs[1]
+    received = {}
+    orchestrator = SimpleNamespace(replica_placement=None, session_manager=SimpleNamespace(admission_limit=1))
+
+    def create(**kwargs):
+        received.update(kwargs)
+        return orchestrator
+
+    monkeypatch.setattr("vllm_omni.engine.duplex_orchestrator.DuplexOrchestrator", create)
+    assert engine._create_orchestrator() is orchestrator
+    assert received["model_config"] is configs[1]
+    assert received["frontend_count"] == 1
+    assert received["frontend_index"] == 0
 
 
 @pytest.mark.parametrize(

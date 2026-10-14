@@ -134,3 +134,107 @@ def test_invalid_topologies_are_rejected(counts, capacity, groups, message) -> N
             max_sessions_per_replica=capacity,
             replica_groups=groups,
         )
+
+
+@pytest.mark.parametrize(("replicas", "frontends"), [(8, 1), (8, 2), (8, 4), (8, 8), (7, 3), (5, 2)])
+def test_frontend_ownership_partitions_all_replicas(replicas: int, frontends: int) -> None:
+    seen = set()
+    for frontend in range(frontends):
+        placement = DuplexReplicaPlacement(
+            stage_replica_counts=[replicas, replicas],
+            max_sessions_per_replica=2,
+            frontend_count=frontends,
+            frontend_index=frontend,
+        )
+        owned = list(range(frontend, replicas, frontends))
+        assert placement.owned_group_count == len(owned)
+        assert set(placement.snapshot()["reserved"]) == {(stage, replica) for stage in range(2) for replica in owned}
+        assert not seen.intersection(owned)
+        seen.update(owned)
+        # Releasing immediately must still visit every owned group. IDs stay
+        # global, so taking the cursor modulo the local group count is wrong.
+        for index in range(2 * len(owned)):
+            reservation = placement.reserve("warmup")
+            assert reservation.group_id == owned[index % len(owned)]
+            placement.release("warmup")
+        for index in range(2 * len(owned)):
+            reservation = placement.reserve(f"s{index}")
+            assert reservation.group_id == owned[index % len(owned)]
+            assert dict(reservation.replicas) == {0: reservation.group_id, 1: reservation.group_id}
+        with pytest.raises(DuplexSessionError, match="replica_capacity_exhausted"):
+            placement.reserve("full")
+    assert seen == set(range(replicas))
+
+
+@pytest.mark.parametrize(
+    ("replicas", "frontends", "cap", "global_limit", "expected"),
+    [
+        (8, 4, 8, 64, [16, 16, 16, 16]),
+        (8, 4, 8, 63, [16, 16, 16, 15]),
+        (5, 2, 2, 99, [6, 4]),
+        (8, 4, 8, 2, [1, 1, 0, 0]),
+        (7, 3, 2, 11, [4, 4, 3]),
+    ],
+)
+def test_frontend_admission_budget_splits_global_limit(replicas, frontends, cap, global_limit, expected) -> None:
+    limits = [
+        DuplexReplicaPlacement(
+            stage_replica_counts=[replicas],
+            max_sessions_per_replica=cap,
+            frontend_count=frontends,
+            frontend_index=index,
+        ).frontend_session_limit(global_limit)
+        for index in range(frontends)
+    ]
+    assert limits == expected
+    assert sum(limits) <= global_limit
+
+
+@pytest.mark.parametrize(
+    ("frontends", "index", "message"),
+    [
+        (0, 0, "positive integer"),
+        (True, 0, "positive integer"),
+        (3, 0, "must not exceed"),
+        (2, -1, "frontend_index"),
+        (2, 2, "frontend_index"),
+        (2, True, "frontend_index"),
+    ],
+)
+def test_invalid_frontend_topology_is_rejected(frontends, index, message) -> None:
+    with pytest.raises(ValueError, match=message):
+        DuplexReplicaPlacement(
+            stage_replica_counts=[2],
+            max_sessions_per_replica=1,
+            frontend_count=frontends,
+            frontend_index=index,
+        )
+
+
+def test_shared_replica_cannot_belong_to_different_frontends() -> None:
+    for index in range(2):
+        with pytest.raises(ValueError, match="sharing stage 0 replica 0 must belong to the same frontend"):
+            DuplexReplicaPlacement(
+                stage_replica_counts=[1, 2],
+                max_sessions_per_replica=2,
+                replica_groups=[{0: 0, 1: 0}, {0: 0, 1: 1}],
+                frontend_count=2,
+                frontend_index=index,
+            )
+
+
+def test_shared_replica_groups_with_one_frontend_owner_preserve_capacity() -> None:
+    placement = DuplexReplicaPlacement(
+        stage_replica_counts=[2, 3],
+        max_sessions_per_replica=2,
+        replica_groups=[{0: 0, 1: 0}, {0: 1, 1: 1}, {0: 0, 1: 2}],
+        frontend_count=2,
+        frontend_index=0,
+    )
+    assert [placement.reserve(session).group_id for session in ("a", "b")] == [0, 2]
+    assert placement.snapshot()["reserved"] == {(0, 0): 2, (1, 0): 1, (1, 2): 1}
+    with pytest.raises(DuplexSessionError, match="replica_capacity_exhausted"):
+        placement.reserve("overflow")
+    assert placement.mark_unavailable(0, 1) == set()
+    assert placement.route("a", 0) == 0
+    assert placement.mark_unavailable(0, 0) == {"a", "b"}

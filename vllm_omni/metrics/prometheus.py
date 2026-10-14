@@ -116,6 +116,9 @@ def _duplex_metric_families() -> tuple[Gauge, Counter]:
                 defs.DUPLEX_RESERVED_SESSIONS,
                 "Duplex sessions reserved on each stage replica, including opening and closing sessions.",
                 labelnames=list(defs.STAGE_LABELS),
+                # Only the owning frontend publishes each replica. Use live
+                # process aggregation without adding a pid label.
+                multiprocess_mode="livesum",
             )
             rejected = Counter(
                 defs.DUPLEX_ADMISSION_REJECTED,

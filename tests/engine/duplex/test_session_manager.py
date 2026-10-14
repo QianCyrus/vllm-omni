@@ -339,6 +339,7 @@ class Harness:
         plugin: FakePlugin | None = None,
         stage_port: FakeStagePort | None = None,
         clock: FakeClock | None = None,
+        admission_limit: int | None = None,
         **runtime_overrides: Any,
     ) -> Harness:
         plugin = plugin or FakePlugin()
@@ -356,6 +357,7 @@ class Harness:
             result_sink=result_sink,
             runtime_config=_runtime_config(**runtime_overrides),
             model_config=None,
+            admission_limit=admission_limit,
             clock=clock,
         )
         return cls(manager, plugin, stage_port, clock, output_sink, result_sink)
@@ -1954,6 +1956,47 @@ async def test_global_cap_is_not_multiplied_by_replica_count() -> None:
         assert port.reserve_calls == ["a"]
         assert port.rejections == ["global_capacity_exhausted"]
         assert port.placement.snapshot()["sessions"] == {"a": 0}
+
+
+@pytest.mark.parametrize("limit", [0, 1, 2])
+async def test_frontend_budget_is_atomic_without_changing_worker_config(limit) -> None:
+    port = PlacementStagePort(replicas=4, capacity=2)
+    async with Harness.create(stage_port=port, max_sessions=8, admission_limit=limit) as harness:
+        ids = [f"s{index}" for index in range(limit)]
+        harness.plugin.blocked_session_ids.update(ids)
+        opens = [
+            asyncio.create_task(harness.open(sid, DuplexSessionConfig(model="fake-model", instructions=sid)))
+            for sid in ids
+        ]
+        await asyncio.sleep(0)
+        try:
+            assert harness.manager._admission_count() == limit
+            result = await harness.open("overflow")
+            assert result.error_code == "resource_exhausted" and result.error_retryable
+            assert f"limit={limit}" in result.error_message
+            assert port.reserve_calls == ids
+            assert harness.manager.runtime_config.max_sessions == 8
+            assert harness.manager.runtime_config.worker_max_sessions == 2
+        finally:
+            harness.plugin.runtime_config_gate.set()
+        assert all(result.ok for result in await asyncio.gather(*opens))
+
+
+async def test_frontend_budget_remains_occupied_until_cleanup_finishes() -> None:
+    port = PlacementStagePort(replicas=2, capacity=2)
+    async with Harness.create(stage_port=port, max_sessions=8, admission_limit=1) as harness:
+        assert (await harness.open("a")).ok
+        port.cleanup_gate = asyncio.Event()
+        closing = asyncio.create_task(harness.close("a"))
+        await asyncio.wait_for(port.cleanup_started.wait(), timeout=1)
+        try:
+            result = await harness.open("b")
+            assert result.error_code == "resource_exhausted" and result.error_retryable
+            assert port.reserve_calls == ["a"]
+        finally:
+            port.cleanup_gate.set()
+        assert (await closing).ok
+        assert (await harness.open("b")).ok
 
 
 async def test_duplicate_open_does_not_release_an_inflight_replica_reservation() -> None:

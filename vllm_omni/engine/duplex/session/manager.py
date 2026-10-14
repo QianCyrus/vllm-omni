@@ -110,6 +110,7 @@ class DuplexSessionManager:
         result_sink: janus.AsyncQueue[EngineQueueMessage],
         runtime_config: DuplexSessionRuntimeConfig,
         model_config: ModelConfig | None,
+        admission_limit: int | None = None,
         log_stats: bool = False,
         clock: Callable[[], float] | None = None,
         executor: concurrent.futures.ThreadPoolExecutor | None = None,
@@ -120,6 +121,9 @@ class DuplexSessionManager:
         self.model_config = model_config
         self.log_stats = bool(log_stats)
         self.runtime_config = runtime_config
+        if admission_limit is not None and (type(admission_limit) is not int or admission_limit < 0):
+            raise ValueError("admission_limit must be a non-negative integer")
+        self._admission_limit = admission_limit
         self._output_sink = output_sink
         self._result_sink = result_sink
         self._clock = clock or time.monotonic
@@ -529,6 +533,11 @@ class DuplexSessionManager:
     # Control operations                                                 #
     # ------------------------------------------------------------------ #
 
+    @property
+    def admission_limit(self) -> int:
+        """Local frontend budget, separate from the deployment's worker configuration."""
+        return int(self.runtime_config.max_sessions) if self._admission_limit is None else self._admission_limit
+
     def _admission_count(self) -> int:
         return len(set(self.runners) | set(self._closing) | self._admitting)
 
@@ -545,7 +554,7 @@ class DuplexSessionManager:
         try:
             if session_id in self.runners or session_id in self._closing or session_id in self._admitting:
                 raise DuplexSessionError(f"Duplex session already exists: {session_id}", code="session_exists")
-            max_sessions = int(self.runtime_config.max_sessions)
+            max_sessions = self.admission_limit
             if self._admission_count() >= max_sessions:
                 self.stage_port.reject_session("global_capacity_exhausted")
                 raise DuplexSessionError(

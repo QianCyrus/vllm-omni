@@ -425,7 +425,7 @@ reverse index, including idle sessions without an in-flight request. Other
 groups retain their reservations and can continue serving. This policy does
 not migrate model state or support coordinator/distributed deployments.
 Worker-local state capacity uses the per-replica cap, while `max_sessions`
-remains the global frontend cap. The default `legacy` policy preserves the
+remains the global service cap. The default `legacy` policy preserves the
 existing routing, admission and worker capacity behavior. See the
 [configuration reference](../configuration/stage_configs.md#duplex-replica-placement)
 for group validation and model capability requirements.
@@ -434,6 +434,51 @@ With metrics enabled, `vllm_omni:duplex_reserved_sessions` reports reservations
 by model, stage and replica, and `vllm_omni:duplex_admission_rejected_total`
 counts global and replica capacity rejections. These collectors are created
 on first use by this policy and carry no session ID labels.
+
+### Multiple frontends
+
+`--api-server-count K` reuses the existing local multi-API launcher. The parent
+launches all stage cores, each core exposes one IPC endpoint pair per frontend,
+and every frontend attaches to every replica. Each frontend has its own
+`DuplexOrchestrator`, `DuplexSessionManager` and Python interpreter. Request
+`client_index` routes engine output back to the submitting frontend; there is
+no central per-frame session dispatcher.
+
+Placement, rather than engine attachment, enforces exclusive ownership. Group
+`g` belongs to frontend `g % K`, and only that frontend may reserve its replicas
+or submit its session requests. Groups sharing a physical stage replica must
+have the same owner, and `K` must not exceed the group count. The global session
+budget is divided by floor/remainder across frontends and bounded by each
+frontend's owned replica capacity; budgets do not move between frontends.
+The reservation lifetime, strict stage pins and worker caps apply within each
+owner's groups. With `K=1`, routing and admission behavior are unchanged.
+
+The multi-frontend WebSocket guard allows only `least_sessions` and plugins
+without session resume. Credentials, attachment state and replay journals
+remain process-local. The shared public address does not provide resume
+affinity; supporting resume-capable models would require a separate design.
+INET listeners use the existing per-process `SO_REUSEPORT` path where available
+(with a shared-socket fallback). Kernel connection distribution is not capacity
+aware, so a locally full frontend can return `resource_exhausted` with
+`retryable: true` even when another has room. Clients reconnect with backoff;
+an established session never moves to another frontend.
+
+When enabled, warmup runs against the local engine and owned groups rather than
+connecting through the public listener. PersonaPlex keeps its opt-in behavior:
+`duplex_session.warmup_frames` must be positive. Each frontend keeps its own
+warmup completion gate; there is no all-frontend warmup barrier. `/health`
+retains the engine health check, and a 200 response does not guarantee admission
+capacity on the frontend accepting a connection. Only the owner publishes its
+replicas' reservation gauges, using Prometheus `livesum` aggregation;
+admission rejection counters aggregate across
+frontends without changing their label schema.
+
+This mode keeps the current supervisor's whole-service fail-fast behavior on
+an engine failure or a frontend's abnormal exit. It does not add frontend
+restart, session migration or failure isolation. All-frontend engine attachment
+and SHM notification fan-out are unchanged; narrowing SHM wakeups is a separate
+optimization. See the [configuration reference](../configuration/stage_configs.md#multiple-duplex-frontends)
+and [serving guide](../serving/realtime_duplex_api.md#multiple-frontends).
 
 ## Orchestrator seams
 

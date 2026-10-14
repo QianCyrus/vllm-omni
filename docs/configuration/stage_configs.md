@@ -168,6 +168,45 @@ are not migrated, and other groups continue serving. Under `least_sessions`,
 workers receive `max_sessions_per_replica` as `duplex_max_sessions`; under
 `legacy`, they continue to receive the global `max_sessions` value.
 
+#### Multiple duplex frontends
+
+Use `--api-server-count K` to run separate API and duplex orchestrator processes
+on one listening port. The default remains one frontend. Multiple frontends
+require `replica_policy: least_sessions` and a plugin whose capabilities declare
+`supports_session_resume: false`, such as PersonaPlex. Resume-capable models and
+the `legacy` policy remain unsupported with multiple duplex frontends.
+
+Group `g` (its zero-based position in `replica_groups`, or its implicit replica
+index) belongs to frontend `g % K`. `K` cannot exceed the number of groups.
+Explicit groups sharing any stage replica must have the same frontend owner;
+cross-owner sharing is rejected. Each frontend places sessions only in its
+owned groups, while workers still use `max_sessions_per_replica` as their cap.
+
+The global `max_sessions` budget is split evenly: frontend `i` receives
+`max_sessions // K + (i < max_sessions % K)` slots, bounded further by its owned
+replica capacity. Unused slots are not borrowed by another frontend. Choose
+`max_sessions >= K`; otherwise frontends assigned zero slots accept no sessions
+and skip warmup. For a single frontend, the existing global and per-replica
+admission checks are unchanged.
+
+For example, copy `vllm_omni/deploy/personaplex.yaml`, set `max_sessions: 64`,
+`replica_policy: least_sessions` and `max_sessions_per_replica: 8` under
+`duplex_session`, and set `num_replicas: 8` and `devices: "0,1,2,3,4,5,6,7"`
+on **both existing stages**. With one GPU per replica this puts a complete
+two-stage group on each GPU. Pass `--api-server-count 4` to give each frontend
+two groups and a session budget of 16. Model memory settings still need to fit
+the target GPU; frontend sharding does not change them.
+
+Connections are distributed by the operating system, not by available session
+capacity. A frontend can reject a new session while another has free slots;
+capacity errors include `retryable: true`, so clients should back off and open
+a new connection. `/health` returning 200 does not guarantee admission capacity
+on the frontend accepting a connection. PersonaPlex startup warmup remains
+opt-in: set `duplex_session.warmup_frames` to a positive frame count to warm
+each frontend's owned groups locally. See
+[serving guidance](../serving/realtime_duplex_api.md#multiple-frontends)
+for readiness and failure behavior.
+
 For fields whose deploy default is `null`, the deploy layer contributes no
 override. The effective value may still come from a platform section, an
 explicit CLI or stage override, or the downstream vLLM engine default.
