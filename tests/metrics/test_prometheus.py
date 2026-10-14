@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import re
+from functools import partial
 
 import pytest
-from prometheus_client import REGISTRY, CollectorRegistry, generate_latest
+from prometheus_client import REGISTRY, CollectorRegistry, Counter, Gauge, generate_latest
 
 from vllm_omni.metrics import OmniPrometheusMetrics
+from vllm_omni.metrics import definitions as defs
+from vllm_omni.metrics import prometheus as prom_module
 
 pytestmark = [pytest.mark.core_model, pytest.mark.cpu]
 
@@ -128,6 +131,79 @@ class TestScrapeOutput:
         # default registry is being scraped by checking for process_* metrics
         # from the Python prometheus_client runtime.
         assert "process_" in scrape_output
+
+
+@pytest.fixture
+def duplex_registry(monkeypatch) -> CollectorRegistry:
+    isolated = CollectorRegistry()
+    monkeypatch.setattr(prom_module, "_duplex_families", None)
+    monkeypatch.setattr(prom_module, "Gauge", partial(Gauge, registry=isolated))
+    monkeypatch.setattr(prom_module, "Counter", partial(Counter, registry=isolated))
+    return isolated
+
+
+class TestDuplexPlacementMetrics:
+    def test_legacy_metrics_do_not_register_duplex_collectors(self, duplex_registry) -> None:
+        metrics = OmniPrometheusMetrics(model_name="duplex-legacy-metrics")
+        metrics.set_running(1)
+        metrics.set_waiting(0)
+
+        assert prom_module._duplex_families is None
+        assert generate_latest(duplex_registry) == b""
+
+    def test_disabled_metrics_do_not_register_duplex_collectors(self, duplex_registry) -> None:
+        metrics = OmniPrometheusMetrics(model_name="duplex-disabled-metrics", log_stats=False)
+        metrics.set_duplex_reserved_sessions(stage=0, replica=1, reserved=2)
+        metrics.inc_duplex_admission_rejected("global_capacity_exhausted")
+
+        assert prom_module._duplex_families is None
+        assert generate_latest(duplex_registry) == b""
+
+    def test_reserved_sessions_are_per_replica_and_return_to_zero(self, duplex_registry) -> None:
+        metrics = OmniPrometheusMetrics(model_name="duplex-reserved-metrics")
+        metrics.set_duplex_reserved_sessions(stage=0, replica=0, reserved=2)
+        metrics.set_duplex_reserved_sessions(stage=0, replica=1, reserved=1)
+        metrics.set_duplex_reserved_sessions(stage=1, replica=0, reserved=3)
+        metrics.set_duplex_reserved_sessions(stage=0, replica=0, reserved=0)
+
+        for stage, replica, expected in [(0, 0, 0), (0, 1, 1), (1, 0, 3)]:
+            assert (
+                duplex_registry.get_sample_value(
+                    defs.DUPLEX_RESERVED_SESSIONS,
+                    {"model_name": "duplex-reserved-metrics", "stage": str(stage), "replica": str(replica)},
+                )
+                == expected
+            )
+        family = next(family for family in duplex_registry.collect() if family.name == defs.DUPLEX_RESERVED_SESSIONS)
+        assert all(set(sample.labels) == set(defs.STAGE_LABELS) for sample in family.samples)
+
+    def test_reject_reasons_are_bounded_and_collectors_are_shared(self, duplex_registry) -> None:
+        metrics = OmniPrometheusMetrics(model_name="duplex-reject-metrics")
+        other = OmniPrometheusMetrics(model_name="duplex-other-metrics")
+        metrics.inc_duplex_admission_rejected("global_capacity_exhausted")
+        metrics.inc_duplex_admission_rejected("replica_capacity_exhausted")
+        metrics.inc_duplex_admission_rejected("arbitrary-session-id")
+        metrics.inc_duplex_admission_rejected("another-session-id")
+        other.inc_duplex_admission_rejected("replica_capacity_exhausted")
+
+        for reason, expected in [("global_capacity_exhausted", 1), ("replica_capacity_exhausted", 1), ("unknown", 2)]:
+            assert (
+                duplex_registry.get_sample_value(
+                    defs.DUPLEX_ADMISSION_REJECTED + "_total",
+                    {"model_name": "duplex-reject-metrics", "reason": reason},
+                )
+                == expected
+            )
+        assert (
+            duplex_registry.get_sample_value(
+                defs.DUPLEX_ADMISSION_REJECTED + "_total",
+                {"model_name": "duplex-other-metrics", "reason": "replica_capacity_exhausted"},
+            )
+            == 1
+        )
+        output = generate_latest(duplex_registry).decode()
+        assert "session-id" not in output
+        assert "session_id=" not in output
 
 
 class TestRequestLifecycleGauges:

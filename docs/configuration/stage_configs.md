@@ -115,6 +115,59 @@ The new deploy schema lives under `vllm_omni/deploy/` and is paired with a froze
 | `pipeline_parallel_size` | int \| null | optional | `null` | **Pipeline-wide.** PP degree for every stage. |
 | `custom_voice_dir` | str \| null | optional | `null` | **Pipeline-wide.** Directory containing custom voice profiles for supported TTS models. |
 
+### Duplex replica placement
+
+The following fields belong under `duplex_session` and apply when
+`session_mode: duplex`:
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `max_sessions` | int | `1` | Global session limit, including sessions being opened or closed. |
+| `replica_policy` | `legacy` \| `least_sessions` | `legacy` | `legacy` preserves existing request routing and worker capacities. `least_sessions` reserves a replica group once when a session opens. |
+| `max_sessions_per_replica` | int \| null | `null` | Required and at least `1` for `least_sessions`. Bounds reserved sessions and model-owned session resources on each replica of every stage. |
+| `replica_groups` | list of stage-to-replica maps \| null | `null` | Explicit groups such as `[{0: 0, 1: 0}, {0: 1, 1: 0}]`. Stage and replica IDs must be nonnegative integers. |
+
+For example, a two-stage local pipeline with two replicas per stage can use:
+
+```yaml
+session_mode: duplex
+duplex_session:
+  max_sessions: 4
+  replica_policy: least_sessions
+  max_sessions_per_replica: 2
+stages:
+  - stage_id: 0
+    num_replicas: 2
+    devices: "0,1"
+  - stage_id: 1
+    num_replicas: 2
+    devices: "2,3"
+```
+
+This example assumes one GPU per replica. With equal replica counts and no
+explicit groups, group `g` maps every stage to replica `g`. Unequal counts
+require explicit groups. Every group must cover every pipeline stage, all
+replica IDs must exist, every replica must belong to at least one group, and
+duplicate groups are rejected. A replica shared by multiple groups has one
+shared capacity counter; the global limit can therefore exceed the capacity
+that the groups can actually admit.
+
+Placement selects an eligible group by its highest reserved-to-capacity ratio,
+then its total reserved count, with round-robin tie-breaking. Sessions keep
+their group across turns, cancellation, epochs and reconnects. Idle sessions
+hold their slots, and closing sessions release them after cleanup completes.
+When no group has capacity, opening a session fails with the retryable
+`resource_exhausted` error containing `replica_capacity_exhausted`.
+
+`least_sessions` supports local single-host deployments only; coordinator or
+distributed routing is rejected at startup. A per-replica cap above `1` also
+requires the model plugin to support concurrent sessions on one replica; use
+`1` for plugins without that capability, including VoiceChat. A failed replica
+closes all sessions assigned to it, including idle sessions. Those sessions
+are not migrated, and other groups continue serving. Under `least_sessions`,
+workers receive `max_sessions_per_replica` as `duplex_max_sessions`; under
+`legacy`, they continue to receive the global `max_sessions` value.
+
 For fields whose deploy default is `null`, the deploy layer contributes no
 override. The effective value may still come from a platform section, an
 explicit CLI or stage override, or the downstream vLLM engine default.

@@ -399,6 +399,42 @@ not a cross-process delivery protocol. Direct handle iteration and WebSocket
 delivery share buffer validity, but end-to-end client behavior still needs
 independent real-model verification.
 
+## Session-aware replica placement
+
+The opt-in `duplex_session.replica_policy: least_sessions` policy places each
+session on a local replica group mapping every stage to a replica. The
+orchestrator owns a separate session reservation ledger; StagePool's request
+bindings continue to describe submitted requests only. Admission reserves a
+group synchronously after taking the global admission slot. The group must
+have space under `max_sessions_per_replica` on every member replica. Replicas
+shared by groups share their capacity counter. Eligible groups are ordered by
+maximum reserved-to-capacity ratio, total reserved count, and round-robin
+tie-breaking.
+
+The reservation covers opening, active and closing sessions. Failed opens
+roll it back; ordinary request completion, response cancellation and epoch
+changes do not release it. Session cleanup releases it only after the closing
+session is finalized. Every Stage0 submission, downstream forward, prewarm and
+derived request uses the session's pinned stage replica. Routing is fixed
+before multimodal preprocessing and connector sender information are built.
+A conflicting or unavailable pin fails instead of falling back to another
+replica.
+
+Replica failure marks the replica unavailable and closes every session in its
+reverse index, including idle sessions without an in-flight request. Other
+groups retain their reservations and can continue serving. This policy does
+not migrate model state or support coordinator/distributed deployments.
+Worker-local state capacity uses the per-replica cap, while `max_sessions`
+remains the global frontend cap. The default `legacy` policy preserves the
+existing routing, admission and worker capacity behavior. See the
+[configuration reference](../configuration/stage_configs.md#duplex-replica-placement)
+for group validation and model capability requirements.
+
+With metrics enabled, `vllm_omni:duplex_reserved_sessions` reports reservations
+by model, stage and replica, and `vllm_omni:duplex_admission_rejected_total`
+counts global and replica capacity rejections. These collectors are created
+on first use by this policy and carry no session ID labels.
+
 ## Orchestrator seams
 
 `OrchestratorBase` keeps the generic machinery (request handler skeleton,

@@ -12,6 +12,7 @@ from typing import Any
 
 import pytest
 
+from vllm_omni.config.stage_config import DuplexSessionRuntimeConfig
 from vllm_omni.engine.duplex.commands import Heartbeat
 from vllm_omni.engine.duplex.config import DuplexCapabilities, DuplexSessionConfig
 from vllm_omni.engine.duplex.delivery import DuplexOutputBuffer
@@ -24,6 +25,7 @@ from vllm_omni.engine.duplex.messages import (
     ResumeDuplexSessionMessage,
     TouchDuplexSessionMessage,
 )
+from vllm_omni.engine.duplex.plugin import validate_duplex_replica_policy
 from vllm_omni.engine.duplex_omni_engine import DuplexOmniEngine
 
 pytestmark = [pytest.mark.core_model, pytest.mark.cpu]
@@ -209,6 +211,86 @@ def test_duplex_runtime_uses_tokenizer_owner_model_config(monkeypatch):
     monkeypatch.setattr("vllm_omni.engine.duplex_orchestrator.DuplexOrchestrator", lambda **kwargs: kwargs)
     result = engine._create_orchestrator()
     assert result["model_config"] is configs[1]
+
+
+@pytest.mark.parametrize(
+    ("replica_policy", "replica_cap", "single_stage_mode", "supports_sharing", "error"),
+    [
+        ("least_sessions", 1, True, False, "does not support distributed hub/LB mode"),
+        ("least_sessions", 2, True, False, "does not support distributed hub/LB mode"),
+        ("least_sessions", 2, False, False, "set max_sessions_per_replica to 1"),
+        ("least_sessions", 1, False, False, None),
+        ("least_sessions", 2, False, True, None),
+        ("legacy", None, True, False, None),
+        ("legacy", 2, False, False, None),
+    ],
+)
+def test_validate_deployment_checks_replica_policy_before_starting_workers(
+    monkeypatch,
+    replica_policy: str,
+    replica_cap: int | None,
+    single_stage_mode: bool,
+    supports_sharing: bool,
+    error: str | None,
+) -> None:
+    engine = object.__new__(DuplexOmniEngine)
+    engine.model = "fake-duplex-model"
+    engine.pipeline_config = SimpleNamespace(duplex_plugin="fake.Plugin")
+    runtime_config = DuplexSessionRuntimeConfig(
+        max_sessions=11,
+        replica_policy=replica_policy,
+        max_sessions_per_replica=replica_cap,
+    )
+    engine.deploy_config = SimpleNamespace(session_mode="duplex", duplex_session=runtime_config)
+    engine.single_stage_mode = single_stage_mode
+    engine._audio_encoder = object()
+    capability_calls: list[int] = []
+    configure_pipeline_calls: list[object] = []
+
+    def configure_pipeline(pipeline_config) -> None:
+        configure_pipeline_calls.append(pipeline_config)
+
+    def capabilities(*, max_sessions: int) -> DuplexCapabilities:
+        capability_calls.append(max_sessions)
+        return DuplexCapabilities(supports_multi_session_same_replica=supports_sharing)
+
+    plugin = SimpleNamespace(capabilities=capabilities, configure_pipeline=configure_pipeline)
+
+    def load_plugin(path: str, audio_encoder):
+        assert path == "fake.Plugin"
+        assert audio_encoder is engine._audio_encoder
+        return plugin
+
+    monkeypatch.setattr("vllm_omni.engine.duplex_omni_engine.load_duplex_plugin", load_plugin)
+    validation_calls: list[bool] = []
+
+    def validate_policy(candidate_plugin, candidate_config, *, distributed: bool) -> None:
+        assert candidate_plugin is plugin
+        assert candidate_config is runtime_config
+        assert len(configure_pipeline_calls) == 1
+        assert configure_pipeline_calls[0] is engine.pipeline_config
+        validation_calls.append(distributed)
+        validate_duplex_replica_policy(candidate_plugin, candidate_config, distributed=distributed)
+
+    monkeypatch.setattr("vllm_omni.engine.duplex_omni_engine.validate_duplex_replica_policy", validate_policy)
+
+    if error is not None:
+        with pytest.raises(ValueError, match=error):
+            engine._validate_deployment()
+    else:
+        engine._validate_deployment()
+        assert engine.plugin is plugin
+        assert engine.duplex_session_config is runtime_config
+
+    # Validation uses per-replica capacity, never the global admission limit.
+    # Single-session replicas and legacy deployments need no sharing support.
+    expected_calls = (
+        [replica_cap] if replica_policy == "least_sessions" and not single_stage_mode and replica_cap > 1 else []
+    )
+    assert capability_calls == expected_calls
+    assert validation_calls == [single_stage_mode]
+    assert len(configure_pipeline_calls) == 1
+    assert configure_pipeline_calls[0] is engine.pipeline_config
 
 
 @pytest.mark.asyncio

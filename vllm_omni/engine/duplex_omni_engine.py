@@ -31,7 +31,12 @@ from vllm_omni.engine.duplex.messages import (
     ResumeDuplexSessionMessage,
     TouchDuplexSessionMessage,
 )
-from vllm_omni.engine.duplex.plugin import DuplexModelPlugin, EncodeAudio, load_duplex_plugin
+from vllm_omni.engine.duplex.plugin import (
+    DuplexModelPlugin,
+    EncodeAudio,
+    load_duplex_plugin,
+    validate_duplex_replica_policy,
+)
 from vllm_omni.engine.messages import EngineQueueMessage
 from vllm_omni.engine.orchestrator import OrchestratorBase
 
@@ -83,6 +88,7 @@ class DuplexOmniEngine(AsyncOmniEngine):
         self.duplex_session_config = deploy_config.duplex_session
         self.plugin = load_duplex_plugin(plugin_path, self._audio_encoder)
         self.plugin.configure_pipeline(pipeline_config)
+        validate_duplex_replica_policy(self.plugin, self.duplex_session_config, distributed=self.single_stage_mode)
 
     # Any: signature of the ``OmniEngineBase._create_orchestrator`` seam it overrides.
     def _create_orchestrator(self, **orchestrator_kwargs: Any) -> OrchestratorBase:
