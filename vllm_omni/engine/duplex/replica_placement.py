@@ -13,6 +13,7 @@ from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
+from typing import TypedDict
 
 from vllm_omni.engine.duplex.messages import DuplexSessionError
 
@@ -24,6 +25,13 @@ class ReplicaReservation:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "replicas", MappingProxyType(dict(self.replicas)))
+
+
+class ReplicaPlacementSnapshot(TypedDict):
+    groups: list[dict[int, int]]
+    reserved: dict[tuple[int, int], int]
+    sessions: dict[str, int]
+    unavailable: frozenset[tuple[int, int]]
 
 
 class DuplexReplicaPlacement:
@@ -201,7 +209,7 @@ class DuplexReplicaPlacement:
         self._unavailable.add(replica)
         return set(self._owners[replica])
 
-    def snapshot(self) -> dict[str, object]:
+    def snapshot(self) -> ReplicaPlacementSnapshot:
         """Detached state for structured logs, metrics and diagnostics."""
         return {
             "groups": [dict(group.replicas) for group in self._groups],

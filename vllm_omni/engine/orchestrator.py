@@ -2629,7 +2629,7 @@ class OrchestratorBase:
         pinned_replica_id = self._session_route(next_logical, req_state)
         if pinned_replica_id is not None:
             next_pool.bind_request_to_replica(req_id, pinned_replica_id)
-        route_kwargs = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
+        route_kwargs: dict[str, Any] = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
         if not next_pool.live_replica_ids():
             # The downstream stage lost all of its replicas before this in-flight
             # request could be forwarded.
@@ -2776,7 +2776,11 @@ class OrchestratorBase:
                 submit_kwargs["payload_sender_info"] = payload_sender_info
             if already_submitted:
                 replica_id = await next_pool.submit_update(
-                    req_id, req_state, diffusion_prompt, submit_kwargs=submit_kwargs, **route_kwargs
+                    req_id,
+                    req_state,
+                    diffusion_prompt,
+                    submit_kwargs=submit_kwargs,
+                    **route_kwargs,
                 )
             else:
                 replica_id = await next_pool.submit_initial(
@@ -3093,7 +3097,7 @@ class OrchestratorBase:
                 except StageUnavailableError:
                     await self._fail_request_dead_stage(request_id, route_stage_id)
                     return False
-            route_kwargs = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
+            route_kwargs: dict[str, Any] = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
             req_state.stage_submit_ts[next_stage_id] = _time.time()
             _t_submit_start = _time.perf_counter()
 
@@ -3336,7 +3340,7 @@ class OrchestratorBase:
             return None
         sender_pool = self.stage_pools[sender_stage_id]
         req_state = self.request_states.get(request_id) if request_id is not None else None
-        if req_state is not None:
+        if request_id is not None and req_state is not None:
             pinned_replica_id = self._session_route(sender_stage_id, req_state)
             if pinned_replica_id is not None:
                 sender_pool.bind_request_to_replica(request_id, pinned_replica_id)
@@ -3621,7 +3625,7 @@ class Orchestrator(OrchestratorBase):
             pinned_replica_id = self._session_route(0, parent_state)
             if pinned_replica_id is not None:
                 self.stage_pools[0].bind_request_to_replica(companion_id, pinned_replica_id)
-            route_kwargs = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
+            route_kwargs: dict[str, Any] = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
             await self.stage_pools[0].submit_initial(
                 companion_id,
                 companion_state,

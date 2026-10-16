@@ -1152,9 +1152,11 @@ class StagePool:
         if pinned_replica_id is not None:
             replica_id = self.bind_request_to_replica(request_id, pinned_replica_id)
         else:
-            replica_id = self.get_bound_replica_id(request_id)
-            if replica_id is None or self.clients[replica_id] is None:
+            bound_replica_id = self.get_bound_replica_id(request_id)
+            if bound_replica_id is None or self.clients[bound_replica_id] is None:
                 replica_id = await self._pick_or_select(request_id)
+            else:
+                replica_id = bound_replica_id
 
         client = self.clients[replica_id]
         if client is None:

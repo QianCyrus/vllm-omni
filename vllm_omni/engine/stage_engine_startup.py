@@ -1166,8 +1166,8 @@ def launch_stage_replica(
             stage_visible_devices=stage_visible_devices,
             spawn_device_lock=spawn_device_lock,
             omni_parallel_stage_init=omni_parallel_stage_init,
-        ) as resources:
-            engine_manager, coordinator, addresses = resources
+        ) as engine_resources:
+            engine_manager, coordinator, addresses = engine_resources
             yield StageReplicaResources(
                 manager=engine_manager,
                 coordinator=coordinator,

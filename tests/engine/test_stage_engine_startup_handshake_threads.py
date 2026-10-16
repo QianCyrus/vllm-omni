@@ -9,6 +9,7 @@ import threading
 from collections.abc import Iterator
 from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
+from typing import Any
 
 import pytest
 import zmq
@@ -79,7 +80,7 @@ def fake_startup(monkeypatch: pytest.MonkeyPatch) -> SimpleNamespace:
 
 def test_multi_api_socket_lifetime_stays_on_readiness_worker(fake_startup: SimpleNamespace) -> None:
     main_thread = threading.get_ident()
-    frontends = []
+    frontends: list[Any] = []
     context = stage_engine_startup.launch_stage_replica(
         vllm_config=fake_startup.config,
         executor_class=object,

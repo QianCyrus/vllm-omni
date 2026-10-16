@@ -30,7 +30,7 @@ class _Handle:
     def __init__(self, owner, session_id):
         self.owner = owner
         self.session_id = session_id
-        self.events_queue = asyncio.Queue()
+        self.events_queue: asyncio.Queue[SimpleNamespace | None] = asyncio.Queue()
         self.appends = []
         self.closed = False
 

@@ -44,10 +44,11 @@ import asyncio
 import json
 import signal
 from argparse import Namespace
+from collections.abc import Callable
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, NoReturn
 
 import pytest
 from fastapi import FastAPI, HTTPException
@@ -782,8 +783,9 @@ async def test_multi_api_nonduplex_realtime_bypasses_duplex_guard(monkeypatch, d
         async def handle_websocket(self, _websocket) -> None:
             calls.append("turn_based")
 
-    async def unexpected_guard(_websocket) -> bool:
-        pytest.fail("Non-duplex requests must not use the duplex topology guard")
+    async def unexpected_guard(_websocket) -> NoReturn:
+        fail: Callable[[str], NoReturn] = pytest.fail
+        fail("Non-duplex requests must not use the duplex topology guard")
 
     monkeypatch.setattr(api_server, "_reject_multi_api_duplex", unexpected_guard)
     websocket = SimpleNamespace(

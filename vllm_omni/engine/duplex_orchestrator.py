@@ -493,7 +493,7 @@ class DuplexOrchestrator(Orchestrator, DuplexStagePort):
             pinned_replica_id = self._session_route(context.stage_id, request_state)
             if pinned_replica_id is not None:
                 self.stage_pools[context.stage_id].bind_request_to_replica(context.request_id, pinned_replica_id)
-            route_kwargs = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
+            route_kwargs: dict[str, Any] = {} if pinned_replica_id is None else {"pinned_replica_id": pinned_replica_id}
             request_state.streaming.enabled = submission.resumable
             if submission.resumable:
                 request = build_engine_core_request_from_tokens(
@@ -534,7 +534,11 @@ class DuplexOrchestrator(Orchestrator, DuplexStagePort):
                     replica_id = await pool.submit_update(context.request_id, request_state, request, **route_kwargs)
                 else:
                     replica_id = await pool.submit_initial(
-                        context.request_id, request_state, request, prompt_text=None, **route_kwargs
+                        context.request_id,
+                        request_state,
+                        request,
+                        prompt_text=None,
+                        **route_kwargs,
                     )
             except EngineDeadError as exc:
                 if pinned_replica_id is not None:

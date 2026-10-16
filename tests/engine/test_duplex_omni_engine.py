@@ -323,7 +323,9 @@ def test_validate_deployment_checks_replica_policy_before_starting_workers(
     # Validation uses per-replica capacity, never the global admission limit.
     # Single-session replicas and legacy deployments need no sharing support.
     expected_calls = (
-        [replica_cap] if replica_policy == "least_sessions" and not single_stage_mode and replica_cap > 1 else []
+        [replica_cap]
+        if replica_policy == "least_sessions" and not single_stage_mode and replica_cap is not None and replica_cap > 1
+        else []
     )
     assert capability_calls == expected_calls
     assert validation_calls == [single_stage_mode]

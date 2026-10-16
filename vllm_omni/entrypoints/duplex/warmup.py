@@ -21,7 +21,7 @@ import struct
 import time
 import uuid
 from io import BytesIO
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypedDict, cast
 
 import httpx
 import pybase64 as base64
@@ -45,6 +45,13 @@ _WARMUP_AUDIO_SECONDS = 0.4
 _WARMUP_FRAME_WIDTH = 640
 _WARMUP_FRAME_HEIGHT = 480
 _WARMUP_INSTRUCTIONS = "启动暖机。请只用这四个字回答，不要输出 silent：暖机完成。"
+
+
+class _WarmupAudioAppendKwargs(TypedDict, total=False):
+    format: str
+    sample_rate_hz: int
+    is_speech: bool
+    video_frames: list[str]
 
 
 def lookup_duplex_plugin(engine_client: object) -> object | None:
@@ -179,7 +186,10 @@ async def _warmup_local_duplex(engine_client: DuplexOmni, plugin: object | None,
         "extra_body": {"auto_response": native_append},
     }
     audio = base64.b64decode(str(unit["audio"]))
-    append_kwargs = {"format": str(unit["format"]), "sample_rate_hz": int(unit["sample_rate_hz"])}
+    append_kwargs: _WarmupAudioAppendKwargs = {
+        "format": str(unit["format"]),
+        "sample_rate_hz": int(cast(int, unit["sample_rate_hz"])),
+    }
     if kind == "video_turn":
         session.update(
             input_audio_format="pcm_f32le",

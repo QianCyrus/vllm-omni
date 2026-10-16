@@ -138,7 +138,7 @@ def test_invalid_topologies_are_rejected(counts, capacity, groups, message) -> N
 
 @pytest.mark.parametrize(("replicas", "frontends"), [(8, 1), (8, 2), (8, 4), (8, 8), (7, 3), (5, 2)])
 def test_frontend_ownership_partitions_all_replicas(replicas: int, frontends: int) -> None:
-    seen = set()
+    seen: set[int] = set()
     for frontend in range(frontends):
         placement = DuplexReplicaPlacement(
             stage_replica_counts=[replicas, replicas],

@@ -6,8 +6,9 @@ import contextlib
 import fcntl
 import os
 import threading
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from pathlib import Path
+from typing import NoReturn
 
 import pytest
 from pytest_mock import MockerFixture
@@ -255,8 +256,9 @@ def test_multi_api_parallel_stage_init_keeps_same_device_readiness_parallel(
     monkeypatch.setattr(launch_runtime, "_reject_unguardable_executors", lambda _: events.append("guard"))
     monkeypatch.setattr(launch_runtime, "_run_stage_admission", lambda _: events.append("admission"))
 
-    def forbidden_lock(*_args: object, **_kwargs: object) -> list[int]:
-        pytest.fail("Parallel initialization must leave device phase locks to engine workers")
+    def forbidden_lock(*_args: object, **_kwargs: object) -> NoReturn:
+        fail: Callable[[str], NoReturn] = pytest.fail
+        fail("Parallel initialization must leave device phase locks to engine workers")
 
     monkeypatch.setattr(stage_runtime, "acquire_device_locks", forbidden_lock)
 

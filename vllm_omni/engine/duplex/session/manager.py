@@ -723,8 +723,9 @@ class DuplexSessionManager:
             runner.session.begin_close(reason=reason)
             runner.run.closing = True
             self.emit(runner.session, [error_event("replica_unavailable", reason)])
+            failed_runner = runner
 
-            async def close_failed(runner: DuplexSessionRunner = runner) -> None:
+            async def close_failed(runner: DuplexSessionRunner = failed_runner) -> None:
                 if self.runners.get(runner.session.session_id) is not runner:
                     return
                 try:
