@@ -2771,7 +2771,7 @@ class OrchestratorBase:
                 diffusion_prompt = req_state.prompt
 
             submit_kwargs = self._diffusion_submit_kwargs(req_id, src_stage_id, next_client, req_state, output)
-            payload_sender_info = self._build_payload_sender_info(src_stage_id, request_id=req_id)
+            payload_sender_info = self._build_payload_sender_info(src_stage_id, request_id=req_id, req_state=req_state)
             if payload_sender_info is not None:
                 submit_kwargs["payload_sender_info"] = payload_sender_info
             if already_submitted:
@@ -2976,7 +2976,9 @@ class OrchestratorBase:
                         params=params,
                         mm_features=mm_features,
                         resumable=next_stage_resumable,
-                        payload_sender_info=self._build_payload_sender_info(src_stage_id, request_id=req_id),
+                        payload_sender_info=self._build_payload_sender_info(
+                            src_stage_id, request_id=req_id, req_state=req_state
+                        ),
                         replica_id=scoped_replica_id,
                     )
                 except (ValueError, VLLMClientError) as exc:
@@ -3186,7 +3188,9 @@ class OrchestratorBase:
                     model_config=next_pool.stage_vllm_config.model_config,
                     resumable=downstream_resumable,
                 )
-                request.payload_sender_info = self._build_payload_sender_info(next_stage_id - 1, request_id=request_id)
+                request.payload_sender_info = self._build_payload_sender_info(
+                    next_stage_id - 1, request_id=request_id, req_state=req_state
+                )
                 request.external_req_id = request.request_id
                 submitted = await self._dispatch_or_fail_request(
                     lambda: next_pool.submit_initial(
@@ -3335,11 +3339,11 @@ class OrchestratorBase:
         sender_stage_id: int,
         *,
         request_id: str | None = None,
+        req_state: OrchestratorRequestState | None = None,
     ) -> dict[str, Any] | None:
         if sender_stage_id < 0 or sender_stage_id >= len(self.stage_pools):
             return None
         sender_pool = self.stage_pools[sender_stage_id]
-        req_state = self.request_states.get(request_id) if request_id is not None else None
         if request_id is not None and req_state is not None:
             pinned_replica_id = self._session_route(sender_stage_id, req_state)
             if pinned_replica_id is not None:

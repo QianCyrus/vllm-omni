@@ -1001,6 +1001,28 @@ def _placement_config(**kwargs) -> DuplexSessionRuntimeConfig:
 
 
 @pytest.mark.asyncio
+async def test_payload_sender_info_binds_from_explicit_session_state(monkeypatch) -> None:
+    orchestrator, _, rpc_q, _ = _build(replicas=2, runtime_config=_placement_config(replica_groups=[{0: 1}, {0: 0}]))
+    pool = orchestrator.stage_pools[0]
+    for replica, client in enumerate(pool.clients):
+        client.get_payload_sender_info = lambda r=replica: {"replica": r}
+    try:
+        assert (await _open(orchestrator, rpc_q)).ok
+        request_id = _stage0_request_id()
+        state = orchestrator.request_states[request_id]
+        assert pool.get_bound_replica_id(request_id) is None
+        with monkeypatch.context() as patch:
+            patch.delattr(orchestrator, "request_states")
+            assert orchestrator._build_payload_sender_info(0, request_id=request_id) == {"replica": 0}
+            assert pool.get_bound_replica_id(request_id) is None
+            sender_info = orchestrator._build_payload_sender_info(0, request_id=request_id, req_state=state)
+        assert sender_info == {"replica": 1}
+        assert pool.get_bound_replica_id(request_id) == 1
+    finally:
+        await orchestrator.session_manager.shutdown()
+
+
+@pytest.mark.asyncio
 async def test_session_group_pins_initial_update_forward_prewarm_and_new_epoch(monkeypatch) -> None:
     config = _placement_config(replica_groups=[{0: 1, 1: 0, 2: 1}, {0: 0, 1: 1, 2: 0}])
     orchestrator, _, rpc_q, _ = _build(stages=3, replicas=2, runtime_config=config)
