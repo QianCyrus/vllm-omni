@@ -466,7 +466,9 @@ an established session never moves to another frontend.
 When enabled, warmup runs against the local engine and owned groups rather than
 connecting through the public listener. PersonaPlex keeps its opt-in behavior:
 `duplex_session.warmup_frames` must be positive. Each frontend keeps its own
-warmup completion gate; there is no all-frontend warmup barrier. `/health`
+warmup completion gate; clients wait at most `DUPLEX_WARMUP_CLIENT_WAIT_S` (180 s)
+before being admitted, as in single-frontend mode; there is no all-frontend
+warmup barrier. `/health`
 retains the engine health check, and a 200 response does not guarantee admission
 capacity on the frontend accepting a connection. Only the owner publishes its
 replicas' reservation gauges, using Prometheus `livesum` aggregation;

@@ -184,7 +184,8 @@ owned groups, while workers still use `max_sessions_per_replica` as their cap.
 
 The global `max_sessions` budget is split evenly: frontend `i` receives
 `max_sessions // K + (i < max_sessions % K)` slots, bounded further by its owned
-replica capacity. Unused slots are not borrowed by another frontend. Choose
+replica capacity. This bound is the smallest owned replica count across stages
+multiplied by `max_sessions_per_replica`. Unused slots are not borrowed by another frontend. Choose
 `max_sessions >= K`; otherwise frontends assigned zero slots accept no sessions
 and skip warmup. For a single frontend, the existing global and per-replica
 admission checks are unchanged.

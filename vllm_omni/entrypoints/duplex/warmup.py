@@ -121,26 +121,28 @@ def warmup_silence_unit(plugin: object | None) -> dict[str, object]:
 
 
 async def wait_for_duplex_warmup(websocket) -> None:
-    """Hold real clients until the startup duplex warmup finishes.
+    """Wait at most ``DUPLEX_WARMUP_CLIENT_WAIT_S`` (180 s) for startup warmup.
 
     Single-frontend probes mark their connection with ``vllm_omni_warmup=1``.
     Multiple frontends use local engine probes, so no connection bypasses the gate.
     """
     warmup_done = getattr(websocket.app.state, "duplex_warmup_done", None)
-    if int(getattr(websocket.app.state, "api_server_count", 1) or 1) > 1:
-        # Local probes never enter through a websocket. Keep all clients out
-        # until this frontend has traversed its owned placement groups.
-        if warmup_done is not None:
-            await warmup_done.wait()
+    if warmup_done is None or warmup_done.is_set():
         return
-    if warmup_done is not None and not warmup_done.is_set() and websocket.query_params.get("vllm_omni_warmup") != "1":
-        try:
-            await asyncio.wait_for(warmup_done.wait(), timeout=DUPLEX_WARMUP_CLIENT_WAIT_S)
-        except (TimeoutError, asyncio.TimeoutError):
-            logger.warning(
-                "Duplex warmup still running after %d s; admitting the client anyway.",
-                DUPLEX_WARMUP_CLIENT_WAIT_S,
-            )
+    # Multiple frontends use local probes that never enter through a websocket,
+    # so only single-frontend probes may bypass the wait.
+    if (
+        int(getattr(websocket.app.state, "api_server_count", 1) or 1) == 1
+        and websocket.query_params.get("vllm_omni_warmup") == "1"
+    ):
+        return
+    try:
+        await asyncio.wait_for(warmup_done.wait(), timeout=DUPLEX_WARMUP_CLIENT_WAIT_S)
+    except (TimeoutError, asyncio.TimeoutError):
+        logger.warning(
+            "Duplex warmup still running after %d s; admitting the client anyway.",
+            DUPLEX_WARMUP_CLIENT_WAIT_S,
+        )
 
 
 async def _warmup_local_duplex(engine_client: DuplexOmni, plugin: object | None, kind: str, warmup_frames: int) -> None:

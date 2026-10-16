@@ -191,6 +191,29 @@ def test_frontend_admission_budget_splits_global_limit(replicas, frontends, cap,
 
 
 @pytest.mark.parametrize(
+    ("counts", "groups", "frontends"),
+    [
+        ([1, 2], [{0: 0, 1: 0}, {0: 0, 1: 1}], 1),
+        ([2, 3], [{0: 0, 1: 0}, {0: 1, 1: 1}, {0: 0, 1: 2}], 2),
+    ],
+)
+def test_frontend_admission_budget_matches_shared_replica_capacity(counts, groups, frontends) -> None:
+    placement = DuplexReplicaPlacement(
+        stage_replica_counts=counts,
+        max_sessions_per_replica=4,
+        replica_groups=groups,
+        frontend_count=frontends,
+        frontend_index=0,
+    )
+    assert placement.frontend_session_limit(100) == 4
+    for index in range(4):
+        placement.reserve(f"s{index}")
+    with pytest.raises(DuplexSessionError, match="replica_capacity_exhausted") as exc:
+        placement.reserve("overflow")
+    assert exc.value.retryable is True
+
+
+@pytest.mark.parametrize(
     ("frontends", "index", "message"),
     [
         (0, 0, "positive integer"),

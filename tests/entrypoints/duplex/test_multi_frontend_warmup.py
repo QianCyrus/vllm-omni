@@ -204,3 +204,15 @@ async def test_public_warmup_flag_only_bypasses_single_frontend_gate(count):
     assert task.done() is (count == 1)
     app.state.duplex_warmup_done.set()
     await task
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("count", [1, 4])
+async def test_warmup_timeout_admits_single_and_multiple_frontend_clients(monkeypatch, count):
+    monkeypatch.setattr(warmup, "DUPLEX_WARMUP_CLIENT_WAIT_S", 0.01)
+    app = _app(None, count)
+    websocket = SimpleNamespace(app=app, query_params={})
+
+    await asyncio.wait_for(warmup.wait_for_duplex_warmup(websocket), timeout=2)
+
+    assert not app.state.duplex_warmup_done.is_set()

@@ -110,7 +110,9 @@ record rejection and retry counts when measuring service capacity.
 PersonaPlex startup warmup is opt-in: set `duplex_session.warmup_frames` to a
 positive frame count to enable it. Frontends with nonzero admission budgets
 then warm their owned groups locally and gate their own duplex connections
-until warmup completes. `/health` retains the engine-health check; it is not an
+until warmup completes; clients wait at most `DUPLEX_WARMUP_CLIENT_WAIT_S` (180 s)
+before being admitted, as in single-frontend mode.
+`/health` retains the engine-health check; it is not an
 all-frontend warmup barrier, and a 200 response does not mean that the accepting
 frontend has free admission slots.
 Prometheus multiprocess collection aggregates the owner-only

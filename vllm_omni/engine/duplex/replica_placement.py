@@ -9,6 +9,7 @@ once against each physical stage replica, even when several groups share it.
 
 from __future__ import annotations
 
+from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
@@ -116,9 +117,17 @@ class DuplexReplicaPlacement:
         return len(self._groups)
 
     def frontend_session_limit(self, global_max_sessions: int) -> int:
-        """Bound this frontend by its equal share and its owned group capacity."""
+        """Bound this frontend by its equal share and its owned replica capacity.
+
+        Each session occupies one replica on every stage, so the stage with
+        the fewest owned replicas determines the capacity bound. If the group
+        topology cannot fill that bound, ``reserve()`` remains authoritative
+        and rejects excess sessions with a retryable error.
+        """
         share, remainder = divmod(global_max_sessions, self._frontend_count)
-        return min(share + (self._frontend_index < remainder), len(self._groups) * self._capacity)
+        owned_replicas_per_stage = Counter(stage_id for stage_id, _ in self._reserved)
+        owned_capacity = min(owned_replicas_per_stage.values()) * self._capacity
+        return min(share + (self._frontend_index < remainder), owned_capacity)
 
     def reserve(self, session_id: str) -> ReplicaReservation:
         """Return an existing reservation or atomically choose an eligible group."""
